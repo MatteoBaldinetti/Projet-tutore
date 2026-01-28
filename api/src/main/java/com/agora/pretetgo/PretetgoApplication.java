@@ -1,13 +1,13 @@
-package com.agora.mmireserve;
+package com.agora.pretetgo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MmireserveApplication {
+public class PretetgoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MmireserveApplication.class, args);
+		SpringApplication.run(PretetgoApplication.class, args);
 	}
 
 }

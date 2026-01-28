@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.agora</groupId>
-	<artifactId>mmireserve</artifactId>
+	<artifactId>pretetgo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mmireserve</name>
+	<name>pretetgo</name>
 	<description>An item reservation project for MMI.</description>
 	<url/>
 	<licenses>
@@ -30,7 +30,12 @@
 		<java.version>25</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.15</version>
+        </dependency>
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
