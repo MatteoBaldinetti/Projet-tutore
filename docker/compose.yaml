@@ -1,10 +1,10 @@
 services:
-  web:
-    build: ../web
-    container_name: web
-    ports:
-      - "5173:80"
-    restart: unless-stopped
+  # web:
+  #   build: ../web
+  #   container_name: web
+  #   ports:
+  #     - "5173:80"
+  #   restart: unless-stopped
 
   db:
     image: mysql:latest
@@ -31,7 +31,15 @@ services:
     volumes:
       - api_uploads:/app/uploads
       - ./uploads:/seed:ro
-    command: sh -c "if [ ! -f /app/uploads/.initialized ]; then cp -r /seed/* /app/uploads/ && touch /app/uploads/.initialized; fi"
+    command: >
+      sh -c "
+      if [ ! -f /app/uploads/.initialized ]; then
+        if [ \"$(ls -A /seed 2>/dev/null)\" ]; then
+          cp -r /seed/. /app/uploads/
+        fi
+        touch /app/uploads/.initialized
+      fi
+      "
     restart: "no"
 
   api:
