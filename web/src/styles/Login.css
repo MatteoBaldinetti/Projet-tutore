@@ -1,0 +1,12 @@
+.login-input:focus {
+    border-color: var(--dark-cyan);
+    box-shadow: 0 0 5px var(--dark-cyan);
+}
+
+.login-btn {
+    background-color: var(--dark-cyan);
+}
+
+.login-btn:hover {
+    background-color: var(--forest-green);
+}
