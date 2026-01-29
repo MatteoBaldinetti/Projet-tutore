@@ -111,6 +111,7 @@ export default function Login() {
                             )}
                         </button>
                     </div>
+                    <a className="text-gray-500 text-sm cursor-pointer" href="/forget-password">Mot de passe oublié ?</a>
 
                     <button
                         type="submit"
