@@ -59,7 +59,7 @@ export default function Login() {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 cursor-pointer"
                         >
                             {showPassword ? (
                                 /* Oeil barré SVG */
