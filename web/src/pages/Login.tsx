@@ -34,20 +34,33 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen grid place-items-center bg-gray-100">
             <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-md">
-                <h1 className="text-3xl font-semibold mb-4 text-center">Se connecter</h1>
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                <h1 className="text-3xl font-semibold mb-4 text-center">
+                    Se connecter
+                </h1>
+
+                <form
+                    className="grid grid-cols-1 gap-4"
+                    onSubmit={handleSubmit}
+                >
+                    {/* Email */}
                     <label className="font-semibold">Adresse email</label>
                     <input
                         type="email"
                         value={email}
                         onChange={handleEmailChange}
                         onBlur={() => validateEmail(email)}
-                        className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 login-input ${emailError ? "border-red-500" : "border-gray-300"}`}
+                        className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 login-input ${emailError ? "border-red-500" : "border-gray-300"
+                            }`}
                     />
-                    {emailError && <p className="text-sm text-red-500">{emailError}</p>}
+                    {emailError && (
+                        <p className="text-sm text-red-500">
+                            {emailError}
+                        </p>
+                    )}
 
+                    {/* Mot de passe */}
                     <label className="font-semibold">Mot de passe</label>
                     <div className="relative">
                         <input
@@ -60,10 +73,10 @@ export default function Login() {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 cursor-pointer"
+                            className="absolute inset-y-0 right-3 grid place-items-center text-gray-500 hover:text-gray-700 cursor-pointer"
                         >
                             {showPassword ? (
-                                /* Oeil barré SVG */
+                                /* Oeil barré */
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5"
@@ -89,7 +102,7 @@ export default function Login() {
                                     />
                                 </svg>
                             ) : (
-                                /* Oeil ouvert SVG */
+                                /* Oeil ouvert */
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -112,7 +125,13 @@ export default function Login() {
                             )}
                         </button>
                     </div>
-                    <a className="text-gray-500 text-sm cursor-pointer" href="/forget-password">Mot de passe oublié ?</a>
+
+                    <a
+                        className="text-gray-500 text-sm cursor-pointer"
+                        href="/forget-password"
+                    >
+                        Mot de passe oublié ?
+                    </a>
 
                     <button
                         type="submit"
@@ -125,4 +144,4 @@ export default function Login() {
             </div>
         </div>
     );
-};
+}
