@@ -1,0 +1,63 @@
+services:
+  # web:
+  #   build: ../web
+  #   container_name: web
+  #   ports:
+  #     - "5173:80"
+  #   restart: unless-stopped
+
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pretetgo
+      MYSQL_DATABASE: pretetgo
+      MYSQL_PASSWORD: pretetgo
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppretetgo"]
+      interval: 5s
+      retries: 10
+      timeout: 5s
+
+  init-uploads:
+    image: busybox
+    container_name: init-uploads
+    volumes:
+      - api_uploads:/app/uploads
+      - ./uploads:/seed:ro
+    command: >
+      sh -c "
+      if [ ! -f /app/uploads/.initialized ]; then
+        if [ \"$(ls -A /seed 2>/dev/null)\" ]; then
+          cp -r /seed/. /app/uploads/
+        fi
+        touch /app/uploads/.initialized
+      fi
+      "
+    restart: "no"
+
+  api:
+    build: ../api
+    container_name: api
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/pretetgo
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: pretetgo
+    volumes:
+      - api_uploads:/app/uploads
+
+volumes:
+  db_data:
+  api_uploads:
