@@ -11,11 +11,11 @@ export default function ForgetPassword() {
 
     // Validation email
     const validateEmail = (value: string, showRequired = false) => {
-        if (!value.trim()) { // si vide
+        if (!value.trim()) { 
             if (showRequired) {
-                setEmailError("Veuillez entrer votre email"); // message si submit
+                setEmailError("Veuillez entrer votre email"); 
             } else {
-                setEmailError(""); // pas d'erreur si blur ou change
+                setEmailError(""); 
             }
             return false;
         }
@@ -30,18 +30,19 @@ export default function ForgetPassword() {
         return true;
     };
 
+    // Gestion changement email
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
-        if (emailError) validateEmail(e.target.value); // supprime l'erreur dès que l'utilisateur tape
+        if (emailError) validateEmail(e.target.value); 
     };
 
+    // Gestion soumission formulaire
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Affiche une erreur si le champ est vide ou invalide
-        const isEmailValid = validateEmail(email, true); // showRequired = true
+        const isEmailValid = validateEmail(email, true); 
 
-        if (!isEmailValid) return; // ne navigue pas si erreur
+        if (!isEmailValid) return; 
 
         navigate("/confirm-reset-password");
     };
@@ -65,7 +66,7 @@ export default function ForgetPassword() {
                         type="email"
                         value={email}
                         onChange={handleEmailChange}
-                        onBlur={() => validateEmail(email)} // validate au blur mais pas d'erreur si vide
+                        onBlur={() => validateEmail(email)} 
                         className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 login-input ${
                             emailError ? "border-red-500" : "border-gray-300"
                         }`}

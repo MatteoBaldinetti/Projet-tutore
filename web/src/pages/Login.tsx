@@ -46,6 +46,7 @@ export default function Login() {
         return true;
     };
 
+    // Gestion soumission formulaire
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -59,14 +60,16 @@ export default function Login() {
         }
 
         setFormError("");
-        alert("Connexion réussie !"); // Ici tu peux mettre navigate ou API login
+        alert("Connexion réussie !"); 
     };
 
+    // Gestion changement email
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
         if (emailError) validateEmail(e.target.value); // supprime l'erreur dès que l'utilisateur tape
     };
 
+    // Gestion changement mot de passe
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
         if (passwordError) validatePassword(e.target.value); // supprime l'erreur dès que l'utilisateur tape
