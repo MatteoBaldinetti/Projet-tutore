@@ -1,18 +1,22 @@
 import { useState } from "react";
-import type { ChangeEvent } from "react";
+import type { FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 export default function ForgetPassword() {
     const navigate = useNavigate();
 
-
     const [email, setEmail] = useState<string>("");
     const [emailError, setEmailError] = useState<string>("");
 
-    const validateEmail = (value: string) => {
-        if (!value.trim()) {
-            setEmailError("");
+    // Validation email
+    const validateEmail = (value: string, showRequired = false) => {
+        if (!value.trim()) { // si vide
+            if (showRequired) {
+                setEmailError("Veuillez entrer votre email"); // message si submit
+            } else {
+                setEmailError(""); // pas d'erreur si blur ou change
+            }
             return false;
         }
 
@@ -20,22 +24,27 @@ export default function ForgetPassword() {
         if (!regex.test(value)) {
             setEmailError("Adresse email invalide");
             return false;
-        } else {
-            setEmailError("");
-            return true;
         }
+
+        setEmailError("");
+        return true;
     };
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
-        if (emailError) validateEmail(e.target.value);
+        if (emailError) validateEmail(e.target.value); // supprime l'erreur dès que l'utilisateur tape
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!validateEmail(email)) return;
+
+        // Affiche une erreur si le champ est vide ou invalide
+        const isEmailValid = validateEmail(email, true); // showRequired = true
+
+        if (!isEmailValid) return; // ne navigue pas si erreur
+
         navigate("/confirm-reset-password");
-    }
+    };
 
     return (
         <div className="min-h-screen grid place-items-center bg-gray-100">
@@ -56,15 +65,14 @@ export default function ForgetPassword() {
                         type="email"
                         value={email}
                         onChange={handleEmailChange}
-                        onBlur={() => validateEmail(email)}
-                        className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 login-input ${emailError ? "border-red-500" : "border-gray-300"
-                            }`}
+                        onBlur={() => validateEmail(email)} // validate au blur mais pas d'erreur si vide
+                        className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 login-input ${
+                            emailError ? "border-red-500" : "border-gray-300"
+                        }`}
                     />
 
                     {emailError && (
-                        <p className="text-sm text-red-500">
-                            {emailError}
-                        </p>
+                        <p className="text-sm text-red-500">{emailError}</p>
                     )}
 
                     <button
