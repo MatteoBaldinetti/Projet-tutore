@@ -9,6 +9,11 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const validateEmail = (value: string) => {
+        if (!value.trim()) {
+            setEmailError("");
+            return false;
+        }
+
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!regex.test(value)) {
             setEmailError("Adresse email invalide");
@@ -127,7 +132,7 @@ export default function Login() {
                     </div>
 
                     <a
-                        className="text-gray-500 text-sm cursor-pointer"
+                        className="text-gray-500 hover:text-gray-700 text-sm cursor-pointer"
                         href="/forget-password"
                     >
                         Mot de passe oublié ?

@@ -11,6 +11,11 @@ export default function ForgetPassword() {
     const [emailError, setEmailError] = useState<string>("");
 
     const validateEmail = (value: string) => {
+        if (!value.trim()) {
+            setEmailError("");
+            return false;
+        }
+
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!regex.test(value)) {
             setEmailError("Adresse email invalide");
