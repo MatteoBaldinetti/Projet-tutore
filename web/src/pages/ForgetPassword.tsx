@@ -78,7 +78,7 @@ export default function ForgetPassword() {
 
                     <button
                         type="submit"
-                        className="login-btn text-white py-2 rounded transition"
+                        className="login-btn text-white py-2 rounded transition cursor-pointer"
                     >
                         Réinitialiser le mot de passe
                     </button>

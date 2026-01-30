@@ -6,7 +6,13 @@
     position: relative;
     text-decoration: none;
     color: white;
-    padding-bottom: 2px; 
+    padding-bottom: 2px;
+    opacity: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.nav-buttons a:hover {
+    opacity: 80%;
 }
 
 .nav-buttons a::after {
@@ -20,6 +26,7 @@
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
+    opacity: 80%;
 }
 
 .nav-buttons a:hover::after {
@@ -27,5 +34,5 @@
 }
 
 .nav-buttons a.underline::after {
-    transform: scaleX(1); 
+    transform: scaleX(1);
 }

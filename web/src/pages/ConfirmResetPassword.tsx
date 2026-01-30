@@ -4,7 +4,7 @@ export default function ConfirmResetPassword() {
     const navigate = useNavigate();
 
     const handleReturnToLogin = () => {
-        navigate("/"); 
+        navigate("/");
     };
 
     return (
@@ -20,7 +20,7 @@ export default function ConfirmResetPassword() {
 
                 <div className="grid grid-cols-1 gap-4">
                     <button
-                        className="login-btn text-white py-2 rounded transition"
+                        className="login-btn text-white py-2 rounded transition cursor-pointer"
                         onClick={handleReturnToLogin}
                     >
                         Retour à la connexion

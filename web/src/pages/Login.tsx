@@ -60,7 +60,7 @@ export default function Login() {
         }
 
         setFormError("");
-        alert("Connexion réussie !"); 
+        alert("Connexion réussie !");
     };
 
     // Gestion changement email
@@ -94,9 +94,8 @@ export default function Login() {
                         value={email}
                         onChange={handleEmailChange}
                         onBlur={() => validateEmail(email)} // validate sans afficher erreur si vide
-                        className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 login-input ${
-                            emailError ? "border-red-500" : "border-gray-300"
-                        }`}
+                        className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 login-input ${emailError ? "border-red-500" : "border-gray-300"
+                            }`}
                     />
                     {emailError && <p className="text-sm text-red-500">{emailError}</p>}
 
@@ -108,9 +107,8 @@ export default function Login() {
                             value={password}
                             onChange={handlePasswordChange}
                             onBlur={() => validatePassword(password)} // validate sans afficher erreur si vide
-                            className={`w-full border rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 login-input ${
-                                passwordError ? "border-red-500" : "border-gray-300"
-                            }`}
+                            className={`w-full border rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 login-input ${passwordError ? "border-red-500" : "border-gray-300"
+                                }`}
                         />
                         <button
                             type="button"
@@ -155,16 +153,18 @@ export default function Login() {
                     </div>
                     {passwordError && <p className="text-sm text-red-500 mt-1">{passwordError}</p>}
 
-                    <a
-                        className="text-gray-500 hover:text-gray-700 text-sm cursor-pointer"
-                        href="/forget-password"
-                    >
-                        Mot de passe oublié ?
-                    </a>
+                    <div className="justify-self-start">
+                        <a
+                            className="text-gray-500 hover:text-gray-700 text-sm cursor-pointer"
+                            href="/forget-password"
+                        >
+                            Mot de passe oublié ?
+                        </a>
+                    </div>
 
                     <button
                         type="submit"
-                        className="login-btn text-white py-2 rounded transition"
+                        className="login-btn text-white py-2 rounded transition cursor-pointer"
                         disabled={!!emailError || !!passwordError}
                     >
                         Se connecter
