@@ -2,7 +2,14 @@
     color: white;
 }
 
-.links a svg {
+.links-button svg {
     height: 5vh;
     filter: invert();
+    transition: transform 0.3s ease;
+    transition: opacity 0.2s ease;
+}
+
+.links-button svg:hover {
+    transform: scale(1.1);
+    opacity: 80%;
 }

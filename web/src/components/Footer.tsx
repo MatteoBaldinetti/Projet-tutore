@@ -10,7 +10,7 @@ function Footer() {
         <div className="links flex gap-3">
           <a
             href="https://www.facebook.com/UniversiteGustaveEiffel/"
-            className="facebook-link"
+            className="links-button facebook-link"
             target="_blank"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -19,7 +19,7 @@ function Footer() {
           </a>
           <a
             href="https://bsky.app/profile/univeiffel.bsky.social"
-            className="bluesky-link"
+            className="links-button bluesky-link"
             target="_blank"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -28,7 +28,7 @@ function Footer() {
           </a>
           <a
             href="https://www.linkedin.com/company/universit%C3%A9-gustave-eiffel/"
-            className="linkedin-link"
+            className="links-button linkedin-link"
             target="_blank"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -37,7 +37,7 @@ function Footer() {
           </a>
           <a
             href="https://www.instagram.com/universitegustaveeiffel/"
-            className="instagram-link"
+            className="links-button instagram-link"
             target="_blank"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -46,7 +46,7 @@ function Footer() {
           </a>
           <a
             href="https://www.youtube.com/@Universit%C3%A9GustaveEiffel"
-            className="youtube-link"
+            className="links-button youtube-link"
             target="_blank"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -55,7 +55,9 @@ function Footer() {
           </a>
         </div>
         <div className="credits">
-          &copy; 2026 - BUT MÉTIERS DU MUTLIMÉDIA ET DE L'INTERNET, MEAUX
+          <h3>
+            &copy; 2026 - BUT MÉTIERS DU MUTLIMÉDIA ET DE L'INTERNET, MEAUX
+          </h3>
         </div>
       </div>
     </div>
