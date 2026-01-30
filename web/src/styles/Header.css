@@ -3,6 +3,29 @@
 }
 
 .nav-buttons a {
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
+    position: relative;
+    text-decoration: none;
+    color: white;
+    padding-bottom: 2px; 
+}
+
+.nav-buttons a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.nav-buttons a:hover::after {
+    transform: scaleX(1);
+}
+
+.nav-buttons a.underline::after {
+    transform: scaleX(1); 
 }
