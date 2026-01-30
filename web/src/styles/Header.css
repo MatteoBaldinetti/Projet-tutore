@@ -1,0 +1,8 @@
+.navbar {
+    background-color: var(--dark-cyan);
+}
+
+.nav-buttons a {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}

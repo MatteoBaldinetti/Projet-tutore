@@ -1,0 +1,8 @@
+.footer {
+    color: white;
+}
+
+.links a svg {
+    height: 5vh;
+    filter: invert();
+}
