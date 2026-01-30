@@ -77,7 +77,7 @@ export default function Login() {
 
     return (
         <div className="min-h-screen grid place-items-center bg-gray-100">
-            <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-md">
+            <div className="w-full max-w-xl p-6 bg-white rounded-xl shadow-md">
                 <h1 className="text-3xl font-semibold mb-4 text-center">
                     Se connecter
                 </h1>
