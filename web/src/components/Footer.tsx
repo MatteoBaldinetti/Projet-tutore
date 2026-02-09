@@ -5,7 +5,7 @@ function Footer() {
     <div className="footer bg-gray-800 p-5">
       <div className="container mx-auto grid grid-rows-3 gap-3 place-items-center">
         <div className="follow">
-          <h3 className="text-xl">Suivez-vous</h3>
+          <h3 className="text-xl">Suivez-nous</h3>
         </div>
         <div className="links flex gap-3">
           <a
