@@ -1,10 +1,10 @@
-import Layout from "../components/Layout";
 import ReservationCalendar from "../components/ReservationCalendar";
+
 function Test() {
     return (
-        <Layout>
+        <div className="p-5">
             <ReservationCalendar />
-        </Layout>
+        </div>
     );
 }
 

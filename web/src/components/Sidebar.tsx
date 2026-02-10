@@ -7,7 +7,7 @@ function Sidebar({ open, onClose }: SidebarProps) {
     return (
         <aside
             className={`
-                fixed top-0 left-0 z-50
+                fixed top-0 left-0
                 h-screen w-64
                 bg-white text-black shadow-md
                 transform transition-transform duration-300 ease-in-out
