@@ -1,14 +1,27 @@
 package com.agora.pretetgo.services;
 
 import com.agora.pretetgo.dto.insert.FileMetaDataDTO;
+import com.agora.pretetgo.exceptions.BadRequestException;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.FileMetaDataMapper;
 import com.agora.pretetgo.models.FileMetaData;
 import com.agora.pretetgo.repositories.FileMetaDataRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -18,6 +31,66 @@ public class FileMetaDataService {
 
     @Autowired
     FileMetaDataMapper fileMetaDataMapper;
+
+    private final Path uploadDir = Paths.get("uploads");
+
+    @Transactional
+    public FileMetaData uploadFile(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new BadRequestException("Uploaded file is empty");
+        }
+
+        try {
+            Files.createDirectories(uploadDir);
+
+            String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            Path path = uploadDir.resolve(fileName);
+
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+            FileMetaData fileMetaData = new FileMetaData(
+                    fileName,
+                    Instant.now(),
+                    "/api/fileMetaData/download/" + fileName
+            );
+
+            return fileMetaDataRepository.save(fileMetaData);
+        } catch (IOException e) {
+            throw new BadRequestException("Failed to upload file: " + e.getMessage());
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<Resource> downloadFile(String fileName) {
+        if (fileName == null || fileName.isEmpty()) {
+            throw new BadRequestException("File name is empty");
+        }
+
+        try {
+            Path path = uploadDir.resolve(fileName);
+
+            Resource resource = new UrlResource(path.toUri());
+            if (!resource.exists()) {
+                throw new ResourceNotFoundException("File not found: " + fileName);
+            }
+
+            return ResponseEntity.ok()
+                    .header(
+                            HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"" + fileName + "\""
+                    )
+                    .header(
+                            HttpHeaders.CONTENT_TYPE,
+                            "application/octet-stream"
+                    )
+                    .body(
+                            resource
+                    );
+
+        } catch (MalformedURLException e) {
+            throw new BadRequestException("Failed to download file: " + fileName + " " + e.getMessage());
+        }
+    }
 
     @Transactional
     public FileMetaData createFileMetaData(FileMetaDataDTO dto) {

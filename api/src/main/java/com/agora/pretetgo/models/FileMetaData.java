@@ -19,14 +19,14 @@ public class FileMetaData {
     @CreationTimestamp
     private Instant uploadedAt;
 
-    private String uri;
+    private String url;
 
     public FileMetaData() {}
 
-    public FileMetaData(String filename, Instant uploadedAt, String uri) {
+    public FileMetaData(String filename, Instant uploadedAt, String url) {
         this.filename = filename;
         this.uploadedAt = uploadedAt;
-        this.uri = uri;
+        this.url = url;
     }
 
     public Long getId() {
@@ -54,10 +54,10 @@ public class FileMetaData {
     }
 
     public String getUri() {
-        return uri;
+        return url;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setUri(String url) {
+        this.url = url;
     }
 }
