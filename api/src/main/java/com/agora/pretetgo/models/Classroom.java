@@ -10,10 +10,12 @@ import java.time.Instant;
 public class Classroom extends Resource {
     private Integer roomNumber;
 
-    public Classroom() {}
+    public Classroom() {
+        super();
+    }
 
-    public Classroom(Long id, String name, String description, Professor managedBy, Boolean available, Instant createdAt, Integer roomNumber) {
-        super(id, name, description, managedBy, available, createdAt);
+    public Classroom(String name, String description, Professor managedBy, Boolean available, Instant createdAt, Integer roomNumber) {
+        super(name, description, managedBy, available, createdAt);
         this.roomNumber = roomNumber;
     }
 

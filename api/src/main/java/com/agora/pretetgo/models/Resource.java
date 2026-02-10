@@ -5,6 +5,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -27,10 +29,15 @@ public abstract class Resource {
     @CreationTimestamp
     private Instant createdAt;
 
+    @OneToMany(mappedBy = "resource")
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resource")
+    private List<Report> reports = new ArrayList<>();
+
     public Resource() {}
 
-    public Resource(Long id, String name, String description, Professor managedBy, Boolean available, Instant createdAt) {
-        this.id = id;
+    public Resource(String name, String description, Professor managedBy, Boolean available, Instant createdAt) {
         this.name = name;
         this.description = description;
         this.managedBy = managedBy;
@@ -84,5 +91,21 @@ public abstract class Resource {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 }

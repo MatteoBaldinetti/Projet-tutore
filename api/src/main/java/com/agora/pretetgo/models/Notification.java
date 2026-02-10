@@ -1,12 +1,11 @@
 package com.agora.pretetgo.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Notification {
@@ -18,6 +17,9 @@ public class Notification {
 
     @CreationTimestamp
     private Instant createdAt;
+
+    @OneToMany(mappedBy = "notification")
+    private List<UserNotification> userNotifications = new ArrayList<>();
 
     public Notification() {}
 
@@ -48,5 +50,13 @@ public class Notification {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<UserNotification> getUserNotifications() {
+        return userNotifications;
+    }
+
+    public void setUserNotifications(List<UserNotification> userNotifications) {
+        this.userNotifications = userNotifications;
     }
 }
