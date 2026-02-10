@@ -1,0 +1,38 @@
+.navbar {
+    background-color: var(--dark-cyan);
+}
+
+.nav-buttons a {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    padding-bottom: 2px;
+    opacity: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.nav-buttons a:hover {
+    opacity: 80%;
+}
+
+.nav-buttons a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    opacity: 80%;
+}
+
+.nav-buttons a:hover::after {
+    transform: scaleX(1);
+}
+
+.nav-buttons a.underline::after {
+    transform: scaleX(1);
+}

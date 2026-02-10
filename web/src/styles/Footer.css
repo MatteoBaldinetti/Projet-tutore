@@ -1,0 +1,14 @@
+.footer {
+    color: white;
+}
+
+.links-button svg {
+    height: 5vh;
+    filter: invert();
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.links-button svg:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
