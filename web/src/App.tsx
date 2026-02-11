@@ -4,7 +4,7 @@ import ForgetPassword from "./pages/ForgetPassword";
 import ConfirmResetPassword from "./pages/ConfirmResetPassword";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
-
+import Test from "./pages/Test.tsx";
 function App() {
   return (
     <>
@@ -14,6 +14,8 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/confirm-reset-password" element={<ConfirmResetPassword />} />
+          <Route path="/test" element={<Test />} />
+
         </Routes>
         <Footer />
       </Router>
