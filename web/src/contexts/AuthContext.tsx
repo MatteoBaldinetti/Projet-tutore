@@ -83,7 +83,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 localStorage.setItem("email", JSON.stringify(data.email));
 
                 setAuthLoading(false);
-                navigate("/");
+                navigate("/test");
             } else {
                 throw new Error("Mot de passe incorrect");
             }
@@ -116,12 +116,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUserFirstName(userFirstname);
         setUserLastName(userLastname);
         setUserEmail(userEmail);
-        
+
         localStorage.setItem("id", JSON.stringify(userId));
         localStorage.setItem("firstname", JSON.stringify(userFirstname));
         localStorage.setItem("lastname", JSON.stringify(userLastname));
         localStorage.setItem("email", JSON.stringify(userEmail));
-        
+
         setAuthLoading(false);
     };
 
@@ -139,6 +139,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
-    return useContext(AuthContext);
+export function useAuth(): AuthContextType {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth doit être utiliser avec un AuthProvider");
+    }
+    return context;
 }
