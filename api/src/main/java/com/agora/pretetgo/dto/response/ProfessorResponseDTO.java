@@ -12,5 +12,5 @@ public record ProfessorResponseDTO(
         Instant createdAt,
         Boolean enabled,
         Set<Long> subjectIds
-) {
+) implements UserResponseDTO {
 }

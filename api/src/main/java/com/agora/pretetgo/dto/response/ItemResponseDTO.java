@@ -11,5 +11,5 @@ public record ItemResponseDTO(
         Instant createdAt,
         Integer serialNumber,
         Long typeId
-) {
+) implements ResourceResponseDTO {
 }

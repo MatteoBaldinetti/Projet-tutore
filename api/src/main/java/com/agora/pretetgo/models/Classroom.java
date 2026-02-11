@@ -2,9 +2,13 @@ package com.agora.pretetgo.models;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.Instant;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
 @DiscriminatorValue("CLASSROOM")
 public class Classroom extends Resource {
@@ -19,11 +23,4 @@ public class Classroom extends Resource {
         this.roomNumber = roomNumber;
     }
 
-    public Integer getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(Integer roomNumber) {
-        this.roomNumber = roomNumber;
-    }
 }

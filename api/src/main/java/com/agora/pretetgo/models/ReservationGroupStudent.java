@@ -2,10 +2,14 @@ package com.agora.pretetgo.models;
 
 import com.agora.pretetgo.enums.GroupRole;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class ReservationGroupStudent {
     @Id
@@ -26,8 +30,6 @@ public class ReservationGroupStudent {
     @CreationTimestamp
     private Instant createdAt;
 
-    public ReservationGroupStudent() {}
-
     public ReservationGroupStudent(ReservationGroup reservationGroup, Student student, GroupRole role, Instant createdAt) {
         this.reservationGroup = reservationGroup;
         this.student = student;
@@ -35,43 +37,4 @@ public class ReservationGroupStudent {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ReservationGroup getReservationGroup() {
-        return reservationGroup;
-    }
-
-    public void setReservationGroup(ReservationGroup reservationGroup) {
-        this.reservationGroup = reservationGroup;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public GroupRole getRole() {
-        return role;
-    }
-
-    public void setRole(GroupRole role) {
-        this.role = role;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 }

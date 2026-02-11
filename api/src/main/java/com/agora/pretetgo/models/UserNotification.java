@@ -1,9 +1,13 @@
 package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class UserNotification {
     @Id
@@ -22,8 +26,6 @@ public class UserNotification {
 
     private Boolean isRead = false;
 
-    public UserNotification() {}
-
     public UserNotification(Notification notification, User user, Instant readAt, Boolean isRead) {
         this.notification = notification;
         this.user = user;
@@ -31,43 +33,4 @@ public class UserNotification {
         this.isRead = isRead;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Notification getNotification() {
-        return notification;
-    }
-
-    public void setNotification(Notification notification) {
-        this.notification = notification;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Instant getReadAt() {
-        return readAt;
-    }
-
-    public void setReadAt(Instant readAt) {
-        this.readAt = readAt;
-    }
-
-    public Boolean getRead() {
-        return isRead;
-    }
-
-    public void setRead(Boolean read) {
-        isRead = read;
-    }
 }

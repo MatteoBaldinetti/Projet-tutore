@@ -10,5 +10,5 @@ public record AdminResponseDTO(
         String password,
         Instant createdAt,
         Boolean enabled
-) {
+) implements UserResponseDTO {
 }

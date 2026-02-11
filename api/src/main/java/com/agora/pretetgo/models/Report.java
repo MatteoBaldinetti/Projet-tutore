@@ -2,10 +2,14 @@ package com.agora.pretetgo.models;
 
 import com.agora.pretetgo.enums.ReportStatus;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Report {
     @Id
@@ -28,8 +32,6 @@ public class Report {
     @CreationTimestamp
     private Instant createdAt;
 
-    public Report() {}
-
     public Report(String description, Resource resource, User reportedBy, ReportStatus status, Instant createdAt) {
         this.description = description;
         this.resource = resource;
@@ -38,51 +40,4 @@ public class Report {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Resource getResource() {
-        return resource;
-    }
-
-    public void setResource(Resource resource) {
-        this.resource = resource;
-    }
-
-    public User getReportedBy() {
-        return reportedBy;
-    }
-
-    public void setReportedBy(User reportedBy) {
-        this.reportedBy = reportedBy;
-    }
-
-    public ReportStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ReportStatus status) {
-        this.status = status;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 }

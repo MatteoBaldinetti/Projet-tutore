@@ -10,5 +10,5 @@ public record ClassroomResponseDTO(
         Boolean available,
         Instant createdAt,
         Integer roomNumber
-) {
+) implements ResourceResponseDTO {
 }

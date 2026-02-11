@@ -4,10 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class FileMetaData {
     @Id
@@ -21,43 +25,10 @@ public class FileMetaData {
 
     private String url;
 
-    public FileMetaData() {}
-
     public FileMetaData(String filename, Instant uploadedAt, String url) {
         this.filename = filename;
         this.uploadedAt = uploadedAt;
         this.url = url;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public Instant getUploadedAt() {
-        return uploadedAt;
-    }
-
-    public void setUploadedAt(Instant uploadedAt) {
-        this.uploadedAt = uploadedAt;
-    }
-
-    public String getUri() {
-        return url;
-    }
-
-    public void setUri(String url) {
-        this.url = url;
-    }
 }

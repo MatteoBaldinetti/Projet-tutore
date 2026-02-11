@@ -11,5 +11,5 @@ public record StudentResponseDTO(
         Instant createdAt,
         Boolean enabled,
         Integer studentNumber
-) {
+) implements UserResponseDTO {
 }
