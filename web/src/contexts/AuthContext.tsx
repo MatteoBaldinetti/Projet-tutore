@@ -81,6 +81,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 localStorage.setItem("firstname", JSON.stringify(data.firstname));
                 localStorage.setItem("lastname", JSON.stringify(data.lastname));
                 localStorage.setItem("email", JSON.stringify(data.email));
+
                 setAuthLoading(false);
                 navigate("/");
             } else {
@@ -99,28 +100,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUserFirstName(null);
         setUserLastName(null);
         setUserEmail(null);
+
         localStorage.removeItem("id");
         localStorage.removeItem("firstname");
         localStorage.removeItem("lastname");
         localStorage.removeItem("email");
+
         navigate("/");
     };
 
-    const updateContext = (
-        userId: number,
-        userEmail: string,
-        userFirstname: string,
-        userLastname: string,
-    ) => {
+    const updateContext = (userId: number, userEmail: string, userFirstname: string, userLastname: string) => {
         setAuthLoading(true);
+
         setUserId(userId);
         setUserFirstName(userFirstname);
         setUserLastName(userLastname);
         setUserEmail(userEmail);
+        
         localStorage.setItem("id", JSON.stringify(userId));
         localStorage.setItem("firstname", JSON.stringify(userFirstname));
         localStorage.setItem("lastname", JSON.stringify(userLastname));
         localStorage.setItem("email", JSON.stringify(userEmail));
+        
         setAuthLoading(false);
     };
 
