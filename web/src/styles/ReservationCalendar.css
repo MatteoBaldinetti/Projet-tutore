@@ -1,0 +1,15 @@
+.arrow-btn {
+    background-color: var(--dark-cyan);
+}
+
+.arrow-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.back-today-btn {
+    background-color: var(--dark-cyan);
+}
+
+.back-today-btn:hover {
+    background-color: var(--forest-green);
+}
