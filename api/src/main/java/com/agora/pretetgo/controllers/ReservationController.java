@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.insert.ReservationInsertDTO;
 import com.agora.pretetgo.dto.response.ReservationResponseDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ReservationMapper;
-import com.agora.pretetgo.models.Reservation;
 import com.agora.pretetgo.services.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class ReservationController {
             @ApiResponse(responseCode = "404", description = "Reservation not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Reservation> patchReservation(@RequestBody ReservationInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReservationResponseDTO> patchReservation(@RequestBody ReservationInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                reservationService.patchReservation(id, dto)
+                reservationMapper.toResponseDTO(reservationService.patchReservation(id, dto))
         );
     }
 

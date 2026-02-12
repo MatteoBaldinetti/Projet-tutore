@@ -124,9 +124,9 @@ public class FileMetaDataController {
             @ApiResponse(responseCode = "404", description = "FileMetaData not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<FileMetaData> patchFileMetaData(@RequestBody FileMetaDataInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<FileMetaDataResponseDTO> patchFileMetaData(@RequestBody FileMetaDataInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                fileMetaDataService.patchFileMetaData(id, dto)
+                fileMetaDataMapper.toResponseDTO(fileMetaDataService.patchFileMetaData(id, dto))
         );
     }
 

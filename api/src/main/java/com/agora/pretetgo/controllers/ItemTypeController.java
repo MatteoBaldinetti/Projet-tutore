@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.ItemTypeResponseDTO;
 import com.agora.pretetgo.dto.insert.ItemTypeInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ItemTypeMapper;
-import com.agora.pretetgo.models.ItemType;
 import com.agora.pretetgo.services.ItemTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class ItemTypeController {
             @ApiResponse(responseCode = "404", description = "ItemType not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<ItemType> patchItemType(@RequestBody ItemTypeInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ItemTypeResponseDTO> patchItemType(@RequestBody ItemTypeInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                itemTypeService.patchItemType(id, dto)
+                itemTypeMapper.toResponseDTO(itemTypeService.patchItemType(id, dto))
         );
     }
 

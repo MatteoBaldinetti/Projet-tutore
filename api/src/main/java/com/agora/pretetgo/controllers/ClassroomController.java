@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.ClassroomResponseDTO;
 import com.agora.pretetgo.dto.insert.ClassroomInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ClassroomMapper;
-import com.agora.pretetgo.models.Classroom;
 import com.agora.pretetgo.services.ClassroomService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class ClassroomController {
             @ApiResponse(responseCode = "404", description = "Classroom not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Classroom> patchClassroom(@RequestBody ClassroomInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ClassroomResponseDTO> patchClassroom(@RequestBody ClassroomInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                classroomService.patchClassroom(id, dto)
+                classroomMapper.toResponseDTO(classroomService.patchClassroom(id, dto))
         );
     }
 

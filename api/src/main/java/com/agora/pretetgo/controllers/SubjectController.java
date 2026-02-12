@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.SubjectResponseDTO;
 import com.agora.pretetgo.dto.insert.SubjectInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.SubjectMapper;
-import com.agora.pretetgo.models.Subject;
 import com.agora.pretetgo.services.SubjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class SubjectController {
             @ApiResponse(responseCode = "404", description = "Subject not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Subject> patchSubject(@RequestBody SubjectInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<SubjectResponseDTO> patchSubject(@RequestBody SubjectInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                subjectService.patchSubject(id, dto)
+                subjectMapper.toResponseDTO(subjectService.patchSubject(id, dto))
         );
     }
 

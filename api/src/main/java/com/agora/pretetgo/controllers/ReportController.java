@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.ReportResponseDTO;
 import com.agora.pretetgo.dto.insert.ReportInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ReportMapper;
-import com.agora.pretetgo.models.Report;
 import com.agora.pretetgo.services.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class ReportController {
             @ApiResponse(responseCode = "404", description = "Report not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Report> patchReport(@RequestBody ReportInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReportResponseDTO> patchReport(@RequestBody ReportInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                reportService.patchReport(id, dto)
+                reportMapper.toResponseDTO(reportService.patchReport(id, dto))
         );
     }
 

@@ -2,6 +2,7 @@ package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -22,9 +23,11 @@ public class ReservationGroup {
     @CreationTimestamp
     private Instant createdAt;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "reservationGroup")
     private List<ReservationGroupStudent> reservationGroupStudents = new ArrayList<>();
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "reservedBy")
     private List<Reservation> reservations = new ArrayList<>();
 

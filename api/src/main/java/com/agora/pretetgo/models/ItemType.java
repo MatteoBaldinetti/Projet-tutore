@@ -2,6 +2,7 @@ package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -26,6 +27,7 @@ public class ItemType {
     @CreationTimestamp
     private Instant createdAt;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "type")
     private List<Item> item = new ArrayList<>();
 

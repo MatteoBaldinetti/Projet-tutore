@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.ReservationGroupResponseDTO;
 import com.agora.pretetgo.dto.insert.ReservationGroupInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ReservationGroupMapper;
-import com.agora.pretetgo.models.ReservationGroup;
 import com.agora.pretetgo.services.ReservationGroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class ReservationGroupController {
             @ApiResponse(responseCode = "404", description = "ReservationGroup not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<ReservationGroup> patchReservationGroup(@RequestBody ReservationGroupInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReservationGroupResponseDTO> patchReservationGroup(@RequestBody ReservationGroupInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                reservationGroupService.patchReservationGroup(id, dto)
+                reservationGroupMapper.toResponseDTO(reservationGroupService.patchReservationGroup(id, dto))
         );
     }
 

@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.AdminResponseDTO;
 import com.agora.pretetgo.dto.insert.AdminInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.AdminMapper;
-import com.agora.pretetgo.models.Admin;
 import com.agora.pretetgo.services.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class AdminController {
             @ApiResponse(responseCode = "404", description = "Admin not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Admin> patchAdmin(@RequestBody AdminInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<AdminResponseDTO> patchAdmin(@RequestBody AdminInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                adminService.patchAdmin(id, dto)
+                adminMapper.toResponseDTO(adminService.patchAdmin(id, dto))
         );
     }
 

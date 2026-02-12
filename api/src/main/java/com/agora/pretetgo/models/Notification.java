@@ -2,6 +2,7 @@ package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -22,6 +23,7 @@ public class Notification {
     @CreationTimestamp
     private Instant createdAt;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "notification")
     private List<UserNotification> userNotifications = new ArrayList<>();
 

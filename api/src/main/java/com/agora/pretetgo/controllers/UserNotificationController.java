@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.UserNotificationResponseDTO;
 import com.agora.pretetgo.dto.insert.UserNotificationInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.UserNotificationMapper;
-import com.agora.pretetgo.models.UserNotification;
 import com.agora.pretetgo.services.UserNotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class UserNotificationController {
             @ApiResponse(responseCode = "404", description = "UserNotification not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<UserNotification> patchUserNotification(@RequestBody UserNotificationInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<UserNotificationResponseDTO> patchUserNotification(@RequestBody UserNotificationInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                userNotificationService.patchUserNotification(id, dto)
+                userNotificationMapper.toResponseDTO(userNotificationService.patchUserNotification(id, dto))
         );
     }
 

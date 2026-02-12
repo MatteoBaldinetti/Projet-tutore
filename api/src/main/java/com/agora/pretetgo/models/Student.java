@@ -17,6 +17,7 @@ import java.util.List;
 public class Student extends User {
     private Integer studentNumber;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "student")
     private List<ReservationGroupStudent> reservationGroupStudents = new ArrayList<>();
 

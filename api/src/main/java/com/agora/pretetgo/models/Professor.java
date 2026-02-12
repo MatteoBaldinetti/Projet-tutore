@@ -17,6 +17,7 @@ import java.util.Set;
 @Entity
 @DiscriminatorValue("PROFESSOR")
 public class Professor extends User {
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(
             name = "professor_subject",
@@ -25,9 +26,11 @@ public class Professor extends User {
     )
     private Set<Subject> subjects = new HashSet<>();
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "managedBy")
     private List<Resource> resources = new ArrayList<>();
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "createdBy")
     private List<ItemType> itemTypes = new ArrayList<>();
 

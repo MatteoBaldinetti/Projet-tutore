@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.ProfessorResponseDTO;
 import com.agora.pretetgo.dto.insert.ProfessorInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ProfessorMapper;
-import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.services.ProfessorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class ProfessorController {
             @ApiResponse(responseCode = "404", description = "Professor not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Professor> patchProfessor(@RequestBody ProfessorInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ProfessorResponseDTO> patchProfessor(@RequestBody ProfessorInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                professorService.patchProfessor(id, dto)
+                professorMapper.toResponseDTO(professorService.patchProfessor(id, dto))
         );
     }
 

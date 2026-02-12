@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.insert.StudentInsertDTO;
 import com.agora.pretetgo.dto.response.StudentResponseDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.StudentMapper;
-import com.agora.pretetgo.models.Student;
 import com.agora.pretetgo.services.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class StudentController {
             @ApiResponse(responseCode = "404", description = "Student not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Student> patchStudent(@RequestBody StudentInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<StudentResponseDTO> patchStudent(@RequestBody StudentInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                studentService.patchStudent(id, dto)
+                studentMapper.toResponseDTO(studentService.patchStudent(id, dto))
         );
     }
 

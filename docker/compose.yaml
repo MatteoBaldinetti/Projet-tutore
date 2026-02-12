@@ -1,6 +1,7 @@
 services:
   # web:
   #   build: ../web
+  #   image: pretetgo-web:latest
   #   container_name: web
   #   ports:
   #     - "5173:80"
@@ -44,6 +45,7 @@ services:
 
   api:
     build: ../api
+    image: pretetgo-api:latest
     container_name: api
     restart: always
     ports:

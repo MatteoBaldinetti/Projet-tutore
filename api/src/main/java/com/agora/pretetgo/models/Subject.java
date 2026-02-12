@@ -2,6 +2,7 @@ package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
@@ -18,6 +19,7 @@ public class Subject {
 
     private String description;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "subjects")
     private Set<Professor> professors;
 

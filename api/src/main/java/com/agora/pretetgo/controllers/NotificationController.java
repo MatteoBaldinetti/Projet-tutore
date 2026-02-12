@@ -5,7 +5,6 @@ import com.agora.pretetgo.dto.response.NotificationResponseDTO;
 import com.agora.pretetgo.dto.insert.NotificationInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.NotificationMapper;
-import com.agora.pretetgo.models.Notification;
 import com.agora.pretetgo.services.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -93,9 +92,9 @@ public class NotificationController {
             @ApiResponse(responseCode = "404", description = "Notification not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Notification> patchNotification(@RequestBody NotificationInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<NotificationResponseDTO> patchNotification(@RequestBody NotificationInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
-                notificationService.patchNotification(id, dto)
+               notificationMapper.toResponseDTO(notificationService.patchNotification(id, dto))
         );
     }
 

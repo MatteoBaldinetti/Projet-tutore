@@ -2,6 +2,7 @@ package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -33,9 +34,11 @@ public abstract class User {
 
     protected Boolean enabled = true;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user")
     protected List<UserNotification> userNotifications = new ArrayList<>();
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "reportedBy")
     protected List<Report> reports = new ArrayList<>();
 
