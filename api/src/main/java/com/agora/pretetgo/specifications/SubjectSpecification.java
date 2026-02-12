@@ -16,7 +16,7 @@ public class SubjectSpecification extends BaseSpecification {
             addEqual(predicates, criteriaBuilder, root.get("id"), filter.id());
             addLike(predicates, criteriaBuilder, root.get("name"), filter.name());
             addLike(predicates, criteriaBuilder, root.get("description"), filter.description());
-            addInJoin(predicates, root, "professors", "id", filter.professorIds());
+            addIn(predicates, root.join("professors").get("id"), filter.professorIds());
 
             return andAll(criteriaBuilder, predicates);
         };

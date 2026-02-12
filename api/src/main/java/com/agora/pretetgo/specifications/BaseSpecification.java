@@ -63,17 +63,4 @@ public abstract class BaseSpecification {
         }
     }
 
-    protected static <E, V> void addInJoin(
-            List<Predicate> predicates,
-            Root<E> root,
-            String collectionName,
-            String fieldName,
-            Collection<V> values
-    ) {
-        if (values != null && !values.isEmpty()) {
-            Join<E, ?> join = root.join(collectionName);
-            predicates.add(join.get(fieldName).in(values));
-        }
-    }
-
 }
