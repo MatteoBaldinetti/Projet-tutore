@@ -87,7 +87,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 localStorage.setItem("type", JSON.stringify(data.type));
 
                 setAuthLoading(false);
-                navigate("/test");
+
+                if (data.type === "ADMIN") {
+                    navigate("/admin/manage-students");
+                }
             } else {
                 throw new Error("Mot de passe incorrect");
             }
