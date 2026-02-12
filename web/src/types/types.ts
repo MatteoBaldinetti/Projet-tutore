@@ -128,7 +128,8 @@ export type User = {
     email: string,
     password: string,
     createdAt: string,
-    enabled: boolean
+    enabled: boolean,
+    type: string
 }
 
 export type UserNotification = {

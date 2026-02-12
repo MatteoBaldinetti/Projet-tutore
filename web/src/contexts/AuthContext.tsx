@@ -49,6 +49,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return savedEmail ? JSON.parse(savedEmail) : null;
     });
 
+    const [userType, setUserType] = useState(() => {
+        const savedType = localStorage.getItem("type");
+        return savedType ? JSON.parse(savedType) : null;
+    });
+
     const [authLoading, setAuthLoading] = useState(false);
 
     const login = async (email: string, password: string) => {
@@ -69,6 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 throw new Error("Aucun utilisateur trouvé pour cette adresse mail");
             }
 
+            console.log(data);
             const isValid = await bcrypt.compare(password, data.password);
 
             if (isValid) {
@@ -76,11 +82,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setUserFirstName(data.firstname);
                 setUserLastName(data.lastname);
                 setUserEmail(data.email);
+                setUserType(data.type);
 
                 localStorage.setItem("id", JSON.stringify(data.id));
-                localStorage.setItem("firstname", JSON.stringify(data.firstname));
-                localStorage.setItem("lastname", JSON.stringify(data.lastname));
+                localStorage.setItem("firstname", JSON.stringify(data.firstName));
+                localStorage.setItem("lastname", JSON.stringify(data.lastName));
                 localStorage.setItem("email", JSON.stringify(data.email));
+                localStorage.setItem("type", JSON.stringify(data.type));
 
                 setAuthLoading(false);
                 navigate("/test");
@@ -100,11 +108,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUserFirstName(null);
         setUserLastName(null);
         setUserEmail(null);
+        setUserType(null);
 
         localStorage.removeItem("id");
         localStorage.removeItem("firstname");
         localStorage.removeItem("lastname");
         localStorage.removeItem("email");
+        localStorage.removeItem("type");
 
         navigate("/");
     };
@@ -121,6 +131,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         localStorage.setItem("firstname", JSON.stringify(userFirstname));
         localStorage.setItem("lastname", JSON.stringify(userLastname));
         localStorage.setItem("email", JSON.stringify(userEmail));
+        localStorage.setItem("type", JSON.stringify(userType));
 
         setAuthLoading(false);
     };
@@ -130,6 +141,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         userFirstname,
         userLastname,
         userEmail,
+        userType,
         login,
         logout,
         updateContext,
