@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 import { API_URL, API_KEY } from "../constants/apiConstants";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import bcrypt from "bcryptjs";
 
 type AuthContextType = {
@@ -9,6 +10,7 @@ type AuthContextType = {
     userFirstname: string | null;
     userLastname: string | null;
     userEmail: string | null;
+    userType: string | null;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
     updateContext: (
@@ -59,22 +61,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const login = async (email: string, password: string) => {
         setAuthLoading(true);
         try {
-            const res = await fetch(`${API_URL}/users/search?email=${email}`, {
-                headers: { "X-API-KEY": API_KEY }
+            const res = await axios.get(`${API_URL}/users/search?email=${email}`, {
+                headers: { "x-api-key": API_KEY }
             });
 
-            if (!res.ok) {
-                throw new Error("Erreur lors de la connexion");
-            }
-
-            let data = await res.json();
-            data = data[0];
+            let data = await res.data[0];
 
             if (data.email === null) {
                 throw new Error("Aucun utilisateur trouvé pour cette adresse mail");
             }
 
-            console.log(data);
             const isValid = await bcrypt.compare(password, data.password);
 
             if (isValid) {
