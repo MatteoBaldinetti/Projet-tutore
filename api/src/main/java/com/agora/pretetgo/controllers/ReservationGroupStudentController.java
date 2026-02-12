@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,7 +102,7 @@ public class ReservationGroupStudentController {
     @Operation(summary = "Search reservationGroupStudents with filters")
     @ApiResponse(responseCode = "200", description = "List of reservationGroupStudents retrieved successfully")
     @GetMapping("/search")
-    public ResponseEntity<List<ReservationGroupStudentResponseDTO>> searchReservationGroupStudents(ReservationGroupStudentFilterDTO filterDTO) {
+    public ResponseEntity<List<ReservationGroupStudentResponseDTO>> searchReservationGroupStudents(@ParameterObject @ModelAttribute ReservationGroupStudentFilterDTO filterDTO) {
         return ResponseEntity.ok(
                 reservationGroupStudentService.searchReservationGroupStudents(filterDTO)
         );

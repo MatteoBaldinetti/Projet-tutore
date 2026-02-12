@@ -1,16 +1,17 @@
 package com.agora.pretetgo.dto.filter;
 
+import io.swagger.v3.oas.annotations.Parameter;
+
 import java.time.Instant;
 
 public record UserFilterDTO(
-        Long id,
-        String firstName,
-        String lastName,
-        String email,
-        String password,
-        Instant createdAt,
-        Boolean enabled,
-        Instant createdFrom,
-        Instant createdTo
-) {
-}
+        @Parameter(description = "User ID") Long id,
+        @Parameter(description = "First name") String firstName,
+        @Parameter(description = "Last name") String lastName,
+        @Parameter(description = "Email address") String email,
+        @Parameter(description = "Password") String password,
+        @Parameter(description = "Exact creation timestamp") Instant createdAt,
+        @Parameter(description = "Is the user enabled?") Boolean enabled,
+        @Parameter(description = "Created after this timestamp") Instant createdFrom,
+        @Parameter(description = "Created before this timestamp") Instant createdTo
+) {}

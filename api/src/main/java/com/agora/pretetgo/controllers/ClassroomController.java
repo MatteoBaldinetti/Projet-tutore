@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,7 +102,7 @@ public class ClassroomController {
     @Operation(summary = "Search classrooms with filters")
     @ApiResponse(responseCode = "200", description = "List of classrooms retrieved successfully")
     @GetMapping("/search")
-    public ResponseEntity<List<ClassroomResponseDTO>> searchClassrooms(ClassroomFilterDTO filterDTO) {
+    public ResponseEntity<List<ClassroomResponseDTO>> searchClassrooms(@ParameterObject @ModelAttribute ClassroomFilterDTO filterDTO) {
         return ResponseEntity.ok(
                 classroomService.searchClassrooms(filterDTO)
         );

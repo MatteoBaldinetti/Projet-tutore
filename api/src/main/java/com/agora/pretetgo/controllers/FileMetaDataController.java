@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -132,7 +133,7 @@ public class FileMetaDataController {
     @Operation(summary = "Search fileMetaData with filters")
     @ApiResponse(responseCode = "200", description = "List of fileMetaData retrieved successfully")
     @GetMapping("/search")
-    public ResponseEntity<List<FileMetaDataResponseDTO>> searchFileMetaData(FileMetaDataFilterDTO filterDTO) {
+    public ResponseEntity<List<FileMetaDataResponseDTO>> searchFileMetaData(@ParameterObject @ModelAttribute FileMetaDataFilterDTO filterDTO) {
         return ResponseEntity.ok(
                 fileMetaDataService.searchFileMetaData(filterDTO)
         );

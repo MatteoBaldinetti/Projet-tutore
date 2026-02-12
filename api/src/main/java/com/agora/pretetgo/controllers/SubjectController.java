@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,7 +102,7 @@ public class SubjectController {
     @Operation(summary = "Search subjects with filters")
     @ApiResponse(responseCode = "200", description = "List of subjects retrieved successfully")
     @GetMapping("/search")
-    public ResponseEntity<List<SubjectResponseDTO>> searchSubjects(SubjectFilterDTO filterDTO) {
+    public ResponseEntity<List<SubjectResponseDTO>> searchSubjects(@ParameterObject @ModelAttribute SubjectFilterDTO filterDTO) {
         return ResponseEntity.ok(
                 subjectService.searchSubjects(filterDTO)
         );
