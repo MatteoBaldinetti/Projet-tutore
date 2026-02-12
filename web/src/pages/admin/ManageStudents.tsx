@@ -141,7 +141,7 @@ export default function ManageStudents() {
                         </thead>
                         <tbody>
                             {filteredStudents.map((student) => (
-                                <tr key={student.id} className="hover:bg-gray-50 transition">
+                                <tr key={student.id}>
                                     <td className="border border-gray-300 px-4 py-2 text-left">{student.firstName}</td>
                                     <td className="border border-gray-300 px-4 py-2 text-left">{student.lastName}</td>
                                     <td className="border border-gray-300 px-4 py-2 text-left">{student.email}</td>
