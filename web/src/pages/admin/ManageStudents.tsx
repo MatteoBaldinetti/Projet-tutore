@@ -105,6 +105,18 @@ export default function ManageStudents() {
         );
     });
 
+    useEffect(() => {
+        if (showAddStudent || studentToDelete !== null) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [showAddStudent, studentToDelete]);
+
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">

@@ -144,6 +144,18 @@ export default function ManageProfessors() {
         }
     };
 
+    useEffect(() => {
+        if (showAddProfessors || professorToDelete !== null) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [showAddProfessors, professorToDelete]);
+
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
@@ -260,26 +272,32 @@ export default function ManageProfessors() {
                                     <div className="flex flex-col">
                                         <label className="mb-2 font-medium">Matières</label>
                                         <div className="border border-gray-300 rounded p-2 max-h-32 overflow-y-auto">
-                                            {allSubjects
-                                                .slice()
-                                                .sort((a, b) => a.name.localeCompare(b.name))
-                                                .map(subj => (
-                                                    <label key={subj.id} className="flex items-center gap-2 mb-1">
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={selectedSubjectIds.includes(subj.id)}
-                                                            onChange={() => {
-                                                                if (selectedSubjectIds.includes(subj.id)) {
-                                                                    setSelectedSubjectIds(selectedSubjectIds.filter(id => id !== subj.id));
-                                                                } else {
-                                                                    setSelectedSubjectIds([...selectedSubjectIds, subj.id]);
-                                                                }
-                                                            }}
-                                                            className="cursor-pointer"
-                                                        />
-                                                        {subj.name}
-                                                    </label>
-                                                ))}
+                                            {allSubjects.length === 0 ? (
+                                                <p className="text-sm text-gray-500 italic">
+                                                    Aucune matière dans la base de données
+                                                </p>
+                                            ) : (
+                                                allSubjects
+                                                    .slice()
+                                                    .sort((a, b) => a.name.localeCompare(b.name))
+                                                    .map(subj => (
+                                                        <label key={subj.id} className="flex items-center gap-2 mb-1">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedSubjectIds.includes(subj.id)}
+                                                                onChange={() => {
+                                                                    if (selectedSubjectIds.includes(subj.id)) {
+                                                                        setSelectedSubjectIds(selectedSubjectIds.filter(id => id !== subj.id));
+                                                                    } else {
+                                                                        setSelectedSubjectIds([...selectedSubjectIds, subj.id]);
+                                                                    }
+                                                                }}
+                                                                className="cursor-pointer"
+                                                            />
+                                                            {subj.name}
+                                                        </label>
+                                                    ))
+                                            )}
                                         </div>
                                     </div>
                                 </div>
