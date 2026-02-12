@@ -1,11 +1,14 @@
 package com.agora.pretetgo.services;
 
-import com.agora.pretetgo.dto.insert.FileMetaDataDTO;
+import com.agora.pretetgo.dto.filter.FileMetaDataFilterDTO;
+import com.agora.pretetgo.dto.insert.FileMetaDataInsertDTO;
+import com.agora.pretetgo.dto.response.FileMetaDataResponseDTO;
 import com.agora.pretetgo.exceptions.BadRequestException;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.FileMetaDataMapper;
 import com.agora.pretetgo.models.FileMetaData;
 import com.agora.pretetgo.repositories.FileMetaDataRepository;
+import com.agora.pretetgo.specifications.FileMetaDataSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -93,7 +96,7 @@ public class FileMetaDataService {
     }
 
     @Transactional
-    public FileMetaData createFileMetaData(FileMetaDataDTO dto) {
+    public FileMetaData createFileMetaData(FileMetaDataInsertDTO dto) {
         FileMetaData fileMetaData = fileMetaDataMapper.toEntity(dto);
         return fileMetaDataRepository.save(fileMetaData);
     }
@@ -110,7 +113,7 @@ public class FileMetaDataService {
     }
 
     @Transactional
-    public FileMetaData updateFileMetaData(Long id, FileMetaDataDTO dto) {
+    public FileMetaData updateFileMetaData(Long id, FileMetaDataInsertDTO dto) {
         FileMetaData current = getFileMetaDataById(id);
         fileMetaDataMapper.updateFileMetaDataFromDto(dto, current);
         return fileMetaDataRepository.save(current);
@@ -122,9 +125,19 @@ public class FileMetaDataService {
     }
 
     @Transactional
-    public FileMetaData patchFileMetaData(Long id, FileMetaDataDTO dto) {
+    public FileMetaData patchFileMetaData(Long id, FileMetaDataInsertDTO dto) {
         FileMetaData current = getFileMetaDataById(id);
         fileMetaDataMapper.patchFileMetaDataFromDto(dto, current);
         return fileMetaDataRepository.save(current);
+    }
+
+    @Transactional
+    public List<FileMetaDataResponseDTO> searchFileMetaData(FileMetaDataFilterDTO filterDTO) {
+        return fileMetaDataRepository.findAll(
+                        FileMetaDataSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(fileMetaDataMapper::toResponseDTO)
+                .toList();
     }
 }

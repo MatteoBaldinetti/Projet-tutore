@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.NotificationDTO;
+import com.agora.pretetgo.dto.filter.NotificationFilterDTO;
 import com.agora.pretetgo.dto.response.NotificationResponseDTO;
+import com.agora.pretetgo.dto.insert.NotificationInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.NotificationMapper;
 import com.agora.pretetgo.models.Notification;
@@ -36,7 +37,7 @@ public class NotificationController {
             @ApiResponse(responseCode = "400", description = "Failed to create notification", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<NotificationResponseDTO> createNotification(@RequestBody NotificationDTO dto) {
+    public ResponseEntity<NotificationResponseDTO> createNotification(@RequestBody NotificationInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(notificationMapper.toResponseDTO(notificationService.createNotification(dto)));
     }
@@ -68,7 +69,7 @@ public class NotificationController {
             @ApiResponse(responseCode = "404", description = "Notification not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<NotificationResponseDTO> updateNotification(@RequestBody NotificationDTO dto, @PathVariable Long id) {
+    public ResponseEntity<NotificationResponseDTO> updateNotification(@RequestBody NotificationInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 notificationMapper.toResponseDTO(notificationService.updateNotification(id, dto))
         );
@@ -91,9 +92,18 @@ public class NotificationController {
             @ApiResponse(responseCode = "404", description = "Notification not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Notification> patchNotification(@RequestBody NotificationDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Notification> patchNotification(@RequestBody NotificationInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 notificationService.patchNotification(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search notifications with filters")
+    @ApiResponse(responseCode = "200", description = "List of notifications retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<NotificationResponseDTO>> searchNotifications(NotificationFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                notificationService.searchNotifications(filterDTO)
         );
     }
 }

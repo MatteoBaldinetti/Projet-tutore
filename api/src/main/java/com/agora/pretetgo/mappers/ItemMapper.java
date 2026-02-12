@@ -1,6 +1,6 @@
 package com.agora.pretetgo.mappers;
 
-import com.agora.pretetgo.dto.insert.ItemDTO;
+import com.agora.pretetgo.dto.insert.ItemInsertDTO;
 import com.agora.pretetgo.dto.response.ItemResponseDTO;
 import com.agora.pretetgo.models.Item;
 import com.agora.pretetgo.models.ItemType;
@@ -11,7 +11,7 @@ import org.mapstruct.*;
 public interface ItemMapper {
     @Mapping(target = "managedBy", source = "managedById")
     @Mapping(target = "type", source = "typeId")
-    Item toEntity(ItemDTO dto);
+    Item toEntity(ItemInsertDTO dto);
 
     @Mapping(target = "managedById", source = "managedBy")
     @Mapping(target = "typeId", source = "type")
@@ -19,12 +19,12 @@ public interface ItemMapper {
 
     @Mapping(target = "managedBy", source = "managedById")
     @Mapping(target = "type", source = "typeId")
-    void updateItemFromDto(ItemDTO dto, @MappingTarget Item Item);
+    void updateItemFromDto(ItemInsertDTO dto, @MappingTarget Item Item);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "managedBy", source = "managedById")
     @Mapping(target = "type", source = "typeId")
-    void patchItemFromDto(ItemDTO dto, @MappingTarget Item Item);
+    void patchItemFromDto(ItemInsertDTO dto, @MappingTarget Item Item);
 
     default Professor mapProfessor(Long id) {
         if (id == null) return null;

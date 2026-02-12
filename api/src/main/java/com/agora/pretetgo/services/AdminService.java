@@ -1,10 +1,13 @@
 package com.agora.pretetgo.services;
 
-import com.agora.pretetgo.dto.insert.AdminDTO;
+import com.agora.pretetgo.dto.filter.AdminFilterDTO;
+import com.agora.pretetgo.dto.insert.AdminInsertDTO;
+import com.agora.pretetgo.dto.response.AdminResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.AdminMapper;
 import com.agora.pretetgo.models.Admin;
 import com.agora.pretetgo.repositories.AdminRepository;
+import com.agora.pretetgo.specifications.AdminSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +23,7 @@ public class AdminService {
     private AdminMapper adminMapper;
 
     @Transactional
-    public Admin createAdmin(AdminDTO dto) {
+    public Admin createAdmin(AdminInsertDTO dto) {
         Admin admin = adminMapper.toEntity(dto);
         return adminRepository.save(admin);
     }
@@ -37,7 +40,7 @@ public class AdminService {
     }
 
     @Transactional
-    public Admin updateAdmin(Long id, AdminDTO dto) {
+    public Admin updateAdmin(Long id, AdminInsertDTO dto) {
         Admin current = getAdminById(id);
         adminMapper.updateAdminFromDto(dto, current);
         return adminRepository.save(current);
@@ -49,9 +52,19 @@ public class AdminService {
     }
 
     @Transactional
-    public Admin patchAdmin(Long id, AdminDTO dto) {
+    public Admin patchAdmin(Long id, AdminInsertDTO dto) {
         Admin current = getAdminById(id);
         adminMapper.patchAdminFromDto(dto, current);
         return adminRepository.save(current);
+    }
+
+    @Transactional
+    public List<AdminResponseDTO> searchAdmins(AdminFilterDTO filterDTO) {
+        return adminRepository.findAll(
+                        AdminSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(adminMapper::toResponseDTO)
+                .toList();
     }
 }

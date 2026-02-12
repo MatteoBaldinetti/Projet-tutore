@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.FileMetaDataDTO;
+import com.agora.pretetgo.dto.filter.FileMetaDataFilterDTO;
 import com.agora.pretetgo.dto.response.FileMetaDataResponseDTO;
+import com.agora.pretetgo.dto.insert.FileMetaDataInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.FileMetaDataMapper;
 import com.agora.pretetgo.models.FileMetaData;
@@ -67,7 +68,7 @@ public class FileMetaDataController {
             @ApiResponse(responseCode = "400", description = "Failed to create fileMetaData", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<FileMetaDataResponseDTO> createFileMetaData(@RequestBody FileMetaDataDTO dto) {
+    public ResponseEntity<FileMetaDataResponseDTO> createFileMetaData(@RequestBody FileMetaDataInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(fileMetaDataMapper.toResponseDTO(fileMetaDataService.createFileMetaData(dto)));
     }
@@ -99,7 +100,7 @@ public class FileMetaDataController {
             @ApiResponse(responseCode = "404", description = "FileMetaData not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<FileMetaDataResponseDTO> updateFileMetaData(@RequestBody FileMetaDataDTO dto, @PathVariable Long id) {
+    public ResponseEntity<FileMetaDataResponseDTO> updateFileMetaData(@RequestBody FileMetaDataInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 fileMetaDataMapper.toResponseDTO(fileMetaDataService.updateFileMetaData(id, dto))
         );
@@ -122,9 +123,18 @@ public class FileMetaDataController {
             @ApiResponse(responseCode = "404", description = "FileMetaData not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<FileMetaData> patchFileMetaData(@RequestBody FileMetaDataDTO dto, @PathVariable Long id) {
+    public ResponseEntity<FileMetaData> patchFileMetaData(@RequestBody FileMetaDataInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 fileMetaDataService.patchFileMetaData(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search fileMetaData with filters")
+    @ApiResponse(responseCode = "200", description = "List of fileMetaData retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<FileMetaDataResponseDTO>> searchFileMetaData(FileMetaDataFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                fileMetaDataService.searchFileMetaData(filterDTO)
         );
     }
 }

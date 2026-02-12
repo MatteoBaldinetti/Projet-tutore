@@ -1,10 +1,13 @@
 package com.agora.pretetgo.services;
 
-import com.agora.pretetgo.dto.insert.ReportDTO;
+import com.agora.pretetgo.dto.filter.ReportFilterDTO;
+import com.agora.pretetgo.dto.insert.ReportInsertDTO;
+import com.agora.pretetgo.dto.response.ReportResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.ReportMapper;
 import com.agora.pretetgo.models.Report;
 import com.agora.pretetgo.repositories.ReportRepository;
+import com.agora.pretetgo.specifications.ReportSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +23,7 @@ public class ReportService {
     private ReportMapper reportMapper;
 
     @Transactional
-    public Report createReport(ReportDTO dto) {
+    public Report createReport(ReportInsertDTO dto) {
         Report report = reportMapper.toEntity(dto);
         return reportRepository.save(report);
     }
@@ -37,7 +40,7 @@ public class ReportService {
     }
 
     @Transactional
-    public Report updateReport(Long id, ReportDTO dto) {
+    public Report updateReport(Long id, ReportInsertDTO dto) {
         Report current = getReportById(id);
         reportMapper.updateReportFromDto(dto, current);
         return reportRepository.save(current);
@@ -49,9 +52,19 @@ public class ReportService {
     }
 
     @Transactional
-    public Report patchReport(Long id, ReportDTO dto) {
+    public Report patchReport(Long id, ReportInsertDTO dto) {
         Report current = getReportById(id);
         reportMapper.patchReportFromDto(dto, current);
         return reportRepository.save(current);
+    }
+
+    @Transactional
+    public List<ReportResponseDTO> searchReports(ReportFilterDTO filterDTO) {
+        return reportRepository.findAll(
+                        ReportSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(reportMapper::toResponseDTO)
+                .toList();
     }
 }

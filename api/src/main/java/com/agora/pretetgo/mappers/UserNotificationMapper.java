@@ -1,6 +1,6 @@
 package com.agora.pretetgo.mappers;
 
-import com.agora.pretetgo.dto.insert.UserNotificationDTO;
+import com.agora.pretetgo.dto.insert.UserNotificationInsertDTO;
 import com.agora.pretetgo.dto.response.UserNotificationResponseDTO;
 import com.agora.pretetgo.models.Notification;
 import com.agora.pretetgo.models.User;
@@ -16,7 +16,7 @@ public abstract class UserNotificationMapper {
 
     @Mapping(target = "notification", source = "notificationId")
     @Mapping(target = "user", source = "userId")
-    public abstract UserNotification toEntity(UserNotificationDTO dto);
+    public abstract UserNotification toEntity(UserNotificationInsertDTO dto);
 
     @Mapping(target = "notificationId", source = "notification")
     @Mapping(target = "userId", source = "user")
@@ -24,12 +24,12 @@ public abstract class UserNotificationMapper {
 
     @Mapping(target = "notification", source = "notificationId")
     @Mapping(target = "user", source = "userId")
-    public abstract void updateUserNotificationFromDto(UserNotificationDTO dto, @MappingTarget UserNotification UserNotification);
+    public abstract void updateUserNotificationFromDto(UserNotificationInsertDTO dto, @MappingTarget UserNotification UserNotification);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "notification", source = "notificationId")
     @Mapping(target = "user", source = "userId")
-    public abstract void patchUserNotificationFromDto(UserNotificationDTO dto, @MappingTarget UserNotification UserNotification);
+    public abstract void patchUserNotificationFromDto(UserNotificationInsertDTO dto, @MappingTarget UserNotification UserNotification);
 
     protected Notification mapNotification(Long id) {
         if (id == null) return null;

@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ItemDTO;
+import com.agora.pretetgo.dto.filter.ItemFilterDTO;
 import com.agora.pretetgo.dto.response.ItemResponseDTO;
+import com.agora.pretetgo.dto.insert.ItemInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ItemMapper;
 import com.agora.pretetgo.models.Item;
@@ -36,7 +37,7 @@ public class ItemController {
             @ApiResponse(responseCode = "400", description = "Failed to create item", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ItemResponseDTO> createItem(@RequestBody ItemDTO dto) {
+    public ResponseEntity<ItemResponseDTO> createItem(@RequestBody ItemInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(itemMapper.toResponseDTO(itemService.createItem(dto)));
     }
@@ -68,7 +69,7 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Item not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ItemResponseDTO> updateItem(@RequestBody ItemDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ItemResponseDTO> updateItem(@RequestBody ItemInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 itemMapper.toResponseDTO(itemService.updateItem(id, dto))
         );
@@ -91,9 +92,18 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Item not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Item> patchItem(@RequestBody ItemDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Item> patchItem(@RequestBody ItemInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 itemService.patchItem(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search items with filters")
+    @ApiResponse(responseCode = "200", description = "List of items retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ItemResponseDTO>> searchItems(ItemFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                itemService.searchItems(filterDTO)
         );
     }
 }

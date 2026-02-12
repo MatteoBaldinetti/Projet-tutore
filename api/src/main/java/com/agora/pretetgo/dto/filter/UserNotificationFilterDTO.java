@@ -1,8 +1,9 @@
-package com.agora.pretetgo.dto.insert;
+package com.agora.pretetgo.dto.filter;
 
 import java.time.Instant;
 
-public record UserNotificationDTO(
+public record UserNotificationFilterDTO(
+        Long id,
         Long notificationId,
         Long userId,
         Instant readAt,

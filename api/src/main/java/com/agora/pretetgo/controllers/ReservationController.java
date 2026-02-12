@@ -1,6 +1,7 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ReservationDTO;
+import com.agora.pretetgo.dto.filter.ReservationFilterDTO;
+import com.agora.pretetgo.dto.insert.ReservationInsertDTO;
 import com.agora.pretetgo.dto.response.ReservationResponseDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ReservationMapper;
@@ -36,7 +37,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "400", description = "Failed to create reservation", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ReservationResponseDTO> createReservation(@RequestBody ReservationDTO dto) {
+    public ResponseEntity<ReservationResponseDTO> createReservation(@RequestBody ReservationInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(reservationMapper.toResponseDTO(reservationService.createReservation(dto)));
     }
@@ -68,7 +69,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "404", description = "Reservation not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationResponseDTO> updateReservation(@RequestBody ReservationDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReservationResponseDTO> updateReservation(@RequestBody ReservationInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reservationMapper.toResponseDTO(reservationService.updateReservation(id, dto))
         );
@@ -91,9 +92,18 @@ public class ReservationController {
             @ApiResponse(responseCode = "404", description = "Reservation not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Reservation> patchReservation(@RequestBody ReservationDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Reservation> patchReservation(@RequestBody ReservationInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reservationService.patchReservation(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search reservations with filters")
+    @ApiResponse(responseCode = "200", description = "List of reservations retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ReservationResponseDTO>> searchReservations(ReservationFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                reservationService.searchReservations(filterDTO)
         );
     }
 }

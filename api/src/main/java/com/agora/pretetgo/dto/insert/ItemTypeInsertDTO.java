@@ -2,8 +2,9 @@ package com.agora.pretetgo.dto.insert;
 
 import java.time.Instant;
 
-public record NotificationDTO(
-        String message,
+public record ItemTypeInsertDTO(
+        String name,
+        Long createdById,
         Instant createdAt
 ) {
 }

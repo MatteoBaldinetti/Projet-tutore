@@ -1,6 +1,7 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.StudentDTO;
+import com.agora.pretetgo.dto.filter.StudentFilterDTO;
+import com.agora.pretetgo.dto.insert.StudentInsertDTO;
 import com.agora.pretetgo.dto.response.StudentResponseDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.StudentMapper;
@@ -36,7 +37,7 @@ public class StudentController {
             @ApiResponse(responseCode = "400", description = "Failed to create student", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentDTO dto) {
+    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(studentMapper.toResponseDTO(studentService.createStudent(dto)));
     }
@@ -68,7 +69,7 @@ public class StudentController {
             @ApiResponse(responseCode = "404", description = "Student not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<StudentResponseDTO> updateStudent(@RequestBody StudentDTO dto, @PathVariable Long id) {
+    public ResponseEntity<StudentResponseDTO> updateStudent(@RequestBody StudentInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 studentMapper.toResponseDTO(studentService.updateStudent(id, dto))
         );
@@ -91,9 +92,18 @@ public class StudentController {
             @ApiResponse(responseCode = "404", description = "Student not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Student> patchStudent(@RequestBody StudentDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Student> patchStudent(@RequestBody StudentInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 studentService.patchStudent(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search students with filters")
+    @ApiResponse(responseCode = "200", description = "List of students retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<StudentResponseDTO>> searchStudents(StudentFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                studentService.searchStudents(filterDTO)
         );
     }
 }

@@ -1,12 +1,15 @@
 package com.agora.pretetgo.services;
 
-import com.agora.pretetgo.dto.insert.ProfessorDTO;
+import com.agora.pretetgo.dto.filter.ProfessorFilterDTO;
+import com.agora.pretetgo.dto.insert.ProfessorInsertDTO;
+import com.agora.pretetgo.dto.response.ProfessorResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.ProfessorMapper;
 import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.models.Subject;
 import com.agora.pretetgo.repositories.ProfessorRepository;
 import com.agora.pretetgo.repositories.SubjectRepository;
+import com.agora.pretetgo.specifications.ProfessorSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,7 @@ public class ProfessorService {
     private SubjectRepository subjectRepository;
 
     @Transactional
-    public Professor createProfessor(ProfessorDTO dto) {
+    public Professor createProfessor(ProfessorInsertDTO dto) {
         Professor professor = professorMapper.toEntity(dto);
         fetchSubjects(dto.subjectIds(), professor);
         return professorRepository.save(professor);
@@ -45,7 +48,7 @@ public class ProfessorService {
     }
 
     @Transactional
-    public Professor updateProfessor(Long id, ProfessorDTO dto) {
+    public Professor updateProfessor(Long id, ProfessorInsertDTO dto) {
         Professor current = getProfessorById(id);
         professorMapper.updateProfessorFromDto(dto, current);
         fetchSubjects(dto.subjectIds(), current);
@@ -58,7 +61,7 @@ public class ProfessorService {
     }
 
     @Transactional
-    public Professor patchProfessor(Long id, ProfessorDTO dto) {
+    public Professor patchProfessor(Long id, ProfessorInsertDTO dto) {
         Professor current = getProfessorById(id);
         professorMapper.patchProfessorFromDto(dto, current);
         fetchSubjects(dto.subjectIds(), current);
@@ -77,5 +80,15 @@ public class ProfessorService {
                 .collect(Collectors.toSet());
 
         professor.setSubjects(subjects);
+    }
+
+    @Transactional
+    public List<ProfessorResponseDTO> searchProfessors(ProfessorFilterDTO filterDTO) {
+        return professorRepository.findAll(
+                        ProfessorSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(professorMapper::toResponseDTO)
+                .toList();
     }
 }

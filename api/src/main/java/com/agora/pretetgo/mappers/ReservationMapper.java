@@ -1,6 +1,6 @@
 package com.agora.pretetgo.mappers;
 
-import com.agora.pretetgo.dto.insert.ReservationDTO;
+import com.agora.pretetgo.dto.insert.ReservationInsertDTO;
 import com.agora.pretetgo.dto.response.ReservationResponseDTO;
 import com.agora.pretetgo.models.ReservationGroup;
 import com.agora.pretetgo.models.Reservation;
@@ -16,7 +16,7 @@ public abstract class ReservationMapper {
 
     @Mapping(target = "reservedBy", source = "reservedById")
     @Mapping(target = "resource", source = "resourceId")
-    public abstract Reservation toEntity(ReservationDTO dto);
+    public abstract Reservation toEntity(ReservationInsertDTO dto);
 
     @Mapping(target = "reservedById", source = "reservedBy")
     @Mapping(target = "resourceId", source = "resource")
@@ -24,12 +24,12 @@ public abstract class ReservationMapper {
 
     @Mapping(target = "reservedBy", source = "reservedById")
     @Mapping(target = "resource", source = "resourceId")
-    public abstract void updateReservationFromDto(ReservationDTO dto, @MappingTarget Reservation Reservation);
+    public abstract void updateReservationFromDto(ReservationInsertDTO dto, @MappingTarget Reservation Reservation);
 
     @Mapping(target = "reservedBy", source = "reservedById")
     @Mapping(target = "resource", source = "resourceId")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public abstract void patchReservationFromDto(ReservationDTO dto, @MappingTarget Reservation Reservation);
+    public abstract void patchReservationFromDto(ReservationInsertDTO dto, @MappingTarget Reservation Reservation);
 
     protected ReservationGroup mapReservationGroup(Long id) {
         if (id == null) return null;

@@ -2,7 +2,7 @@ package com.agora.pretetgo.dto.insert;
 
 import java.time.Instant;
 
-public record StudentDTO(
+public record StudentInsertDTO(
         String firstName,
         String lastName,
         String email,

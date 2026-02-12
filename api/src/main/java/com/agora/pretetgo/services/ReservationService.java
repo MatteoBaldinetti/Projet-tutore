@@ -1,11 +1,14 @@
 package com.agora.pretetgo.services;
 
-import com.agora.pretetgo.dto.insert.ReservationDTO;
+import com.agora.pretetgo.dto.filter.ReservationFilterDTO;
+import com.agora.pretetgo.dto.insert.ReservationInsertDTO;
+import com.agora.pretetgo.dto.response.ReservationResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.ReservationMapper;
 import com.agora.pretetgo.models.Reservation;
 import com.agora.pretetgo.models.ReservationGroup;
 import com.agora.pretetgo.repositories.ReservationRepository;
+import com.agora.pretetgo.specifications.ReservationSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,7 @@ public class ReservationService {
     private ReservationGroupService reservationGroupService;
 
     @Transactional
-    public Reservation createReservation(ReservationDTO dto) {
+    public Reservation createReservation(ReservationInsertDTO dto) {
         Reservation reservation = reservationMapper.toEntity(dto);
         setReservedBy(dto, reservation);
         return reservationRepository.save(reservation);
@@ -42,7 +45,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public Reservation updateReservation(Long id, ReservationDTO dto) {
+    public Reservation updateReservation(Long id, ReservationInsertDTO dto) {
         Reservation current = getReservationById(id);
         reservationMapper.updateReservationFromDto(dto, current);
         setReservedBy(dto, current);
@@ -55,17 +58,27 @@ public class ReservationService {
     }
 
     @Transactional
-    public Reservation patchReservation(Long id, ReservationDTO dto) {
+    public Reservation patchReservation(Long id, ReservationInsertDTO dto) {
         Reservation current = getReservationById(id);
         reservationMapper.patchReservationFromDto(dto, current);
         setReservedBy(dto, current);
         return reservationRepository.save(current);
     }
 
-    private void setReservedBy(ReservationDTO dto, Reservation current) {
+    private void setReservedBy(ReservationInsertDTO dto, Reservation current) {
         if (dto.reservedById() != null) {
             ReservationGroup reservationGroup = reservationGroupService.getReservationGroupById(dto.reservedById());
             current.setReservedBy(reservationGroup);
         }
+    }
+
+    @Transactional
+    public List<ReservationResponseDTO> searchReservations(ReservationFilterDTO filterDTO) {
+        return reservationRepository.findAll(
+                        ReservationSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(reservationMapper::toResponseDTO)
+                .toList();
     }
 }

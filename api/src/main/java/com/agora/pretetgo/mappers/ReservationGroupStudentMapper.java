@@ -1,6 +1,6 @@
 package com.agora.pretetgo.mappers;
 
-import com.agora.pretetgo.dto.insert.ReservationGroupStudentDTO;
+import com.agora.pretetgo.dto.insert.ReservationGroupStudentInsertDTO;
 import com.agora.pretetgo.dto.response.ReservationGroupStudentResponseDTO;
 import com.agora.pretetgo.models.*;
 import org.mapstruct.*;
@@ -9,7 +9,7 @@ import org.mapstruct.*;
 public interface ReservationGroupStudentMapper {
     @Mapping(target = "reservationGroup", source = "reservationGroupId")
     @Mapping(target = "student", source = "studentId")
-    ReservationGroupStudent toEntity(ReservationGroupStudentDTO dto);
+    ReservationGroupStudent toEntity(ReservationGroupStudentInsertDTO dto);
 
     @Mapping(target = "reservationGroupId", source = "reservationGroup")
     @Mapping(target = "studentId", source = "student")
@@ -17,12 +17,12 @@ public interface ReservationGroupStudentMapper {
 
     @Mapping(target = "reservationGroup", source = "reservationGroupId")
     @Mapping(target = "student", source = "studentId")
-    void updateReservationGroupStudentFromDto(ReservationGroupStudentDTO dto, @MappingTarget ReservationGroupStudent ReservationGroupStudent);
+    void updateReservationGroupStudentFromDto(ReservationGroupStudentInsertDTO dto, @MappingTarget ReservationGroupStudent ReservationGroupStudent);
 
     @Mapping(target = "reservationGroup", source = "reservationGroupId")
     @Mapping(target = "student", source = "studentId")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void patchReservationGroupStudentFromDto(ReservationGroupStudentDTO dto, @MappingTarget ReservationGroupStudent ReservationGroupStudent);
+    void patchReservationGroupStudentFromDto(ReservationGroupStudentInsertDTO dto, @MappingTarget ReservationGroupStudent ReservationGroupStudent);
     
     default ReservationGroup mapReservationGroup(Long id) {
         if (id == null) return null;

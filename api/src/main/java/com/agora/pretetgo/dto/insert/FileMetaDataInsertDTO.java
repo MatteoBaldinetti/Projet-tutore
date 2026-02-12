@@ -2,9 +2,9 @@ package com.agora.pretetgo.dto.insert;
 
 import java.time.Instant;
 
-public record FileMetaDataDTO(
+public record FileMetaDataInsertDTO(
         String filename,
         Instant uploadedAt,
-        String uri
+        String url
 ) {
 }

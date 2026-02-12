@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ReportDTO;
+import com.agora.pretetgo.dto.filter.ReportFilterDTO;
 import com.agora.pretetgo.dto.response.ReportResponseDTO;
+import com.agora.pretetgo.dto.insert.ReportInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ReportMapper;
 import com.agora.pretetgo.models.Report;
@@ -36,7 +37,7 @@ public class ReportController {
             @ApiResponse(responseCode = "400", description = "Failed to create report", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ReportResponseDTO> createReport(@RequestBody ReportDTO dto) {
+    public ResponseEntity<ReportResponseDTO> createReport(@RequestBody ReportInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(reportMapper.toResponseDTO(reportService.createReport(dto)));
     }
@@ -68,7 +69,7 @@ public class ReportController {
             @ApiResponse(responseCode = "404", description = "Report not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ReportResponseDTO> updateReport(@RequestBody ReportDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReportResponseDTO> updateReport(@RequestBody ReportInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reportMapper.toResponseDTO(reportService.updateReport(id, dto))
         );
@@ -91,9 +92,18 @@ public class ReportController {
             @ApiResponse(responseCode = "404", description = "Report not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Report> patchReport(@RequestBody ReportDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Report> patchReport(@RequestBody ReportInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reportService.patchReport(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search reports with filters")
+    @ApiResponse(responseCode = "200", description = "List of reports retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ReportResponseDTO>> searchReports(ReportFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                reportService.searchReports(filterDTO)
         );
     }
 }

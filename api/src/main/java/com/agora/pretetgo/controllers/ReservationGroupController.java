@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ReservationGroupDTO;
+import com.agora.pretetgo.dto.filter.ReservationGroupFilterDTO;
 import com.agora.pretetgo.dto.response.ReservationGroupResponseDTO;
+import com.agora.pretetgo.dto.insert.ReservationGroupInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ReservationGroupMapper;
 import com.agora.pretetgo.models.ReservationGroup;
@@ -36,7 +37,7 @@ public class ReservationGroupController {
             @ApiResponse(responseCode = "400", description = "Failed to create reservationGroup", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ReservationGroupResponseDTO> createReservationGroup(@RequestBody ReservationGroupDTO dto) {
+    public ResponseEntity<ReservationGroupResponseDTO> createReservationGroup(@RequestBody ReservationGroupInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(reservationGroupMapper.toResponseDTO(reservationGroupService.createReservationGroup(dto)));
     }
@@ -68,7 +69,7 @@ public class ReservationGroupController {
             @ApiResponse(responseCode = "404", description = "ReservationGroup not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationGroupResponseDTO> updateReservationGroup(@RequestBody ReservationGroupDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReservationGroupResponseDTO> updateReservationGroup(@RequestBody ReservationGroupInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reservationGroupMapper.toResponseDTO(reservationGroupService.updateReservationGroup(id, dto))
         );
@@ -91,9 +92,18 @@ public class ReservationGroupController {
             @ApiResponse(responseCode = "404", description = "ReservationGroup not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<ReservationGroup> patchReservationGroup(@RequestBody ReservationGroupDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReservationGroup> patchReservationGroup(@RequestBody ReservationGroupInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reservationGroupService.patchReservationGroup(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search reservationGroups with filters")
+    @ApiResponse(responseCode = "200", description = "List of reservationGroups retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ReservationGroupResponseDTO>> searchReservationGroups(ReservationGroupFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                reservationGroupService.searchReservationGroups(filterDTO)
         );
     }
 }

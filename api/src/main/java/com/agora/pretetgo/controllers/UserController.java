@@ -1,5 +1,6 @@
 package com.agora.pretetgo.controllers;
 
+import com.agora.pretetgo.dto.filter.UserFilterDTO;
 import com.agora.pretetgo.dto.response.UserResponseDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.UserMapper;
@@ -57,5 +58,14 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Search users with filters")
+    @ApiResponse(responseCode = "200", description = "List of users retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<UserResponseDTO>> searchUsers(UserFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                userService.searchUsers(filterDTO)
+        );
     }
 }

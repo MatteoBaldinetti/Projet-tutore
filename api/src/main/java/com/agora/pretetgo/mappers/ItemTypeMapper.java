@@ -1,7 +1,7 @@
 package com.agora.pretetgo.mappers;
 
-import com.agora.pretetgo.dto.insert.ItemTypeDTO;
 import com.agora.pretetgo.dto.response.ItemTypeResponseDTO;
+import com.agora.pretetgo.dto.insert.ItemTypeInsertDTO;
 import com.agora.pretetgo.models.ItemType;
 import com.agora.pretetgo.models.Professor;
 import org.mapstruct.*;
@@ -9,17 +9,17 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ItemTypeMapper {
     @Mapping(target = "createdBy", source = "createdById")
-    ItemType toEntity(ItemTypeDTO dto);
+    ItemType toEntity(ItemTypeInsertDTO dto);
 
     @Mapping(target = "createdById", source = "createdBy")
     ItemTypeResponseDTO toResponseDTO(ItemType item);
 
     @Mapping(target = "createdBy", source = "createdById")
-    void updateItemTypeFromDto(ItemTypeDTO dto, @MappingTarget ItemType ItemType);
+    void updateItemTypeFromDto(ItemTypeInsertDTO dto, @MappingTarget ItemType ItemType);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "createdBy", source = "createdById")
-    void patchItemTypeFromDto(ItemTypeDTO dto, @MappingTarget ItemType ItemType);
+    void patchItemTypeFromDto(ItemTypeInsertDTO dto, @MappingTarget ItemType ItemType);
 
     default Professor mapProfessor(Long id) {
         if (id == null) return null;

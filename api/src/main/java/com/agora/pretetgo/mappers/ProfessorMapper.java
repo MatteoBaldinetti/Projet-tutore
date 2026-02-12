@@ -1,7 +1,7 @@
 package com.agora.pretetgo.mappers;
 
-import com.agora.pretetgo.dto.insert.ProfessorDTO;
 import com.agora.pretetgo.dto.response.ProfessorResponseDTO;
+import com.agora.pretetgo.dto.insert.ProfessorInsertDTO;
 import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.models.Subject;
 import org.mapstruct.*;
@@ -9,17 +9,17 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ProfessorMapper {
     @Mapping(target = "subjects", source = "subjectIds")
-    Professor toEntity(ProfessorDTO dto);
+    Professor toEntity(ProfessorInsertDTO dto);
 
     @Mapping(target = "subjectIds", source = "subjects")
     ProfessorResponseDTO toResponseDTO(Professor professor);
 
     @Mapping(target = "subjects", source = "subjectIds")
-    void updateProfessorFromDto(ProfessorDTO dto, @MappingTarget Professor Professor);
+    void updateProfessorFromDto(ProfessorInsertDTO dto, @MappingTarget Professor Professor);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "subjects", source = "subjectIds")
-    void patchProfessorFromDto(ProfessorDTO dto, @MappingTarget Professor Professor);
+    void patchProfessorFromDto(ProfessorInsertDTO dto, @MappingTarget Professor Professor);
 
     default Subject mapSubject(Long id) {
         if (id == null) return null;

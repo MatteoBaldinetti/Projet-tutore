@@ -2,7 +2,7 @@ package com.agora.pretetgo.dto.insert;
 
 import java.time.Instant;
 
-public record ClassroomDTO(
+public record ClassroomInsertDTO(
         String name,
         String description,
         Long managedById,

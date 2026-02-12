@@ -1,12 +1,15 @@
 package com.agora.pretetgo.services;
 
-import com.agora.pretetgo.dto.insert.SubjectDTO;
+import com.agora.pretetgo.dto.filter.SubjectFilterDTO;
+import com.agora.pretetgo.dto.insert.SubjectInsertDTO;
+import com.agora.pretetgo.dto.response.SubjectResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.SubjectMapper;
 import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.models.Subject;
 import com.agora.pretetgo.repositories.ProfessorRepository;
 import com.agora.pretetgo.repositories.SubjectRepository;
+import com.agora.pretetgo.specifications.SubjectSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,7 @@ public class SubjectService {
     private ProfessorRepository professorRepository;
 
     @Transactional
-    public Subject createSubject(SubjectDTO dto) {
+    public Subject createSubject(SubjectInsertDTO dto) {
         Subject subject = subjectMapper.toEntity(dto);
         fetchProfessors(dto.professorIds(), subject);
         return subjectRepository.save(subject);
@@ -45,7 +48,7 @@ public class SubjectService {
     }
 
     @Transactional
-    public Subject updateSubject(Long id, SubjectDTO dto) {
+    public Subject updateSubject(Long id, SubjectInsertDTO dto) {
         Subject current = getSubjectById(id);
         subjectMapper.updateSubjectFromDto(dto, current);
         fetchProfessors(dto.professorIds(), current);
@@ -58,7 +61,7 @@ public class SubjectService {
     }
 
     @Transactional
-    public Subject patchSubject(Long id, SubjectDTO dto) {
+    public Subject patchSubject(Long id, SubjectInsertDTO dto) {
         Subject current = getSubjectById(id);
         subjectMapper.patchSubjectFromDto(dto, current);
         fetchProfessors(dto.professorIds(), current);
@@ -79,4 +82,13 @@ public class SubjectService {
         subject.setProfessors(professors);
     }
 
+    @Transactional
+    public List<SubjectResponseDTO> searchSubjects(SubjectFilterDTO filterDTO) {
+        return subjectRepository.findAll(
+                        SubjectSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(subjectMapper::toResponseDTO)
+                .toList();
+    }
 }

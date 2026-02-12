@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ProfessorDTO;
+import com.agora.pretetgo.dto.filter.ProfessorFilterDTO;
 import com.agora.pretetgo.dto.response.ProfessorResponseDTO;
+import com.agora.pretetgo.dto.insert.ProfessorInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ProfessorMapper;
 import com.agora.pretetgo.models.Professor;
@@ -36,7 +37,7 @@ public class ProfessorController {
             @ApiResponse(responseCode = "400", description = "Failed to create professor", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ProfessorResponseDTO> createProfessor(@RequestBody ProfessorDTO dto) {
+    public ResponseEntity<ProfessorResponseDTO> createProfessor(@RequestBody ProfessorInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(professorMapper.toResponseDTO(professorService.createProfessor(dto)));
     }
@@ -68,7 +69,7 @@ public class ProfessorController {
             @ApiResponse(responseCode = "404", description = "Professor not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ProfessorResponseDTO> updateProfessor(@RequestBody ProfessorDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ProfessorResponseDTO> updateProfessor(@RequestBody ProfessorInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 professorMapper.toResponseDTO(professorService.updateProfessor(id, dto))
         );
@@ -91,9 +92,18 @@ public class ProfessorController {
             @ApiResponse(responseCode = "404", description = "Professor not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Professor> patchProfessor(@RequestBody ProfessorDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Professor> patchProfessor(@RequestBody ProfessorInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 professorService.patchProfessor(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search professors with filters")
+    @ApiResponse(responseCode = "200", description = "List of professors retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ProfessorResponseDTO>> searchProfessors(ProfessorFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                professorService.searchProfessors(filterDTO)
         );
     }
 }

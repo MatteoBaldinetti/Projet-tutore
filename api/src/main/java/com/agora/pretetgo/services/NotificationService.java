@@ -1,10 +1,13 @@
 package com.agora.pretetgo.services;
 
-import com.agora.pretetgo.dto.insert.NotificationDTO;
+import com.agora.pretetgo.dto.filter.NotificationFilterDTO;
+import com.agora.pretetgo.dto.insert.NotificationInsertDTO;
+import com.agora.pretetgo.dto.response.NotificationResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.NotificationMapper;
 import com.agora.pretetgo.models.Notification;
 import com.agora.pretetgo.repositories.NotificationRepository;
+import com.agora.pretetgo.specifications.NotificationSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +23,7 @@ public class NotificationService {
     private NotificationMapper notificationMapper;
 
     @Transactional
-    public Notification createNotification(NotificationDTO dto) {
+    public Notification createNotification(NotificationInsertDTO dto) {
         Notification notification = notificationMapper.toEntity(dto);
         return notificationRepository.save(notification);
     }
@@ -37,7 +40,7 @@ public class NotificationService {
     }
 
     @Transactional
-    public Notification updateNotification(Long id, NotificationDTO dto) {
+    public Notification updateNotification(Long id, NotificationInsertDTO dto) {
         Notification current = getNotificationById(id);
         notificationMapper.updateNotificationFromDto(dto, current);
         return notificationRepository.save(current);
@@ -49,9 +52,19 @@ public class NotificationService {
     }
 
     @Transactional
-    public Notification patchNotification(Long id, NotificationDTO dto) {
+    public Notification patchNotification(Long id, NotificationInsertDTO dto) {
         Notification current = getNotificationById(id);
         notificationMapper.patchNotificationFromDto(dto, current);
         return notificationRepository.save(current);
+    }
+
+    @Transactional
+    public List<NotificationResponseDTO> searchNotifications(NotificationFilterDTO filterDTO) {
+        return notificationRepository.findAll(
+                        NotificationSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(notificationMapper::toResponseDTO)
+                .toList();
     }
 }

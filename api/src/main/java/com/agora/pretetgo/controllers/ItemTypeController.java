@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ItemTypeDTO;
+import com.agora.pretetgo.dto.filter.ItemTypeFilterDTO;
 import com.agora.pretetgo.dto.response.ItemTypeResponseDTO;
+import com.agora.pretetgo.dto.insert.ItemTypeInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ItemTypeMapper;
 import com.agora.pretetgo.models.ItemType;
@@ -36,7 +37,7 @@ public class ItemTypeController {
             @ApiResponse(responseCode = "400", description = "Failed to create itemType", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ItemTypeResponseDTO> createItemType(@RequestBody ItemTypeDTO dto) {
+    public ResponseEntity<ItemTypeResponseDTO> createItemType(@RequestBody ItemTypeInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(itemTypeMapper.toResponseDTO(itemTypeService.createItemType(dto)));
     }
@@ -68,7 +69,7 @@ public class ItemTypeController {
             @ApiResponse(responseCode = "404", description = "ItemType not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ItemTypeResponseDTO> updateItemType(@RequestBody ItemTypeDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ItemTypeResponseDTO> updateItemType(@RequestBody ItemTypeInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 itemTypeMapper.toResponseDTO(itemTypeService.updateItemType(id, dto))
         );
@@ -91,9 +92,18 @@ public class ItemTypeController {
             @ApiResponse(responseCode = "404", description = "ItemType not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<ItemType> patchItemType(@RequestBody ItemTypeDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ItemType> patchItemType(@RequestBody ItemTypeInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 itemTypeService.patchItemType(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search itemTypes with filters")
+    @ApiResponse(responseCode = "200", description = "List of itemTypes retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ItemTypeResponseDTO>> searchItemTypes(ItemTypeFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                itemTypeService.searchItemTypes(filterDTO)
         );
     }
 }

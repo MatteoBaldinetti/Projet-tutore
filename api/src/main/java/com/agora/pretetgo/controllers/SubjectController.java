@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.SubjectDTO;
+import com.agora.pretetgo.dto.filter.SubjectFilterDTO;
 import com.agora.pretetgo.dto.response.SubjectResponseDTO;
+import com.agora.pretetgo.dto.insert.SubjectInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.SubjectMapper;
 import com.agora.pretetgo.models.Subject;
@@ -36,7 +37,7 @@ public class SubjectController {
             @ApiResponse(responseCode = "400", description = "Failed to create subject", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<SubjectResponseDTO> createSubject(@RequestBody SubjectDTO dto) {
+    public ResponseEntity<SubjectResponseDTO> createSubject(@RequestBody SubjectInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(subjectMapper.toResponseDTO(subjectService.createSubject(dto)));
     }
@@ -68,7 +69,7 @@ public class SubjectController {
             @ApiResponse(responseCode = "404", description = "Subject not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<SubjectResponseDTO> updateSubject(@RequestBody SubjectDTO dto, @PathVariable Long id) {
+    public ResponseEntity<SubjectResponseDTO> updateSubject(@RequestBody SubjectInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 subjectMapper.toResponseDTO(subjectService.updateSubject(id, dto))
         );
@@ -91,9 +92,18 @@ public class SubjectController {
             @ApiResponse(responseCode = "404", description = "Subject not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Subject> patchSubject(@RequestBody SubjectDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Subject> patchSubject(@RequestBody SubjectInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 subjectService.patchSubject(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search subjects with filters")
+    @ApiResponse(responseCode = "200", description = "List of subjects retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<SubjectResponseDTO>> searchSubjects(SubjectFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                subjectService.searchSubjects(filterDTO)
         );
     }
 }

@@ -1,5 +1,6 @@
 package com.agora.pretetgo.controllers;
 
+import com.agora.pretetgo.dto.filter.ResourceFilterDTO;
 import com.agora.pretetgo.dto.response.ResourceResponseDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ResourceMapper;
@@ -57,5 +58,14 @@ public class ResourceController {
     public ResponseEntity<Void> deleteResource(@PathVariable Long id) {
         resourceService.deleteResource(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Search resources with filters")
+    @ApiResponse(responseCode = "200", description = "List of resources retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ResourceResponseDTO>> searchResources(ResourceFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                resourceService.searchResources(filterDTO)
+        );
     }
 }

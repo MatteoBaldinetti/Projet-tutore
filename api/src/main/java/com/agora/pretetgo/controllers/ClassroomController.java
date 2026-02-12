@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ClassroomDTO;
+import com.agora.pretetgo.dto.filter.ClassroomFilterDTO;
 import com.agora.pretetgo.dto.response.ClassroomResponseDTO;
+import com.agora.pretetgo.dto.insert.ClassroomInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ClassroomMapper;
 import com.agora.pretetgo.models.Classroom;
@@ -36,7 +37,7 @@ public class ClassroomController {
             @ApiResponse(responseCode = "400", description = "Failed to create classroom", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ClassroomResponseDTO> createClassroom(@RequestBody ClassroomDTO dto) {
+    public ResponseEntity<ClassroomResponseDTO> createClassroom(@RequestBody ClassroomInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(classroomMapper.toResponseDTO(classroomService.createClassroom(dto)));
     }
@@ -68,7 +69,7 @@ public class ClassroomController {
             @ApiResponse(responseCode = "404", description = "Classroom not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ClassroomResponseDTO> updateClassroom(@RequestBody ClassroomDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ClassroomResponseDTO> updateClassroom(@RequestBody ClassroomInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 classroomMapper.toResponseDTO(classroomService.updateClassroom(id, dto))
         );
@@ -91,9 +92,18 @@ public class ClassroomController {
             @ApiResponse(responseCode = "404", description = "Classroom not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Classroom> patchClassroom(@RequestBody ClassroomDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Classroom> patchClassroom(@RequestBody ClassroomInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 classroomService.patchClassroom(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search classrooms with filters")
+    @ApiResponse(responseCode = "200", description = "List of classrooms retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ClassroomResponseDTO>> searchClassrooms(ClassroomFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                classroomService.searchClassrooms(filterDTO)
         );
     }
 }

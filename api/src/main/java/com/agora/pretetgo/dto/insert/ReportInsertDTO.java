@@ -4,7 +4,7 @@ import com.agora.pretetgo.enums.ReportStatus;
 
 import java.time.Instant;
 
-public record ReportDTO(
+public record ReportInsertDTO(
         String description,
         Long resourceId,
         Long reportedById,

@@ -2,9 +2,8 @@ package com.agora.pretetgo.dto.insert;
 
 import java.time.Instant;
 
-public record ItemTypeDTO(
+public record ReservationGroupInsertDTO(
         String name,
-        Long createdById,
         Instant createdAt
 ) {
 }

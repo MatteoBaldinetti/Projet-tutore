@@ -1,6 +1,6 @@
 package com.agora.pretetgo.mappers;
 
-import com.agora.pretetgo.dto.insert.ReportDTO;
+import com.agora.pretetgo.dto.insert.ReportInsertDTO;
 import com.agora.pretetgo.dto.response.ReportResponseDTO;
 import com.agora.pretetgo.models.Report;
 import com.agora.pretetgo.models.Resource;
@@ -21,7 +21,7 @@ public abstract class ReportMapper {
 
     @Mapping(target = "resource", source = "resourceId")
     @Mapping(target = "reportedBy", source = "reportedById")
-    public abstract Report toEntity(ReportDTO dto);
+    public abstract Report toEntity(ReportInsertDTO dto);
 
     @Mapping(target = "resourceId", source = "resource")
     @Mapping(target = "reportedById", source = "reportedBy")
@@ -29,12 +29,12 @@ public abstract class ReportMapper {
 
     @Mapping(target = "resource", source = "resourceId")
     @Mapping(target = "reportedBy", source = "reportedById")
-    public abstract void updateReportFromDto(ReportDTO dto, @MappingTarget Report Report);
+    public abstract void updateReportFromDto(ReportInsertDTO dto, @MappingTarget Report Report);
 
     @Mapping(target = "resource", source = "resourceId")
     @Mapping(target = "reportedBy", source = "reportedById")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public abstract void patchReportFromDto(ReportDTO dto, @MappingTarget Report Report);
+    public abstract void patchReportFromDto(ReportInsertDTO dto, @MappingTarget Report Report);
 
     protected Resource mapResource(Long id) {
         return id == null ? null : resourceService.getResourceById(id);

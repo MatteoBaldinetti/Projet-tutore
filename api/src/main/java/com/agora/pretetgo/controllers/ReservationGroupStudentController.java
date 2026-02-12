@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.ReservationGroupStudentDTO;
+import com.agora.pretetgo.dto.filter.ReservationGroupStudentFilterDTO;
 import com.agora.pretetgo.dto.response.ReservationGroupStudentResponseDTO;
+import com.agora.pretetgo.dto.insert.ReservationGroupStudentInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.ReservationGroupStudentMapper;
 import com.agora.pretetgo.models.ReservationGroupStudent;
@@ -36,7 +37,7 @@ public class ReservationGroupStudentController {
             @ApiResponse(responseCode = "400", description = "Failed to create reservationGroupStudent", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<ReservationGroupStudentResponseDTO> createReservationGroupStudent(@RequestBody ReservationGroupStudentDTO dto) {
+    public ResponseEntity<ReservationGroupStudentResponseDTO> createReservationGroupStudent(@RequestBody ReservationGroupStudentInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(reservationGroupStudentMapper.toResponseDTO(reservationGroupStudentService.createReservationGroupStudent(dto)));
     }
@@ -68,7 +69,7 @@ public class ReservationGroupStudentController {
             @ApiResponse(responseCode = "404", description = "ReservationGroupStudent not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationGroupStudentResponseDTO> updateReservationGroupStudent(@RequestBody ReservationGroupStudentDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReservationGroupStudentResponseDTO> updateReservationGroupStudent(@RequestBody ReservationGroupStudentInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reservationGroupStudentMapper.toResponseDTO(reservationGroupStudentService.updateReservationGroupStudent(id, dto))
         );
@@ -91,9 +92,18 @@ public class ReservationGroupStudentController {
             @ApiResponse(responseCode = "404", description = "ReservationGroupStudent not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<ReservationGroupStudent> patchReservationGroupStudent(@RequestBody ReservationGroupStudentDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ReservationGroupStudent> patchReservationGroupStudent(@RequestBody ReservationGroupStudentInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 reservationGroupStudentService.patchReservationGroupStudent(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search reservationGroupStudents with filters")
+    @ApiResponse(responseCode = "200", description = "List of reservationGroupStudents retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<ReservationGroupStudentResponseDTO>> searchReservationGroupStudents(ReservationGroupStudentFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                reservationGroupStudentService.searchReservationGroupStudents(filterDTO)
         );
     }
 }

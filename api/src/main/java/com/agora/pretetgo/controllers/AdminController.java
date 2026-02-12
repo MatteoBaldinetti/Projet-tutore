@@ -1,7 +1,8 @@
 package com.agora.pretetgo.controllers;
 
-import com.agora.pretetgo.dto.insert.AdminDTO;
+import com.agora.pretetgo.dto.filter.AdminFilterDTO;
 import com.agora.pretetgo.dto.response.AdminResponseDTO;
+import com.agora.pretetgo.dto.insert.AdminInsertDTO;
 import com.agora.pretetgo.exceptions.ApiError;
 import com.agora.pretetgo.mappers.AdminMapper;
 import com.agora.pretetgo.models.Admin;
@@ -36,7 +37,7 @@ public class AdminController {
             @ApiResponse(responseCode = "400", description = "Failed to create admin", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
-    public ResponseEntity<AdminResponseDTO> createAdmin(@RequestBody AdminDTO dto) {
+    public ResponseEntity<AdminResponseDTO> createAdmin(@RequestBody AdminInsertDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(adminMapper.toResponseDTO(adminService.createAdmin(dto)));
     }
@@ -68,7 +69,7 @@ public class AdminController {
             @ApiResponse(responseCode = "404", description = "Admin not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<AdminResponseDTO> updateAdmin(@RequestBody AdminDTO dto, @PathVariable Long id) {
+    public ResponseEntity<AdminResponseDTO> updateAdmin(@RequestBody AdminInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 adminMapper.toResponseDTO(adminService.updateAdmin(id, dto))
         );
@@ -91,9 +92,18 @@ public class AdminController {
             @ApiResponse(responseCode = "404", description = "Admin not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<Admin> patchAdmin(@RequestBody AdminDTO dto, @PathVariable Long id) {
+    public ResponseEntity<Admin> patchAdmin(@RequestBody AdminInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.ok(
                 adminService.patchAdmin(id, dto)
+        );
+    }
+
+    @Operation(summary = "Search admins with filters")
+    @ApiResponse(responseCode = "200", description = "List of admins retrieved successfully")
+    @GetMapping("/search")
+    public ResponseEntity<List<AdminResponseDTO>> searchAdmins(AdminFilterDTO filterDTO) {
+        return ResponseEntity.ok(
+                adminService.searchAdmins(filterDTO)
         );
     }
 }

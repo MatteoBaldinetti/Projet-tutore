@@ -6,6 +6,6 @@ public record FileMetaDataResponseDTO(
         Long id,
         String filename,
         Instant uploadedAt,
-        String uri
+        String url
 ) {
 }
