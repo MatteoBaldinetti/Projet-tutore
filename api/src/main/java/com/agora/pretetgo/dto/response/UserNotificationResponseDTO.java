@@ -6,7 +6,7 @@ public record UserNotificationResponseDTO(
         Long id,
         Long notificationId,
         Long userId,
-        Instant readAt,
-        Boolean isRead
+        Boolean isRead,
+        Instant readAt
 ) {
 }

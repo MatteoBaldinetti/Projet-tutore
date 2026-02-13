@@ -21,9 +21,8 @@ public class Student extends User {
     @OneToMany(mappedBy = "student")
     private List<ReservationGroupStudent> reservationGroupStudents = new ArrayList<>();
 
-    public Student(String firstName, String lastName, String email, String password, Instant createdAt, Boolean enabled, Integer studentNumber) {
-        super(firstName, lastName, email, password, createdAt, enabled);
+    public Student(String firstName, String lastName, String email, String password, Boolean enabled, Instant createdAt, Integer studentNumber) {
+        super(firstName, lastName, email, password, enabled, createdAt);
         this.studentNumber = studentNumber;
     }
-
 }

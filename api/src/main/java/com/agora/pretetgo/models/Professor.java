@@ -34,9 +34,8 @@ public class Professor extends User {
     @OneToMany(mappedBy = "createdBy")
     private List<ItemType> itemTypes = new ArrayList<>();
 
-    public Professor(String firstName, String lastName, String email, String password, Instant createdAt, Boolean enabled, Set<Subject> subjects) {
-        super(firstName, lastName, email, password, createdAt, enabled);
+    public Professor(String firstName, String lastName, String email, String password, Boolean enabled, Instant createdAt, Set<Subject> subjects) {
+        super(firstName, lastName, email, password, enabled, createdAt);
         this.subjects = subjects;
     }
-
 }

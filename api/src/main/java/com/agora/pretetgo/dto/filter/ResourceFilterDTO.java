@@ -10,6 +10,8 @@ public record ResourceFilterDTO(
         @Parameter(description = "Resource description") String description,
         @Parameter(description = "ID of the professor managing this resource") Long managedById,
         @Parameter(description = "Is the resource available?") Boolean available,
+        @Parameter(description = "ID of the image file") Long imageId,
+        @Parameter(description = "ID of the 3D model file") Long model3dId,
         @Parameter(description = "Exact creation timestamp") Instant createdAt,
         @Parameter(description = "Created after this timestamp") Instant createdFrom,
         @Parameter(description = "Created before this timestamp") Instant createdTo

@@ -29,15 +29,20 @@ public class Report {
     @Enumerated(EnumType.STRING)
     private ReportStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    private FileMetaData image;
+
     @CreationTimestamp
     private Instant createdAt;
 
-    public Report(String description, Resource resource, User reportedBy, ReportStatus status, Instant createdAt) {
+    public Report(Long id, String description, Resource resource, User reportedBy, ReportStatus status, FileMetaData image, Instant createdAt) {
+        this.id = id;
         this.description = description;
         this.resource = resource;
         this.reportedBy = reportedBy;
         this.status = status;
+        this.image = image;
         this.createdAt = createdAt;
     }
-
 }

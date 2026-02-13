@@ -18,9 +18,12 @@ public class ItemSpecification extends BaseSpecification {
             addLike(predicates, criteriaBuilder, root.get("description"), filter.description());
             addEqual(predicates, criteriaBuilder, root.get("managedBy").get("id"), filter.managedById());
             addEqual(predicates, criteriaBuilder, root.get("available"), filter.available());
-            addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
+            addEqual(predicates, criteriaBuilder, root.get("image").get("id"), filter.imageId());
+            addEqual(predicates, criteriaBuilder, root.get("model3d").get("id"), filter.model3dId());
             addEqual(predicates, criteriaBuilder, root.get("serialNumber"), filter.serialNumber());
-            addEqual(predicates, criteriaBuilder, root.get("type").get("id"), filter.typeId());
+            addEqual(predicates, criteriaBuilder, root.get("itemType").get("id"), filter.itemTypeId());
+            addEqual(predicates, criteriaBuilder, root.get("usagePdf").get("id"), filter.usagePdfId());
+            addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());
 
             return andAll(criteriaBuilder, predicates);

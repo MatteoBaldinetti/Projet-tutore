@@ -10,8 +10,8 @@ public record UserFilterDTO(
         @Parameter(description = "Last name") String lastName,
         @Parameter(description = "Email address") String email,
         @Parameter(description = "Password") String password,
-        @Parameter(description = "Exact creation timestamp") Instant createdAt,
         @Parameter(description = "Is the user enabled?") Boolean enabled,
+        @Parameter(description = "Exact creation timestamp") Instant createdAt,
         @Parameter(description = "Created after this timestamp") Instant createdFrom,
         @Parameter(description = "Created before this timestamp") Instant createdTo
 ) {}

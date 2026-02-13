@@ -18,8 +18,8 @@ public class AdminSpecification extends BaseSpecification {
             addLike(predicates, criteriaBuilder, root.get("lastName"), filter.lastName());
             addLike(predicates, criteriaBuilder, root.get("email"), filter.email());
             addLike(predicates, criteriaBuilder, root.get("password"), filter.password());
-            addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addEqual(predicates, criteriaBuilder, root.get("enabled"), filter.enabled());
+            addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());
 
             return andAll(criteriaBuilder, predicates);

@@ -14,7 +14,7 @@ import java.time.Instant;
 @Entity
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
-    public Admin(String firstName, String lastName, String email, String password, Instant createdAt, Boolean enabled) {
-        super(firstName, lastName, email, password, createdAt, enabled);
+    public Admin(String firstName, String lastName, String email, String password, Boolean enabled, Instant createdAt) {
+        super(firstName, lastName, email, password, enabled, createdAt);
     }
 }

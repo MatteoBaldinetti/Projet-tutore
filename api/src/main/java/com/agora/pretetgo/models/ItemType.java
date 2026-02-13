@@ -28,7 +28,7 @@ public class ItemType {
     private Instant createdAt;
 
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "type")
+    @OneToMany(mappedBy = "itemType")
     private List<Item> item = new ArrayList<>();
 
     public ItemType(String name, Professor createdBy, Instant createdAt) {

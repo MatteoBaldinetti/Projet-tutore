@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public record FileMetaDataInsertDTO(
         String filename,
-        Instant uploadedAt,
-        String url
+        String url,
+        Instant uploadedAt
 ) {
 }

@@ -8,7 +8,9 @@ public record ClassroomResponseDTO(
         String description,
         Long managedById,
         Boolean available,
-        Instant createdAt,
-        Integer roomNumber
+        Long imageId,
+        Long model3dId,
+        Integer roomNumber,
+        Instant createdAt
 ) implements ResourceResponseDTO {
 }

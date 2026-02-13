@@ -5,6 +5,7 @@ import java.time.Instant;
 public record NotificationResponseDTO(
         Long id,
         String message,
+        Long imageId,
         Instant createdAt
 ) {
 }

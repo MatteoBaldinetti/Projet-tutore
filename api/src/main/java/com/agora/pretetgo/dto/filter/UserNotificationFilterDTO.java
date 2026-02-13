@@ -8,6 +8,6 @@ public record UserNotificationFilterDTO(
         @Parameter(description = "ID") Long id,
         @Parameter(description = "Notification ID") Long notificationId,
         @Parameter(description = "User ID") Long userId,
-        @Parameter(description = "Read timestamp") Instant readAt,
-        @Parameter(description = "Is the notification read?") Boolean isRead
+        @Parameter(description = "Is the notification read?") Boolean isRead,
+        @Parameter(description = "Read timestamp") Instant readAt
 ) {}

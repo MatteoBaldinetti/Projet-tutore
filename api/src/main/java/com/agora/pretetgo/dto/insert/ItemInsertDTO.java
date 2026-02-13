@@ -7,8 +7,11 @@ public record ItemInsertDTO(
         String description,
         Long managedById,
         Boolean available,
-        Instant createdAt,
+        Long imageId,
+        Long model3dId,
         Integer serialNumber,
-        Long typeId
+        Long itemTypeId,
+        Long usagePdfId,
+        Instant createdAt
 ) {
 }
