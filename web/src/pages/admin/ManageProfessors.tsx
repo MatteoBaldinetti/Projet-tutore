@@ -332,13 +332,13 @@ export default function ManageProfessors() {
                             <div className="flex justify-end gap-4 mt-6">
                                 <button
                                     onClick={() => setProfessorsToDelete(null)}
-                                    className="px-4 py-2 rounded cancel-delete-professor-btn transition"
+                                    className="px-4 py-2 rounded cancel-delete-professor-btn transition cursor-pointer"
                                 >
                                     Annuler
                                 </button>
                                 <button
                                     onClick={() => professorToDelete && deleteProfessors(professorToDelete)}
-                                    className="px-4 py-2 bg-red-600 text-white rounded"
+                                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition cursor-pointer"
                                 >
                                     Supprimer
                                 </button>

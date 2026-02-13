@@ -251,13 +251,13 @@ export default function ManageStudents() {
                             <div className="flex justify-end gap-4 mt-6">
                                 <button
                                     onClick={() => setStudentToDelete(null)}
-                                    className="px-4 py-2 rounded cancel-delete-student-btn transition"
+                                    className="px-4 py-2 rounded cancel-delete-student-btn transition cursor-pointer"
                                 >
                                     Annuler
                                 </button>
                                 <button
                                     onClick={() => studentToDelete && deleteStudent(studentToDelete)}
-                                    className="px-4 py-2 bg-red-600 text-white rounded"
+                                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition cursor-pointer"
                                 >
                                     Supprimer
                                 </button>

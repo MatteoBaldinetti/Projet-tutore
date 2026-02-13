@@ -40,29 +40,31 @@ export default function ManageSubject() {
     }
 
     const handleEditSubjectButtonPress = (subject: Subject) => {
-        setEditingSubject(null);
+        setEditingSubject(subject);
         setName(subject.name);
         setDescription(subject.description);
+        setShowAddSubject(true);
     }
 
-    const addOrUpdateStudent = async () => {
+    const addOrUpdateSubject = async () => {
         try {
-            const studentPayload = {
+            const subjectPayload = {
                 name,
                 description
             };
 
             if (editingSubject) {
-                await axios.put(`${API_URL}/subjects/${editingSubject.id}`, studentPayload, {
+                await axios.put(`${API_URL}/subjects/${editingSubject.id}`, subjectPayload, {
                     headers: { "x-api-key": API_KEY, "Content-Type": "application/json" },
                 });
             } else {
-                await axios.post(`${API_URL}/subjects`, studentPayload, {
+                await axios.post(`${API_URL}/subjects`, subjectPayload, {
                     headers: { "x-api-key": API_KEY, "Content-Type": "application/json" },
                 });
             }
 
             await fetchSubjects();
+            setShowAddSubject(false);
             setName("");
             setDescription("");
         } catch (err) {
@@ -70,9 +72,9 @@ export default function ManageSubject() {
         }
     }
 
-    const deleteSubject = async (idStudent: number) => {
+    const deleteSubject = async (idSubject: number) => {
         try {
-            await axios.delete(`${API_URL}/students/${idStudent}`, {
+            await axios.delete(`${API_URL}/subjects/${idSubject}`, {
                 headers: { "x-api-key": API_KEY },
             });
             await fetchSubjects();
@@ -121,7 +123,7 @@ export default function ManageSubject() {
                             className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-64"
                         />
 
-                        <button onClick={handleAddSubjectButtonPress} className="add-student-btn text-white px-4 py-2 rounded transition cursor-pointer whitespace-nowrap">
+                        <button onClick={handleAddSubjectButtonPress} className="add-subject-btn text-white px-4 py-2 rounded transition cursor-pointer whitespace-nowrap">
                             + Ajouter une matière
                         </button>
                     </div>
@@ -132,7 +134,8 @@ export default function ManageSubject() {
                         <thead className="bg-gray-100">
                             <tr>
                                 <th className="border border-gray-300 px-4 py-2 text-left w-1/4">Nom</th>
-                                <th className="border border-gray-300 px-4 py-2 text-left w-1/4">Description</th>
+                                <th className="border border-gray-300 px-4 py-2 text-left w-2/4">Description</th>
+                                <th className="border border-gray-300 px-4 py-2 text-left w-1/4">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -173,7 +176,7 @@ export default function ManageSubject() {
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
                         <div className="bg-white p-6 rounded-xl w-250">
                             <h2 className="text-xl font-semibold mb-4">{editingSubject ? "Modifier l'étudiant" : "Ajouter un étudiant"}</h2>
-                            <form onSubmit={(e) => { e.preventDefault(); addOrUpdateStudent(); }}>
+                            <form onSubmit={(e) => { e.preventDefault(); addOrUpdateSubject(); }}>
                                 <div className="grid grid-cols-1 gap-4">
                                     <div className="flex flex-col">
                                         <label htmlFor="name" className="mb-1 font-medium">Nom</label>
@@ -197,8 +200,8 @@ export default function ManageSubject() {
                                     </div>
                                 </div>
                                 <div className="col-span-1 md:col-span-2 flex justify-end gap-2 mt-4">
-                                    <button type="button" onClick={() => { setShowAddSubject(false); setEditingSubject(null); }} className="px-4 py-2 cancel-send-student-btn rounded transition cursor-pointer">Annuler</button>
-                                    <button type="submit" className="px-4 py-2 send-student-btn text-white rounded transition cursor-pointer">Enregistrer</button>
+                                    <button type="button" onClick={() => { setShowAddSubject(false); setEditingSubject(null); }} className="px-4 py-2 cancel-send-subject-btn rounded transition cursor-pointer">Annuler</button>
+                                    <button type="submit" className="px-4 py-2 send-subject-btn text-white rounded transition cursor-pointer">Enregistrer</button>
                                 </div>
                             </form>
                         </div>
@@ -214,13 +217,13 @@ export default function ManageSubject() {
                             <div className="flex justify-end gap-4 mt-6">
                                 <button
                                     onClick={() => setSubjectToDelete(null)}
-                                    className="px-4 py-2 rounded cancel-delete-student-btn transition"
+                                    className="px-4 py-2 rounded cancel-delete-subject-btn transition cursor-pointer"
                                 >
                                     Annuler
                                 </button>
                                 <button
                                     onClick={() => subjectToDelete && deleteSubject(subjectToDelete)}
-                                    className="px-4 py-2 bg-red-600 text-white rounded"
+                                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition cursor-pointer"
                                 >
                                     Supprimer
                                 </button>
