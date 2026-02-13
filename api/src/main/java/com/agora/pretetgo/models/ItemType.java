@@ -1,10 +1,17 @@
 package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class ItemType {
     @Id
@@ -19,4 +26,15 @@ public class ItemType {
 
     @CreationTimestamp
     private Instant createdAt;
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "type")
+    private List<Item> item = new ArrayList<>();
+
+    public ItemType(String name, Professor createdBy, Instant createdAt) {
+        this.name = name;
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
+    }
+
 }

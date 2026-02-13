@@ -2,10 +2,14 @@ package com.agora.pretetgo.models;
 
 import com.agora.pretetgo.enums.ReservationStatus;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Reservation {
     @Id
@@ -31,4 +35,15 @@ public class Reservation {
 
     @CreationTimestamp
     private Instant createdAt;
+
+    public Reservation(Instant startDate, Instant endDate, ReservationGroup reservedBy, Resource resource, ReservationStatus status, Instant validationDate, Instant createdAt) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reservedBy = reservedBy;
+        this.resource = resource;
+        this.status = status;
+        this.validationDate = validationDate;
+        this.createdAt = createdAt;
+    }
+
 }

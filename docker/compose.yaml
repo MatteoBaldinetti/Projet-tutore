@@ -1,14 +1,17 @@
+name: pretetgo
+
 services:
   # web:
   #   build: ../web
-  #   container_name: web
+  #   image: pretetgo-web:latest
+  #   container_name: pretetgo-web
   #   ports:
   #     - "5173:80"
   #   restart: unless-stopped
 
   db:
     image: mysql:latest
-    container_name: db
+    container_name: pretetgo-db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: pretetgo
@@ -27,7 +30,7 @@ services:
 
   init-uploads:
     image: busybox
-    container_name: init-uploads
+    container_name: pretetgo-init-uploads
     volumes:
       - api_uploads:/app/uploads
       - ./uploads:/seed:ro
@@ -44,7 +47,8 @@ services:
 
   api:
     build: ../api
-    container_name: api
+    image: pretetgo-api:latest
+    container_name: pretetgo-api
     restart: always
     ports:
       - "8080:8080"

@@ -1,36 +1,47 @@
 package com.agora.pretetgo.models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "resource_type")
 public abstract class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
-    private String name;
+    protected String name;
 
-    private String description;
+    protected String description;
 
     @ManyToOne
     @JoinColumn(name = "managed_by_id")
-    private Professor managedBy;
+    protected Professor managedBy;
 
-    private Boolean available = true;
+    protected Boolean available = true;
 
     @CreationTimestamp
-    private Instant createdAt;
+    protected Instant createdAt;
 
-    public Resource() {}
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "resource")
+    protected List<Reservation> reservations = new ArrayList<>();
 
-    public Resource(Long id, String name, String description, Professor managedBy, Boolean available, Instant createdAt) {
-        this.id = id;
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "resource")
+    protected List<Report> reports = new ArrayList<>();
+
+    public Resource(String name, String description, Professor managedBy, Boolean available, Instant createdAt) {
         this.name = name;
         this.description = description;
         this.managedBy = managedBy;
@@ -38,51 +49,4 @@ public abstract class Resource {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Professor getManagedBy() {
-        return managedBy;
-    }
-
-    public void setManagedBy(Professor managedBy) {
-        this.managedBy = managedBy;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 }

@@ -1,0 +1,70 @@
+package com.agora.pretetgo.services;
+
+import com.agora.pretetgo.dto.filter.StudentFilterDTO;
+import com.agora.pretetgo.dto.insert.StudentInsertDTO;
+import com.agora.pretetgo.dto.response.StudentResponseDTO;
+import com.agora.pretetgo.exceptions.ResourceNotFoundException;
+import com.agora.pretetgo.mappers.StudentMapper;
+import com.agora.pretetgo.models.Student;
+import com.agora.pretetgo.repositories.StudentRepository;
+import com.agora.pretetgo.specifications.StudentSpecification;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class StudentService {
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private StudentMapper studentMapper;
+
+    @Transactional
+    public Student createStudent(StudentInsertDTO dto) {
+        Student student = studentMapper.toEntity(dto);
+        return studentRepository.save(student);
+    }
+
+    @Transactional
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student with ID " + id + " not found"));
+    }
+
+    @Transactional
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    @Transactional
+    public Student updateStudent(Long id, StudentInsertDTO dto) {
+        Student current = getStudentById(id);
+        studentMapper.updateStudentFromDto(dto, current);
+        return studentRepository.save(current);
+    }
+
+    @Transactional
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(getStudentById(id).getId());
+    }
+
+    @Transactional
+    public Student patchStudent(Long id, StudentInsertDTO dto) {
+        Student current = getStudentById(id);
+        studentMapper.patchStudentFromDto(dto, current);
+        return studentRepository.save(current);
+    }
+
+    @Transactional
+    public List<StudentResponseDTO> searchStudents(StudentFilterDTO filterDTO) {
+        return studentRepository.findAll(
+                        StudentSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(studentMapper::toResponseDTO)
+                .toList();
+    }
+}

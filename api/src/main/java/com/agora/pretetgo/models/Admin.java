@@ -2,8 +2,19 @@ package com.agora.pretetgo.models;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
 @Entity
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
+    public Admin(String firstName, String lastName, String email, String password, Instant createdAt, Boolean enabled) {
+        super(firstName, lastName, email, password, createdAt, enabled);
+    }
 }

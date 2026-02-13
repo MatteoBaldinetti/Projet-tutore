@@ -1,13 +1,17 @@
 package com.agora.pretetgo.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Notification {
     @Id
@@ -19,34 +23,13 @@ public class Notification {
     @CreationTimestamp
     private Instant createdAt;
 
-    public Notification() {}
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "notification")
+    private List<UserNotification> userNotifications = new ArrayList<>();
 
     public Notification(String message, Instant createdAt) {
         this.message = message;
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 }
