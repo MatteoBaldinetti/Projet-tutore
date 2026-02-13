@@ -1,8 +1,11 @@
 import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import "../styles/Login.css";
 
 export default function Login() {
+    const { login } = useAuth();
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -47,7 +50,7 @@ export default function Login() {
     };
 
     // Gestion soumission formulaire
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // showRequired = true pour afficher les erreurs si champs vides
@@ -60,7 +63,11 @@ export default function Login() {
         }
 
         setFormError("");
-        alert("Connexion réussie !");
+        try {
+            await login(email, password);
+        } catch (err: any) {
+            setFormError(err.message || "Email ou mot de passe incorrect");
+        }
     };
 
     // Gestion changement email

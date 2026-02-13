@@ -1,0 +1,37 @@
+.add-student-btn {
+    background-color: var(--dark-cyan);
+}
+
+.add-student-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.send-student-btn {
+    background-color: var(--dark-cyan);
+}
+
+.send-student-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.cancel-send-student-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-send-student-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+
+.cancel-delete-student-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-delete-student-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

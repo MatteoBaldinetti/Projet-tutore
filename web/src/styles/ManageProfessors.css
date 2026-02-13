@@ -1,0 +1,37 @@
+.add-professor-btn {
+    background-color: var(--dark-cyan);
+}
+
+.add-professor-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.send-professor-btn {
+    background-color: var(--dark-cyan);
+}
+
+.send-professor-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.cancel-send-professor-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-send-professor-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+
+.cancel-delete-professor-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-delete-professor-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

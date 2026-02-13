@@ -1,23 +1,31 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import ForgetPassword from "./pages/ForgetPassword";
 import ConfirmResetPassword from "./pages/ConfirmResetPassword";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
-import Test from "./pages/Test.tsx";
+import ManageStudents from "./pages/admin/ManageStudents.tsx";
+import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
+import ManageSubject from "./pages/admin/ManageSubject.tsx";
+
 function App() {
   return (
     <>
       <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/confirm-reset-password" element={<ConfirmResetPassword />} />
-          <Route path="/test" element={<Test />} />
+        <AuthProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/confirm-reset-password" element={<ConfirmResetPassword />} />
 
-        </Routes>
-        <Footer />
+            <Route path="/admin/manage-students" element={<ManageStudents />} />
+            <Route path="/admin/manage-professors" element={<ManageProfessors />} />
+            <Route path="/admin/manage-subject" element={<ManageSubject />} />
+          </Routes>
+          <Footer />
+        </AuthProvider>
       </Router>
     </>
   );
