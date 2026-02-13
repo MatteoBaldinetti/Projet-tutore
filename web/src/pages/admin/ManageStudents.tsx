@@ -176,7 +176,7 @@ export default function ManageStudents() {
 
                             {filteredStudents.length === 0 && (
                                 <tr>
-                                    <td colSpan={4} className="text-center py-6 text-gray-500">
+                                    <td colSpan={4} className="text-center py-6 text-gray-500 italic">
                                         Aucun étudiant trouvé
                                     </td>
                                 </tr>

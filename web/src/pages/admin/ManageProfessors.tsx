@@ -274,7 +274,7 @@ export default function ManageProfessors() {
                                         <div className="border border-gray-300 rounded p-2 max-h-32 overflow-y-auto">
                                             {allSubjects.length === 0 ? (
                                                 <p className="text-sm text-gray-500 italic">
-                                                    Aucune matière dans la base de données
+                                                    Aucun professeur trouvé
                                                 </p>
                                             ) : (
                                                 allSubjects

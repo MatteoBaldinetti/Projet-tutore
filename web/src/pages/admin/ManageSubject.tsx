@@ -162,8 +162,8 @@ export default function ManageSubject() {
 
                             {filteredSubjects.length === 0 && (
                                 <tr>
-                                    <td colSpan={4} className="text-center py-6 text-gray-500">
-                                        Aucune matière trouvé
+                                    <td colSpan={4} className="text-center py-6 text-gray-500 italic">
+                                        Aucune matière trouvée
                                     </td>
                                 </tr>
                             )}
