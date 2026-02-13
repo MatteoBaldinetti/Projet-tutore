@@ -11,6 +11,7 @@ public record ClassroomResponseDTO(
         Long imageId,
         Long model3dId,
         Integer roomNumber,
+        Long classroomTypeId,
         Instant createdAt
 ) implements ResourceResponseDTO {
 }

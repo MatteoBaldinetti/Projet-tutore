@@ -80,9 +80,9 @@ public class ItemService {
     }
 
     private void setTypeId(ItemInsertDTO dto, Item current) {
-        if (dto.typeId() != null) {
-            ItemType itemType = itemTypeService.getItemTypeById(dto.typeId());
-            current.setType(itemType);
+        if (dto.itemTypeId() != null) {
+            ItemType itemType = itemTypeService.getItemTypeById(dto.itemTypeId());
+            current.setItemType(itemType);
         }
     }
 
