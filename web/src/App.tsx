@@ -7,6 +7,7 @@ import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
+import ManageSubject from "./pages/admin/ManageSubject.tsx";
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/confirm-reset-password" element={<ConfirmResetPassword />} />
-            
+
             <Route path="/admin/manage-students" element={<ManageStudents />} />
             <Route path="/admin/manage-professors" element={<ManageProfessors />} />
+            <Route path="/admin/manage-subject" element={<ManageSubject />} />
           </Routes>
           <Footer />
         </AuthProvider>
