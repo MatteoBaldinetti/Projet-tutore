@@ -21,5 +21,7 @@ public sealed interface ResourceResponseDTO permits ClassroomResponseDTO, ItemRe
     String description();
     Long managedById();
     Boolean available();
+    Long imageId();
+    Long model3dId();
     Instant createdAt();
 }

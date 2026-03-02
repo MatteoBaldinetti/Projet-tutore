@@ -16,6 +16,7 @@ public class NotificationSpecification extends BaseSpecification {
             addEqual(predicates, criteriaBuilder, root.get("id"), filter.id());
             addLike(predicates, criteriaBuilder, root.get("message"), filter.message());
             addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
+            addEqual(predicates, criteriaBuilder, root.get("image").get("id"), filter.imageId());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());
 
             return andAll(criteriaBuilder, predicates);

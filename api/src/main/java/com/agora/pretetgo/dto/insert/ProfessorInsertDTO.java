@@ -8,8 +8,8 @@ public record ProfessorInsertDTO(
         String lastName,
         String email,
         String password,
-        Instant createdAt,
         Boolean enabled,
-        Set<Long> subjectIds
+        Set<Long> subjectIds,
+        Instant createdAt
 ) {
 }

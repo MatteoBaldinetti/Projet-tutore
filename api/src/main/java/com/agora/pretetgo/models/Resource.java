@@ -30,6 +30,14 @@ public abstract class Resource {
 
     protected Boolean available = true;
 
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    protected FileMetaData image;
+
+    @ManyToOne
+    @JoinColumn(name = "model_3d_id")
+    protected FileMetaData model3d;
+
     @CreationTimestamp
     protected Instant createdAt;
 
@@ -41,12 +49,13 @@ public abstract class Resource {
     @OneToMany(mappedBy = "resource")
     protected List<Report> reports = new ArrayList<>();
 
-    public Resource(String name, String description, Professor managedBy, Boolean available, Instant createdAt) {
+    protected Resource(String name, String description, Professor managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt) {
         this.name = name;
         this.description = description;
         this.managedBy = managedBy;
         this.available = available;
+        this.image = image;
+        this.model3d = model3d;
         this.createdAt = createdAt;
     }
-
 }

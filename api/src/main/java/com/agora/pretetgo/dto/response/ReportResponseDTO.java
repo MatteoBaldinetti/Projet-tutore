@@ -10,6 +10,7 @@ public record ReportResponseDTO(
         Long resourceId,
         Long reportedById,
         ReportStatus status,
+        Long imageId,
         Instant createdAt
 ) {
 }

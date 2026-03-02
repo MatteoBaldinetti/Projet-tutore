@@ -20,6 +20,10 @@ public class Notification {
 
     private String message;
 
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    private FileMetaData image;
+
     @CreationTimestamp
     private Instant createdAt;
 
@@ -27,9 +31,9 @@ public class Notification {
     @OneToMany(mappedBy = "notification")
     private List<UserNotification> userNotifications = new ArrayList<>();
 
-    public Notification(String message, Instant createdAt) {
+    public Notification(String message, FileMetaData image, Instant createdAt) {
         this.message = message;
+        this.image = image;
         this.createdAt = createdAt;
     }
-
 }

@@ -21,6 +21,6 @@ public sealed interface UserResponseDTO permits AdminResponseDTO, StudentRespons
     String lastName();
     String email();
     String password();
-    Instant createdAt();
     Boolean enabled();
+    Instant createdAt();
 }

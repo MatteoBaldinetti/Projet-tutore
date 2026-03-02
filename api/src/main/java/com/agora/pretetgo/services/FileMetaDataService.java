@@ -53,8 +53,8 @@ public class FileMetaDataService {
 
             FileMetaData fileMetaData = new FileMetaData(
                     fileName,
-                    Instant.now(),
-                    "/api/fileMetaData/download/" + fileName
+                    "/api/fileMetaData/download/" + fileName,
+                    Instant.now()
             );
 
             return fileMetaDataRepository.save(fileMetaData);

@@ -1,26 +1,6 @@
-type SidebarProps = {
-    open: boolean;
-    onClose: () => void;
-};
-
-function Sidebar({ open, onClose }: SidebarProps) {
+function Sidebar() {
     return (
-        <aside
-            className={`
-                fixed top-0 left-0
-                h-screen w-64
-                bg-white text-black shadow-md
-                transform transition-transform duration-300 ease-in-out
-                ${open ? "translate-x-0" : "-translate-x-full"}
-            `}
-        >
-            {/* HEADER */}
-            <div className="p-4 font-bold text-lg flex justify-between items-center border-b">
-                Menu
-                <button onClick={onClose}>✕</button>
-            </div>
-
-            {/* NAV */}
+        <aside className="h-screen bg-[#39393A] text-[#CBD5E1]">
             <nav className="p-4 space-y-3">
                 <a href="#" className="block hover:text-gray-500">
                     Dashboard
@@ -34,6 +14,6 @@ function Sidebar({ open, onClose }: SidebarProps) {
             </nav>
         </aside>
     );
-}
+} 
 
 export default Sidebar;

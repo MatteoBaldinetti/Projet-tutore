@@ -10,8 +10,11 @@ public record ClassroomFilterDTO(
         @Parameter(description = "Classroom description") String description,
         @Parameter(description = "ID of the professor managing this classroom") Long managedById,
         @Parameter(description = "Is the classroom available?") Boolean available,
-        @Parameter(description = "Exact creation timestamp") Instant createdAt,
+        @Parameter(description = "ID of the image file") Long imageId,
+        @Parameter(description = "ID of the 3D model file") Long model3dId,
         @Parameter(description = "Room number") Integer roomNumber,
+        @Parameter(description = "ID of the classroom type") Long classroomTypeId,
+        @Parameter(description = "Exact creation timestamp") Instant createdAt,
         @Parameter(description = "Created after this timestamp") Instant createdFrom,
         @Parameter(description = "Created before this timestamp") Instant createdTo
 ) {}

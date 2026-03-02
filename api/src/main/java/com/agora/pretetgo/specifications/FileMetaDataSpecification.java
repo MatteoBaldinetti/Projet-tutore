@@ -15,8 +15,8 @@ public class FileMetaDataSpecification extends BaseSpecification {
 
             addEqual(predicates, criteriaBuilder, root.get("id"), filter.id());
             addLike(predicates, criteriaBuilder, root.get("filename"), filter.filename());
-            addEqual(predicates, criteriaBuilder, root.get("uploadedAt"), filter.uploadedAt());
             addLike(predicates, criteriaBuilder, root.get("url"), filter.url());
+            addEqual(predicates, criteriaBuilder, root.get("uploadedAt"), filter.uploadedAt());
             addBetween(predicates, criteriaBuilder, root.get("uploadedAt"), filter.createdFrom(), filter.createdTo());
 
             return andAll(criteriaBuilder, predicates);

@@ -7,8 +7,8 @@ public record StudentInsertDTO(
         String lastName,
         String email,
         String password,
-        Instant createdAt,
         Boolean enabled,
-        Integer studentNumber
+        Integer studentNumber,
+        Instant createdAt
 ) {
 }

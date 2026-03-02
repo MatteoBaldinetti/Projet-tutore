@@ -1,0 +1,37 @@
+.add-subject-btn {
+    background-color: var(--dark-cyan);
+}
+
+.add-subject-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.send-subject-btn {
+    background-color: var(--dark-cyan);
+}
+
+.send-subject-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.cancel-send-subject-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-send-subject-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+
+.cancel-delete-subject-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-delete-subject-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

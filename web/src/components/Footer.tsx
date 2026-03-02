@@ -2,7 +2,7 @@ import "../styles/Footer.css";
 
 function Footer() {
   return (
-    <div className="footer bg-gray-800 p-5">
+    <div className="footer bg-[#39393A] p-5">
       <div className="container mx-auto grid grid-rows-3 gap-3 place-items-center">
         <div className="follow">
           <h3 className="text-xl">Suivez-nous</h3>

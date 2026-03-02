@@ -1,14 +1,14 @@
 package com.agora.pretetgo.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,15 +20,30 @@ public class FileMetaData {
 
     private String filename;
 
+    private String url;
+
     @CreationTimestamp
     private Instant uploadedAt;
 
-    private String url;
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "image")
+    private List<Notification> notifications = new ArrayList<>();
 
-    public FileMetaData(String filename, Instant uploadedAt, String url) {
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "image")
+    private List<Report> reports = new ArrayList<>();
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "image")
+    private List<Resource> resourcesImage = new ArrayList<>();
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "model3d")
+    private List<Resource> resourcesModel3D = new ArrayList<>();
+
+    public FileMetaData(String filename, String url, Instant uploadedAt) {
         this.filename = filename;
-        this.uploadedAt = uploadedAt;
         this.url = url;
+        this.uploadedAt = uploadedAt;
     }
-
 }

@@ -29,10 +29,10 @@ public abstract class User {
 
     protected String password;
 
+    protected Boolean enabled = true;
+
     @CreationTimestamp
     protected Instant createdAt;
-
-    protected Boolean enabled = true;
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user")
@@ -42,13 +42,12 @@ public abstract class User {
     @OneToMany(mappedBy = "reportedBy")
     protected List<Report> reports = new ArrayList<>();
 
-    public User(String firstName, String lastName, String email, String password, Instant createdAt, Boolean enabled) {
+    public User(String firstName, String lastName, String email, String password, Boolean enabled, Instant createdAt) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
         this.enabled = enabled;
+        this.createdAt = createdAt;
     }
-
 }

@@ -19,13 +19,17 @@ public class Item extends Resource {
     private Integer serialNumber;
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
-    private ItemType type;
+    @JoinColumn(name = "item_type_id")
+    private ItemType itemType;
 
-    public Item(String name, String description, Professor managedBy, Boolean available, Instant createdAt, Integer serialNumber, ItemType type) {
-        super(name, description, managedBy, available, createdAt);
+    @ManyToOne
+    @JoinColumn(name = "usage_pdf_id")
+    private FileMetaData usagePdf;
+
+    public Item(String name, String description, Professor managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt, Integer serialNumber, ItemType itemType, FileMetaData usagePdf) {
+        super(name, description, managedBy, available, image, model3d, createdAt);
         this.serialNumber = serialNumber;
-        this.type = type;
+        this.itemType = itemType;
+        this.usagePdf = usagePdf;
     }
-
 }

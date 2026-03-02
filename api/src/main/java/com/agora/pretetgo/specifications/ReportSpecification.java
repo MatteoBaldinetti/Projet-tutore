@@ -18,6 +18,7 @@ public class ReportSpecification extends BaseSpecification {
             addEqual(predicates, criteriaBuilder, root.get("resource").get("id"), filter.resourceId());
             addEqual(predicates, criteriaBuilder, root.get("reportedBy").get("id"), filter.reportedById());
             addEqual(predicates, criteriaBuilder, root.get("status"), filter.status());
+            addEqual(predicates, criteriaBuilder, root.get("image").get("id"), filter.imageId());
             addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());
 

@@ -7,7 +7,7 @@ public record AdminInsertDTO(
         String lastName,
         String email,
         String password,
-        Instant createdAt,
-        Boolean enabled
+        Boolean enabled,
+        Instant createdAt
 ) {
 }
