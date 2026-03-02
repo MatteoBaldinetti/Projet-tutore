@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import type { Student } from "../../types/types";
-import deleteIcon from "../../assets/images/trash.svg"
 import "../../styles/ManageStudents.css";
 
 export default function ManageStudents() {
