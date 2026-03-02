@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,9 +25,9 @@ public abstract class Resource {
 
     protected String description;
 
-    @ManyToOne
-    @JoinColumn(name = "managed_by_id")
-    protected Professor managedBy;
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "resources")
+    protected Set<Professor> managedBy;
 
     protected Boolean available = true;
 
@@ -49,7 +50,7 @@ public abstract class Resource {
     @OneToMany(mappedBy = "resource")
     protected List<Report> reports = new ArrayList<>();
 
-    protected Resource(String name, String description, Professor managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt) {
+    public Resource(String name, String description, Set<Professor> managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt) {
         this.name = name;
         this.description = description;
         this.managedBy = managedBy;

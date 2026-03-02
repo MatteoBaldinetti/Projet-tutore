@@ -7,28 +7,29 @@ import com.agora.pretetgo.models.ClassroomType;
 import com.agora.pretetgo.models.FileMetaData;
 import com.agora.pretetgo.models.Professor;
 import org.mapstruct.*;
+
 @Mapper(componentModel = "spring")
 public interface ClassroomMapper {
-    @Mapping(target = "managedBy", source = "managedById")
+    @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "image", source = "imageId")
     @Mapping(target = "model3d", source = "model3dId")
     @Mapping(target = "classroomType", source = "classroomTypeId")
     Classroom toEntity(ClassroomInsertDTO dto);
 
-    @Mapping(target = "managedById", source = "managedBy")
+    @Mapping(target = "managedByIds", source = "managedBy")
     @Mapping(target = "imageId", source = "image")
     @Mapping(target = "model3dId", source = "model3d")
     @Mapping(target = "classroomTypeId", source = "classroomType")
     ClassroomResponseDTO toResponseDTO(Classroom classroom);
 
-    @Mapping(target = "managedBy", source = "managedById")
+    @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "image", source = "imageId")
     @Mapping(target = "model3d", source = "model3dId")
     @Mapping(target = "classroomType", source = "classroomTypeId")
     void updateClassroomFromDto(ClassroomInsertDTO dto, @MappingTarget Classroom classroom);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "managedBy", source = "managedById")
+    @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "image", source = "imageId")
     @Mapping(target = "model3d", source = "model3dId")
     @Mapping(target = "classroomType", source = "classroomTypeId")

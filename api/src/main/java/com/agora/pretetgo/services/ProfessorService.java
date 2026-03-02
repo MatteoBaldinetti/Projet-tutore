@@ -6,8 +6,10 @@ import com.agora.pretetgo.dto.response.ProfessorResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.ProfessorMapper;
 import com.agora.pretetgo.models.Professor;
+import com.agora.pretetgo.models.Resource;
 import com.agora.pretetgo.models.Subject;
 import com.agora.pretetgo.repositories.ProfessorRepository;
+import com.agora.pretetgo.repositories.ResourceRepository;
 import com.agora.pretetgo.repositories.SubjectRepository;
 import com.agora.pretetgo.specifications.ProfessorSpecification;
 import jakarta.transaction.Transactional;
@@ -29,17 +31,21 @@ public class ProfessorService {
     @Autowired
     private SubjectRepository subjectRepository;
 
+    @Autowired
+    private ResourceRepository resourceRepository;
+
     @Transactional
     public Professor createProfessor(ProfessorInsertDTO dto) {
         Professor professor = professorMapper.toEntity(dto);
         fetchSubjects(dto.subjectIds(), professor);
+        fetchResources(dto.resourceIds(), professor);
         return professorRepository.save(professor);
     }
 
     @Transactional
     public Professor getProfessorById(Long id) {
         return professorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("ProfessorMapper with ID " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Professor with ID " + id + " not found"));
     }
 
     @Transactional
@@ -52,6 +58,7 @@ public class ProfessorService {
         Professor current = getProfessorById(id);
         professorMapper.updateProfessorFromDto(dto, current);
         fetchSubjects(dto.subjectIds(), current);
+        fetchResources(dto.resourceIds(), current);
         return professorRepository.save(current);
     }
 
@@ -65,6 +72,7 @@ public class ProfessorService {
         Professor current = getProfessorById(id);
         professorMapper.patchProfessorFromDto(dto, current);
         fetchSubjects(dto.subjectIds(), current);
+        fetchResources(dto.resourceIds(), current);
         return professorRepository.save(current);
     }
 
@@ -74,12 +82,26 @@ public class ProfessorService {
         Set<Subject> subjects = subjectIds.stream()
                 .map(id -> subjectRepository.findById(id)
                         .orElseThrow(
-                                () -> new ResourceNotFoundException("SubjectMapper with ID " + id + " not found")
+                                () -> new ResourceNotFoundException("Subject with ID " + id + " not found")
                         )
                 )
                 .collect(Collectors.toSet());
 
         professor.setSubjects(subjects);
+    }
+
+    private void fetchResources(Set<Long> resourceIds, Professor professor) {
+        if (resourceIds == null) return;
+
+        Set<Resource> resources = resourceIds.stream()
+                .map(id -> resourceRepository.findById(id)
+                    .orElseThrow(
+                            () -> new ResourceNotFoundException("Resource with ID " + id + " not found")
+                    )
+                )
+                .collect(Collectors.toSet());
+
+        professor.setResources(resources);
     }
 
     @Transactional

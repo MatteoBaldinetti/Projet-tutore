@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -22,8 +23,9 @@ public class Classroom extends Resource {
     @JoinColumn(name = "classroom_type_id")
     private ClassroomType classroomType;
 
-    public Classroom(String name, String description, Professor managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt, Integer roomNumber) {
+    public Classroom(String name, String description, Set<Professor> managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt, Integer roomNumber, ClassroomType classroomType) {
         super(name, description, managedBy, available, image, model3d, createdAt);
         this.roomNumber = roomNumber;
+        this.classroomType = classroomType;
     }
 }

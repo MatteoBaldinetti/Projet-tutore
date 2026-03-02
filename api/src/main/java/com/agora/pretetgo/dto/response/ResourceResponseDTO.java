@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.time.Instant;
+import java.util.Set;
 
 
 @JsonTypeInfo(
@@ -19,7 +20,7 @@ public sealed interface ResourceResponseDTO permits ClassroomResponseDTO, ItemRe
     Long id();
     String name();
     String description();
-    Long managedById();
+    Set<Long> managedByIds();
     Boolean available();
     Long imageId();
     Long model3dId();

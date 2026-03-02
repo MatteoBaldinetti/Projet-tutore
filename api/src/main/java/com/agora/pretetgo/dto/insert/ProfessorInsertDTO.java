@@ -10,6 +10,7 @@ public record ProfessorInsertDTO(
         String password,
         Boolean enabled,
         Set<Long> subjectIds,
+        Set<Long> resourceIds,
         Instant createdAt
 ) {
 }

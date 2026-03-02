@@ -3,12 +3,13 @@ package com.agora.pretetgo.dto.filter;
 import io.swagger.v3.oas.annotations.Parameter;
 
 import java.time.Instant;
+import java.util.Set;
 
 public record ItemFilterDTO(
         @Parameter(description = "Item ID") Long id,
         @Parameter(description = "Item name") String name,
         @Parameter(description = "Item description") String description,
-        @Parameter(description = "ID of the professor managing this item") Long managedById,
+        @Parameter(description = "IDs of the professors managing this item") Set<Long> managedByIds,
         @Parameter(description = "Is the item available?") Boolean available,
         @Parameter(description = "ID of the image file") Long imageId,
         @Parameter(description = "ID of the 3D model file") Long model3dId,

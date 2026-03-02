@@ -27,8 +27,13 @@ public class Professor extends User {
     private Set<Subject> subjects = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "managedBy")
-    private List<Resource> resources = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "professor_resources",
+            joinColumns = @JoinColumn(name = "professor_id"),
+            inverseJoinColumns = @JoinColumn(name = "resource_id")
+    )
+    private Set<Resource> resources = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "createdBy")
@@ -38,8 +43,9 @@ public class Professor extends User {
     @OneToMany(mappedBy = "createdBy")
     private List<ClassroomType> classroomTypes = new ArrayList<>();
 
-    public Professor(String firstName, String lastName, String email, String password, Boolean enabled, Instant createdAt, Set<Subject> subjects) {
+    public Professor(String firstName, String lastName, String email, String password, Boolean enabled, Instant createdAt, Set<Subject> subjects, Set<Resource> resources) {
         super(firstName, lastName, email, password, enabled, createdAt);
         this.subjects = subjects;
+        this.resources = resources;
     }
 }

@@ -8,12 +8,15 @@ import com.agora.pretetgo.mappers.ClassroomMapper;
 import com.agora.pretetgo.models.Classroom;
 import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.repositories.ClassroomRepository;
+import com.agora.pretetgo.repositories.ProfessorRepository;
 import com.agora.pretetgo.specifications.ClassroomSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ClassroomService {
@@ -24,12 +27,12 @@ public class ClassroomService {
     private ClassroomMapper classroomMapper;
 
     @Autowired
-    private ProfessorService professorService;
+    private ProfessorRepository professorRepository;
 
     @Transactional
     public Classroom createClassroom(ClassroomInsertDTO dto) {
         Classroom classroom = classroomMapper.toEntity(dto);
-        setManagedBy(dto, classroom);
+        fetchManagedBy(dto.managedByIds(), classroom);
         return classroomRepository.save(classroom);
     }
 
@@ -48,7 +51,7 @@ public class ClassroomService {
     public Classroom updateClassroom(Long id, ClassroomInsertDTO dto) {
         Classroom current = getClassroomById(id);
         classroomMapper.updateClassroomFromDto(dto, current);
-        setManagedBy(dto, current);
+        fetchManagedBy(dto.managedByIds(), current);
         return classroomRepository.save(current);
     }
 
@@ -61,15 +64,22 @@ public class ClassroomService {
     public Classroom patchClassroom(Long id, ClassroomInsertDTO dto) {
         Classroom current = getClassroomById(id);
         classroomMapper.patchClassroomFromDto(dto, current);
-        setManagedBy(dto, current);
+        fetchManagedBy(dto.managedByIds(), current);
         return classroomRepository.save(current);
     }
 
-    private void setManagedBy(ClassroomInsertDTO dto, Classroom current) {
-        if (dto.managedById() != null) {
-            Professor professor = professorService.getProfessorById(dto.managedById());
-            current.setManagedBy(professor);
-        }
+    private void fetchManagedBy(Set<Long> professorIds, Classroom classroom) {
+        if (professorIds == null) return;
+
+        Set<Professor> professors = professorIds.stream()
+                .map(id -> professorRepository.findById(id)
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException("Professor with ID " + id + " not found")
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        classroom.setManagedBy(professors);
     }
 
     @Transactional

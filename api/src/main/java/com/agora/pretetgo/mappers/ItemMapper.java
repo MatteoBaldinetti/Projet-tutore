@@ -10,21 +10,21 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
-    @Mapping(target = "managedBy", source = "managedById")
+    @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "itemType", source = "itemTypeId")
     @Mapping(target = "image", source = "imageId")
     @Mapping(target = "model3d", source = "model3dId")
     @Mapping(target = "usagePdf", source = "usagePdfId")
     Item toEntity(ItemInsertDTO dto);
 
-    @Mapping(target = "managedById", source = "managedBy")
+    @Mapping(target = "managedByIds", source = "managedBy")
     @Mapping(target = "itemTypeId", source = "itemType")
     @Mapping(target = "imageId", source = "image")
     @Mapping(target = "model3dId", source = "model3d")
     @Mapping(target = "usagePdfId", source = "usagePdf")
     ItemResponseDTO toResponseDTO(Item item);
 
-    @Mapping(target = "managedBy", source = "managedById")
+    @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "itemType", source = "itemTypeId")
     @Mapping(target = "image", source = "imageId")
     @Mapping(target = "model3d", source = "model3dId")
@@ -32,7 +32,7 @@ public interface ItemMapper {
     void updateItemFromDto(ItemInsertDTO dto, @MappingTarget Item Item);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "managedBy", source = "managedById")
+    @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "itemType", source = "itemTypeId")
     @Mapping(target = "image", source = "imageId")
     @Mapping(target = "model3d", source = "model3dId")

@@ -9,12 +9,15 @@ import com.agora.pretetgo.models.Item;
 import com.agora.pretetgo.models.ItemType;
 import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.repositories.ItemRepository;
+import com.agora.pretetgo.repositories.ProfessorRepository;
 import com.agora.pretetgo.specifications.ItemSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
@@ -25,7 +28,7 @@ public class ItemService {
     private ItemMapper itemMapper;
 
     @Autowired
-    private ProfessorService professorService;
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private ItemTypeService itemTypeService;
@@ -33,7 +36,7 @@ public class ItemService {
     @Transactional
     public Item createItem(ItemInsertDTO dto) {
         Item item = itemMapper.toEntity(dto);
-        setManagedBy(dto, item);
+        fetchManagedBy(dto.managedByIds(), item);
         setTypeId(dto, item);
         return itemRepository.save(item);
     }
@@ -53,7 +56,7 @@ public class ItemService {
     public Item updateItem(Long id, ItemInsertDTO dto) {
         Item current = getItemById(id);
         itemMapper.updateItemFromDto(dto, current);
-        setManagedBy(dto, current);
+        fetchManagedBy(dto.managedByIds(), current);
         setTypeId(dto, current);
         return itemRepository.save(current);
     }
@@ -67,16 +70,23 @@ public class ItemService {
     public Item patchItem(Long id, ItemInsertDTO dto) {
         Item current = getItemById(id);
         itemMapper.patchItemFromDto(dto, current);
-        setManagedBy(dto, current);
+        fetchManagedBy(dto.managedByIds(), current);
         setTypeId(dto, current);
         return itemRepository.save(current);
     }
 
-    private void setManagedBy(ItemInsertDTO dto, Item current) {
-        if (dto.managedById() != null) {
-            Professor professor = professorService.getProfessorById(dto.managedById());
-            current.setManagedBy(professor);
-        }
+    private void fetchManagedBy(Set<Long> professorIds, Item item) {
+        if (professorIds == null) return;
+
+        Set<Professor> professors = professorIds.stream()
+                .map(id -> professorRepository.findById(id)
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException("Professor with ID " + id + " not found")
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        item.setManagedBy(professors);
     }
 
     private void setTypeId(ItemInsertDTO dto, Item current) {
