@@ -1,12 +1,12 @@
 import Layout from "../components/Layout";
-import ManageStudents from "../pages/admin/ManageStudents.tsx";
+import ManageSubject from "../pages/admin/ManageSubject.tsx";
 
 function Test() {
     return (
         <div>
             <Layout
                 children={
-                    <ManageStudents />
+                    <ManageSubject />
                 }
             />
         </div>

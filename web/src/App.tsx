@@ -3,7 +3,6 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import ForgetPassword from "./pages/ForgetPassword";
 import ConfirmResetPassword from "./pages/ConfirmResetPassword";
-import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
