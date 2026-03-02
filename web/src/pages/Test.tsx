@@ -1,9 +1,14 @@
-import ReservationCalendar from "../components/ReservationCalendar";
+import Layout from "../components/Layout";
+import ManageStudents from "../pages/admin/ManageStudents.tsx";
 
 function Test() {
     return (
-        <div className="p-5">
-            <ReservationCalendar />
+        <div>
+            <Layout
+                children={
+                    <ManageStudents />
+                }
+            />
         </div>
     );
 }
