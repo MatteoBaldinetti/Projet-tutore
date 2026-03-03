@@ -1,3 +1,4 @@
+import HeaderSidebar from "./HeaderSidebar";
 import Sidebar from "./Sidebar";
 
 type LayoutProps = {
@@ -14,6 +15,9 @@ function Layout({ children }: LayoutProps) {
 
             {/* CONTENU */}
             <main className="overflow-auto">
+                <HeaderSidebar 
+                    title="Tableau de bord"
+                />
                 {children}
             </main>
         </div>
