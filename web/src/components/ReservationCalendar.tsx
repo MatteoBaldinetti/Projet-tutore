@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import "../styles/ReservationCalendar.css";
 
-/*type Reservation = {
+type Reservation = {
     date: Date;
     start: { hour: number; minute: number };
     end: { hour: number; minute: number };
     title: string;
     color: string;
-};*/
+};
 
 const START_HOUR = 8;
 const END_HOUR = 19;
@@ -21,7 +21,7 @@ function ReservationCalendar() {
     const monthLabel = ["Jan", "Feb", "Mar", "Avr", "Mai", "Jui", "Jul", "Aou", "Sep", "Oct", "Nov", "Dec"];
 
     // Test Reservation
-    /*const reservations: Reservation[] = [
+    const reservations: Reservation[] = [
         {
             date: new Date(2026, 1, 10),
             start: { hour: 9, minute: 0 },
@@ -36,7 +36,7 @@ function ReservationCalendar() {
             title: "Réservation B",
             color: "#34D399",
         },
-    ];*/
+    ];
 
     function getWeekDays(date: Date): Date[] {
         const result: Date[] = [];
@@ -191,7 +191,6 @@ function ReservationCalendar() {
                         ))}
 
                         {/* RÉSERVATIONS */}
-                        {/*
                         {reservations
                             .filter((r) => isSameDay(r.date, day))
                             .map((r, i) => (
@@ -212,7 +211,6 @@ function ReservationCalendar() {
                                     {r.title}
                                 </div>
                             ))}
-                        */}
                     </div>
                 ))}
             </div>
