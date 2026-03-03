@@ -159,6 +159,7 @@ export default function ManageProfessors() {
 
     return (
         <Layout
+            titleHeader="Gestion des professeurs"
             children={
                 <div className="min-h-screen bg-gray-100 p-6">
                     <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
@@ -166,7 +167,7 @@ export default function ManageProfessors() {
                         {/* HEADER */}
                         <div className="flex justify-between items-center mb-6 gap-4">
                             <h1 className="text-3xl font-semibold text-left whitespace-nowrap">
-                                Gestion des professeurs
+                                Liste des professeurs
                             </h1>
                             <div className="flex items-center gap-3">
                                 <input

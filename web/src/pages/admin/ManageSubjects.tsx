@@ -5,7 +5,7 @@ import type { Subject } from "../../types/types";
 import "../../styles/ManageSubjects.css";
 import Layout from "../../components/Layout";
 
-export default function ManageSubject() {
+export default function ManageSubjects() {
     const [subjectList, setSubjectList] = useState<Subject[]>([]);
     const [search, setSearch] = useState("");
 
@@ -25,7 +25,7 @@ export default function ManageSubject() {
             });
             setSubjectList(res.data);
         } catch (err) {
-            console.error("Erreur lors de la récupération des matières :", err);
+            console.error("Erreur lors de la récupération des ressources :", err);
         }
     };
 
@@ -69,7 +69,7 @@ export default function ManageSubject() {
             setName("");
             setDescription("");
         } catch (err) {
-            console.error("Erreur lors de l'enregistrement de la matière :", err);
+            console.error("Erreur lors de l'enregistrement de la ressources :", err);
         }
     }
 
@@ -108,13 +108,14 @@ export default function ManageSubject() {
 
     return (
         <Layout
+            titleHeader="Gestion des ressources"
             children={
                 <div className="min-h-screen bg-gray-100 p-6">
                     <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
 
                         <div className="flex justify-between items-center mb-6 gap-4">
                             <h1 className="text-3xl font-semibold text-left whitespace-nowrap">
-                                Gestion des matières
+                                Liste des ressources
                             </h1>
 
                             <div className="flex items-center gap-3">
@@ -127,7 +128,7 @@ export default function ManageSubject() {
                                 />
 
                                 <button onClick={handleAddSubjectButtonPress} className="add-subject-btn text-white px-4 py-2 rounded transition cursor-pointer whitespace-nowrap">
-                                    + Ajouter une matière
+                                    + Ajouter une ressources
                                 </button>
                             </div>
                         </div>
@@ -170,7 +171,7 @@ export default function ManageSubject() {
                                     {filteredSubjects.length === 0 && (
                                         <tr>
                                             <td colSpan={4} className="text-center py-6 text-gray-500 italic">
-                                                Aucune matière trouvée
+                                                Aucune ressources trouvée
                                             </td>
                                         </tr>
                                     )}
@@ -220,7 +221,7 @@ export default function ManageSubject() {
                             <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
                                 <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
                                     <h2 className="text-lg font-semibold mb-4">Confirmer la suppression</h2>
-                                    <p>Êtes-vous sûr de vouloir supprimer cette matière ?</p>
+                                    <p>Êtes-vous sûr de vouloir supprimer cette ressources ?</p>
                                     <div className="flex justify-end gap-4 mt-6">
                                         <button
                                             onClick={() => setSubjectToDelete(null)}

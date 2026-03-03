@@ -3,9 +3,10 @@ import Sidebar from "./Sidebar";
 
 type LayoutProps = {
     children: React.ReactNode;
+    titleHeader?: string;
 };
 
-function Layout({ children }: LayoutProps) {
+function Layout({ children, titleHeader }: LayoutProps) {
     return (
         <div className="h-screen grid grid-cols-[250px_1fr]">
             {/* SIDEBAR */}
@@ -15,8 +16,8 @@ function Layout({ children }: LayoutProps) {
 
             {/* CONTENU */}
             <main className="overflow-auto">
-                <HeaderSidebar 
-                    title="Tableau de bord"
+                <HeaderSidebar
+                    title={titleHeader}
                 />
                 {children}
             </main>

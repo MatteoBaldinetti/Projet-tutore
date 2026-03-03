@@ -6,7 +6,7 @@ import ConfirmResetPassword from "./pages/ConfirmResetPassword";
 import Footer from "./components/Footer.tsx";
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
-import ManageSubject from "./pages/admin/ManageSubject.tsx";
+import ManageSubjects from "./pages/admin/ManageSubjects.tsx";
 import Test from "./pages/Test.tsx";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
 
             <Route path="/admin/manage-students" element={<ManageStudents />} />
             <Route path="/admin/manage-professors" element={<ManageProfessors />} />
-            <Route path="/admin/manage-subject" element={<ManageSubject />} />
+            <Route path="/admin/manage-subjects" element={<ManageSubjects />} />
 
             <Route path="/test" element={<Test />} />
           </Routes>
