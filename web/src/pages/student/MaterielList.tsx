@@ -15,6 +15,7 @@ type GroupedItem = {
 export default function MaterielList() {
 
     const [itemList, setItemList] = useState<GroupedItem[]>([]);
+    const [search, setSearch] = useState("");
 
     const fetchItems = async () => {
         try {
@@ -60,6 +61,15 @@ export default function MaterielList() {
         return Object.values(grouped);
     };
 
+    const filteredItems = itemList.filter((item) => {
+        const value = search.toLowerCase();
+
+        return (
+            item.name.toLowerCase().includes(value) ||
+            item.description.toLowerCase().includes(value)
+        );
+    });
+
     useEffect(() => {
         fetchItems();
     }, []);
@@ -67,16 +77,32 @@ export default function MaterielList() {
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
-                <div className="grid grid-cols-2 gap-6">
-                    {itemList.map((item) => (
+                <div className="flex justify-end mb-5">
+                    <input
+                        type="text"
+                        placeholder="Rechercher..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-64"
+                    />
+                </div>
+                {filteredItems.map((item) => (
+                    <div className="mb-5">
                         <ItemCard
                             key={item.typeId}
                             name={item.name}
+                            description={item.description}
                             quantity={item.quantity}
                             imgUrl={"https://media.licdn.com/dms/image/v2/D4E03AQEQxqd5LF9LNw/profile-displayphoto-scale_200_200/B4EZrPJ5d7KcAY-/0/1764412073411?e=2147483647&v=beta&t=f7dgU60qY16PdF6E-a6lec87c-zZG8LvWOtavAzycQU"}
                         />
-                    ))}
-                </div>
+                    </div>
+                ))}
+
+                {filteredItems.length === 0 && (
+                    <p className="text-center text-gray-500 italic">
+                        Aucun matériel trouvé
+                    </p>
+                )}
             </div>
         </div>
     )
