@@ -120,13 +120,14 @@ export default function ManageStudents() {
 
     return (
         <Layout
+            titleHeader="Gestion des étudiants"
             children={
                 <div className="min-h-screen bg-gray-100 p-6">
                     <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
 
                         <div className="flex justify-between items-center mb-6 gap-4">
                             <h1 className="text-3xl font-semibold text-left whitespace-nowrap">
-                                Gestion des étudiants
+                                Liste des étudiants
                             </h1>
 
                             <div className="flex items-center gap-3">

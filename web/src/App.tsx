@@ -6,6 +6,8 @@ import ConfirmResetPassword from "./pages/ConfirmResetPassword";
 import Footer from "./components/Footer.tsx";
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
+import ManageSubjects from "./pages/admin/ManageSubjects.tsx";
+import Test from "./pages/Test.tsx";
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
             
             <Route path="/admin/manage-students" element={<ManageStudents />} />
             <Route path="/admin/manage-professors" element={<ManageProfessors />} />
+            <Route path="/admin/manage-subjects" element={<ManageSubjects />} />
+
+            <Route path="/test" element={<Test />} />
           </Routes>
           <Footer />
         </AuthProvider>
