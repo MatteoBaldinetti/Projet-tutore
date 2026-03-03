@@ -8,7 +8,7 @@ public record ClassroomInsertDTO(
         String description,
         Set<Long> managedByIds,
         Boolean available,
-        Long imageId,
+        Set<Long> imageIds,
         Long model3dId,
         Integer roomNumber,
         Long classroomTypeId,

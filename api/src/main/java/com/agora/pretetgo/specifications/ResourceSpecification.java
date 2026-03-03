@@ -16,9 +16,9 @@ public class ResourceSpecification extends BaseSpecification {
             addEqual(predicates, criteriaBuilder, root.get("id"), filter.id());
             addLike(predicates, criteriaBuilder, root.get("name"), filter.name());
             addLike(predicates, criteriaBuilder, root.get("description"), filter.description());
-            addEqual(predicates, criteriaBuilder, root.get("managedBy").get("id"), filter.managedById());
+            addIn(predicates, root.get("managedBy").get("id"), filter.managedByIds());
             addEqual(predicates, criteriaBuilder, root.get("available"), filter.available());
-            addEqual(predicates, criteriaBuilder, root.get("image").get("id"), filter.imageId());
+            addIn(predicates, root.get("images").get("id"), filter.imageIds());
             addEqual(predicates, criteriaBuilder, root.get("model3d").get("id"), filter.model3dId());
             addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());

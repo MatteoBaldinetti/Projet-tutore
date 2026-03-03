@@ -11,26 +11,26 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ClassroomMapper {
     @Mapping(target = "managedBy", source = "managedByIds")
-    @Mapping(target = "image", source = "imageId")
+    @Mapping(target = "images", source = "imageIds")
     @Mapping(target = "model3d", source = "model3dId")
     @Mapping(target = "classroomType", source = "classroomTypeId")
     Classroom toEntity(ClassroomInsertDTO dto);
 
     @Mapping(target = "managedByIds", source = "managedBy")
-    @Mapping(target = "imageId", source = "image")
+    @Mapping(target = "imageIds", source = "images")
     @Mapping(target = "model3dId", source = "model3d")
     @Mapping(target = "classroomTypeId", source = "classroomType")
     ClassroomResponseDTO toResponseDTO(Classroom classroom);
 
     @Mapping(target = "managedBy", source = "managedByIds")
-    @Mapping(target = "image", source = "imageId")
+    @Mapping(target = "images", source = "imageIds")
     @Mapping(target = "model3d", source = "model3dId")
     @Mapping(target = "classroomType", source = "classroomTypeId")
     void updateClassroomFromDto(ClassroomInsertDTO dto, @MappingTarget Classroom classroom);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "managedBy", source = "managedByIds")
-    @Mapping(target = "image", source = "imageId")
+    @Mapping(target = "images", source = "imageIds")
     @Mapping(target = "model3d", source = "model3dId")
     @Mapping(target = "classroomType", source = "classroomTypeId")
     void patchClassroomFromDto(ClassroomInsertDTO dto, @MappingTarget Classroom classroom);

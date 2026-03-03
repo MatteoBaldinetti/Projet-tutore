@@ -6,8 +6,10 @@ import com.agora.pretetgo.dto.insert.ClassroomInsertDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.ClassroomMapper;
 import com.agora.pretetgo.models.Classroom;
+import com.agora.pretetgo.models.FileMetaData;
 import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.repositories.ClassroomRepository;
+import com.agora.pretetgo.repositories.FileMetaDataRepository;
 import com.agora.pretetgo.repositories.ProfessorRepository;
 import com.agora.pretetgo.specifications.ClassroomSpecification;
 import jakarta.transaction.Transactional;
@@ -29,10 +31,14 @@ public class ClassroomService {
     @Autowired
     private ProfessorRepository professorRepository;
 
+    @Autowired
+    private FileMetaDataRepository fileMetaDataRepository;
+
     @Transactional
     public Classroom createClassroom(ClassroomInsertDTO dto) {
         Classroom classroom = classroomMapper.toEntity(dto);
         fetchManagedBy(dto.managedByIds(), classroom);
+        fetchFileMetaData(dto.imageIds(), classroom);
         return classroomRepository.save(classroom);
     }
 
@@ -52,6 +58,7 @@ public class ClassroomService {
         Classroom current = getClassroomById(id);
         classroomMapper.updateClassroomFromDto(dto, current);
         fetchManagedBy(dto.managedByIds(), current);
+        fetchFileMetaData(dto.imageIds(), current);
         return classroomRepository.save(current);
     }
 
@@ -65,6 +72,7 @@ public class ClassroomService {
         Classroom current = getClassroomById(id);
         classroomMapper.patchClassroomFromDto(dto, current);
         fetchManagedBy(dto.managedByIds(), current);
+        fetchFileMetaData(dto.imageIds(), current);
         return classroomRepository.save(current);
     }
 
@@ -90,5 +98,19 @@ public class ClassroomService {
                 .stream()
                 .map(classroomMapper::toResponseDTO)
                 .toList();
+    }
+
+    private void fetchFileMetaData(Set<Long> fileMetaDataId, Classroom classroom) {
+        if (fileMetaDataId == null) return;
+
+        Set<FileMetaData> fileMetaData = fileMetaDataId.stream()
+                .map(id -> fileMetaDataRepository.findById(id)
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException("FileMetaData with ID " + id + " not found")
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        classroom.setImages(fileMetaData);
     }
 }

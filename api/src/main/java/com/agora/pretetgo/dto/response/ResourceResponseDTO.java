@@ -22,7 +22,7 @@ public sealed interface ResourceResponseDTO permits ClassroomResponseDTO, ItemRe
     String description();
     Set<Long> managedByIds();
     Boolean available();
-    Long imageId();
+    Set<Long> imageIds();
     Long model3dId();
     Instant createdAt();
 }

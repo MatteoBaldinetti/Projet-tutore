@@ -18,7 +18,7 @@ public class ItemSpecification extends BaseSpecification {
             addLike(predicates, criteriaBuilder, root.get("description"), filter.description());
             addIn(predicates, root.join("managedBy").get("id"), filter.managedByIds());
             addEqual(predicates, criteriaBuilder, root.get("available"), filter.available());
-            addEqual(predicates, criteriaBuilder, root.get("image").get("id"), filter.imageId());
+            addIn(predicates, root.get("images").get("id"), filter.imageIds());
             addEqual(predicates, criteriaBuilder, root.get("model3d").get("id"), filter.model3dId());
             addEqual(predicates, criteriaBuilder, root.get("serialNumber"), filter.serialNumber());
             addEqual(predicates, criteriaBuilder, root.get("itemType").get("id"), filter.itemTypeId());

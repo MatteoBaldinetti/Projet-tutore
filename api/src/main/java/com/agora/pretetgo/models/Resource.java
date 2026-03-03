@@ -31,9 +31,14 @@ public abstract class Resource {
 
     protected Boolean available = true;
 
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    protected FileMetaData image;
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    @JoinTable(
+            name = "resource_image",
+            joinColumns = @JoinColumn(name = "image_id"),
+            inverseJoinColumns = @JoinColumn(name = "file_meta_data_id")
+    )
+    protected Set<FileMetaData> images;
 
     @ManyToOne
     @JoinColumn(name = "model_3d_id")
@@ -50,12 +55,12 @@ public abstract class Resource {
     @OneToMany(mappedBy = "resource")
     protected List<Report> reports = new ArrayList<>();
 
-    public Resource(String name, String description, Set<Professor> managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt) {
+    public Resource(String name, String description, Set<Professor> managedBy, Boolean available, Set<FileMetaData> images, FileMetaData model3d, Instant createdAt) {
         this.name = name;
         this.description = description;
         this.managedBy = managedBy;
         this.available = available;
-        this.image = image;
+        this.images = images;
         this.model3d = model3d;
         this.createdAt = createdAt;
     }

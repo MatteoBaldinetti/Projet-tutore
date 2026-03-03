@@ -18,7 +18,7 @@ public class ClassroomSpecification extends BaseSpecification {
             addLike(predicates, criteriaBuilder, root.get("description"), filter.description());
             addIn(predicates, root.join("managedBy").get("id"), filter.managedByIds());
             addEqual(predicates, criteriaBuilder, root.get("available"), filter.available());
-            addEqual(predicates, criteriaBuilder, root.get("image").get("id"), filter.imageId());
+            addIn(predicates, root.get("images").get("id"), filter.imageIds());
             addEqual(predicates, criteriaBuilder, root.get("model3d").get("id"), filter.model3dId());
             addEqual(predicates, criteriaBuilder, root.get("roomNumber"), filter.roomNumber());
             addEqual(predicates, criteriaBuilder, root.get("classroomType").get("id"), filter.classroomTypeId());

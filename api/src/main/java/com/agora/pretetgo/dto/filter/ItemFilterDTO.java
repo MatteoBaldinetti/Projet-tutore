@@ -11,7 +11,7 @@ public record ItemFilterDTO(
         @Parameter(description = "Item description") String description,
         @Parameter(description = "IDs of the professors managing this item") Set<Long> managedByIds,
         @Parameter(description = "Is the item available?") Boolean available,
-        @Parameter(description = "ID of the image file") Long imageId,
+        @Parameter(description = "IDs of the image files") Set<Long> imageIds,
         @Parameter(description = "ID of the 3D model file") Long model3dId,
         @Parameter(description = "Serial number of the item") Integer serialNumber,
         @Parameter(description = "ID of the item type") Long itemTypeId,

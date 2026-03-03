@@ -5,9 +5,8 @@ import com.agora.pretetgo.dto.insert.ItemInsertDTO;
 import com.agora.pretetgo.dto.response.ItemResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.ItemMapper;
-import com.agora.pretetgo.models.Item;
-import com.agora.pretetgo.models.ItemType;
-import com.agora.pretetgo.models.Professor;
+import com.agora.pretetgo.models.*;
+import com.agora.pretetgo.repositories.FileMetaDataRepository;
 import com.agora.pretetgo.repositories.ItemRepository;
 import com.agora.pretetgo.repositories.ProfessorRepository;
 import com.agora.pretetgo.specifications.ItemSpecification;
@@ -33,11 +32,15 @@ public class ItemService {
     @Autowired
     private ItemTypeService itemTypeService;
 
+    @Autowired
+    private FileMetaDataRepository fileMetaDataRepository;
+
     @Transactional
     public Item createItem(ItemInsertDTO dto) {
         Item item = itemMapper.toEntity(dto);
         fetchManagedBy(dto.managedByIds(), item);
         setTypeId(dto, item);
+        fetchFileMetaData(dto.imageIds(), item);
         return itemRepository.save(item);
     }
 
@@ -58,6 +61,7 @@ public class ItemService {
         itemMapper.updateItemFromDto(dto, current);
         fetchManagedBy(dto.managedByIds(), current);
         setTypeId(dto, current);
+        fetchFileMetaData(dto.imageIds(), current);
         return itemRepository.save(current);
     }
 
@@ -72,6 +76,7 @@ public class ItemService {
         itemMapper.patchItemFromDto(dto, current);
         fetchManagedBy(dto.managedByIds(), current);
         setTypeId(dto, current);
+        fetchFileMetaData(dto.imageIds(), current);
         return itemRepository.save(current);
     }
 
@@ -104,5 +109,19 @@ public class ItemService {
                 .stream()
                 .map(itemMapper::toResponseDTO)
                 .toList();
+    }
+
+    private void fetchFileMetaData(Set<Long> fileMetaDataId, Item item) {
+        if (fileMetaDataId == null) return;
+
+        Set<FileMetaData> fileMetaData = fileMetaDataId.stream()
+                .map(id -> fileMetaDataRepository.findById(id)
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException("FileMetaData with ID " + id + " not found")
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        item.setImages(fileMetaData);
     }
 }

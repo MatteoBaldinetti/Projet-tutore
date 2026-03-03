@@ -9,7 +9,7 @@ public record ItemResponseDTO(
         String description,
         Set<Long> managedByIds,
         Boolean available,
-        Long imageId,
+        Set<Long> imageIds,
         Long model3dId,
         Integer serialNumber,
         Long itemTypeId,

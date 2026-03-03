@@ -8,7 +8,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +24,10 @@ public class FileMetaData {
 
     private String url;
 
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "images")
+    private Set<Resource> resourcesImages = new HashSet<>();
+
     @CreationTimestamp
     private Instant uploadedAt;
 
@@ -32,10 +38,6 @@ public class FileMetaData {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "image")
     private List<Report> reports = new ArrayList<>();
-
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "image")
-    private List<Resource> resourcesImage = new ArrayList<>();
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "model3d")

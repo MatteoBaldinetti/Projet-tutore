@@ -11,7 +11,7 @@ public record ClassroomFilterDTO(
         @Parameter(description = "Classroom description") String description,
         @Parameter(description = "IDs of the professors managing this classroom") Set<Long> managedByIds,
         @Parameter(description = "Is the classroom available?") Boolean available,
-        @Parameter(description = "ID of the image file") Long imageId,
+        @Parameter(description = "IDs of the image files") Set<Long> imageIds,
         @Parameter(description = "ID of the 3D model file") Long model3dId,
         @Parameter(description = "Room number") Integer roomNumber,
         @Parameter(description = "ID of the classroom type") Long classroomTypeId,
