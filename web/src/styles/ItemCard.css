@@ -5,3 +5,11 @@
 .reserve-btn:hover {
     background-color: var(--forest-green);
 }
+
+.more-btn {
+    color: var(--dark-cyan);
+}
+
+.more-btn:hover {
+    color: var(--forest-green);
+}

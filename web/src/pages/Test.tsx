@@ -1,12 +1,13 @@
 import Layout from "../components/Layout";
-import ManageSubjects from "./admin/ManageSubjects.tsx";
+import MaterielList from "../pages/student/MaterielList.tsx";
 
 function Test() {
     return (
         <div>
             <Layout
+                titleHeader="Catalogue de matériel"
                 children={
-                    <ManageSubjects />
+                    <MaterielList />
                 }
             />
         </div>
