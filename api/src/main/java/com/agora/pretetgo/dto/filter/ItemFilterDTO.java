@@ -13,6 +13,7 @@ public record ItemFilterDTO(
         @Parameter(description = "Is the item available?") Boolean available,
         @Parameter(description = "IDs of the image files") Set<Long> imageIds,
         @Parameter(description = "ID of the 3D model file") Long model3dId,
+        @Parameter(description = "IDs of the tags") Set<Long> tagIds,
         @Parameter(description = "Serial number of the item") Integer serialNumber,
         @Parameter(description = "ID of the item type") Long itemTypeId,
         @Parameter(description = "ID of the usage PDF file") Long usagePdfId,

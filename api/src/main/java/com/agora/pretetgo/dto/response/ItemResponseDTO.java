@@ -11,6 +11,7 @@ public record ItemResponseDTO(
         Boolean available,
         Set<Long> imageIds,
         Long model3dId,
+        Set<Long> tagIds,
         Integer serialNumber,
         Long itemTypeId,
         Long usagePdfId,

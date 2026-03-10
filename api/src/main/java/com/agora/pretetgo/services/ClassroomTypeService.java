@@ -29,7 +29,7 @@ public class ClassroomTypeService {
     @Transactional
     public ClassroomType createClassroomType(ClassroomTypeInsertDTO dto) {
         ClassroomType classroomType = classroomTypeMapper.toEntity(dto);
-        setCreatedBy(dto, classroomType);
+        mapDTOIds(dto, classroomType);
         return classroomTypeRepository.save(classroomType);
     }
 
@@ -48,7 +48,7 @@ public class ClassroomTypeService {
     public ClassroomType updateClassroomType(Long id, ClassroomTypeInsertDTO dto) {
         ClassroomType current = getClassroomTypeById(id);
         classroomTypeMapper.updateClassroomTypeFromDto(dto, current);
-        setCreatedBy(dto, current);
+        mapDTOIds(dto, current);
         return classroomTypeRepository.save(current);
     }
 
@@ -61,15 +61,8 @@ public class ClassroomTypeService {
     public ClassroomType patchClassroomType(Long id, ClassroomTypeInsertDTO dto) {
         ClassroomType current = getClassroomTypeById(id);
         classroomTypeMapper.patchClassroomTypeFromDto(dto, current);
-        setCreatedBy(dto, current);
+        mapDTOIds(dto, current);
         return classroomTypeRepository.save(current);
-    }
-
-    private void setCreatedBy(ClassroomTypeInsertDTO dto, ClassroomType current) {
-        if (dto.createdById() != null) {
-            Professor professor = professorService.getProfessorById(dto.createdById());
-            current.setCreatedBy(professor);
-        }
     }
 
     @Transactional
@@ -80,5 +73,16 @@ public class ClassroomTypeService {
                 .stream()
                 .map(classroomTypeMapper::toResponseDTO)
                 .toList();
+    }
+
+    private void mapDTOIds(ClassroomTypeInsertDTO dto, ClassroomType current) {
+        setCreatedBy(dto, current);
+    }
+
+    private void setCreatedBy(ClassroomTypeInsertDTO dto, ClassroomType current) {
+        if (dto.createdById() != null) {
+            Professor professor = professorService.getProfessorById(dto.createdById());
+            current.setCreatedBy(professor);
+        }
     }
 }

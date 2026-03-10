@@ -10,6 +10,7 @@ public record ClassroomInsertDTO(
         Boolean available,
         Set<Long> imageIds,
         Long model3dId,
+        Set<Long> tagIds,
         Integer roomNumber,
         Long classroomTypeId,
         Instant createdAt

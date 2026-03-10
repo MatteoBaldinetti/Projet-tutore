@@ -104,7 +104,7 @@ public class FileMetaDataService {
     @Transactional
     public FileMetaData createFileMetaData(FileMetaDataInsertDTO dto) {
         FileMetaData fileMetaData = fileMetaDataMapper.toEntity(dto);
-        fetchResources(dto.resourcesImageIds(), fileMetaData);
+        mapDTOIds(dto, fileMetaData);
         return fileMetaDataRepository.save(fileMetaData);
     }
 
@@ -123,7 +123,7 @@ public class FileMetaDataService {
     public FileMetaData updateFileMetaData(Long id, FileMetaDataInsertDTO dto) {
         FileMetaData current = getFileMetaDataById(id);
         fileMetaDataMapper.updateFileMetaDataFromDto(dto, current);
-        fetchResources(dto.resourcesImageIds(), current);
+        mapDTOIds(dto, current);
         return fileMetaDataRepository.save(current);
     }
 
@@ -136,7 +136,7 @@ public class FileMetaDataService {
     public FileMetaData patchFileMetaData(Long id, FileMetaDataInsertDTO dto) {
         FileMetaData current = getFileMetaDataById(id);
         fileMetaDataMapper.patchFileMetaDataFromDto(dto, current);
-        fetchResources(dto.resourcesImageIds(), current);
+        mapDTOIds(dto, current);
         return fileMetaDataRepository.save(current);
     }
 
@@ -148,6 +148,10 @@ public class FileMetaDataService {
                 .stream()
                 .map(fileMetaDataMapper::toResponseDTO)
                 .toList();
+    }
+
+    private void mapDTOIds(FileMetaDataInsertDTO dto, FileMetaData current) {
+        fetchResources(dto.resourcesImageIds(), current);
     }
 
     private void fetchResources(Set<Long> resourceIds, FileMetaData fileMetaData) {
@@ -162,5 +166,9 @@ public class FileMetaDataService {
                 .collect(Collectors.toSet());
 
         fileMetaData.setResourcesImages(resources);
+
+        for (com.agora.pretetgo.models.Resource resource : resources) {
+            resource.getImages().add(fileMetaData);
+        }
     }
 }

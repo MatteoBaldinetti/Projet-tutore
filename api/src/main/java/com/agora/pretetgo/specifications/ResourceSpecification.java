@@ -20,6 +20,7 @@ public class ResourceSpecification extends BaseSpecification {
             addEqual(predicates, criteriaBuilder, root.get("available"), filter.available());
             addIn(predicates, root.get("images").get("id"), filter.imageIds());
             addEqual(predicates, criteriaBuilder, root.get("model3d").get("id"), filter.model3dId());
+            addIn(predicates, root.get("tags").get("id"), filter.tagIds());
             addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());
 

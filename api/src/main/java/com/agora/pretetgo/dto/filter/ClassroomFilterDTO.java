@@ -13,6 +13,7 @@ public record ClassroomFilterDTO(
         @Parameter(description = "Is the classroom available?") Boolean available,
         @Parameter(description = "IDs of the image files") Set<Long> imageIds,
         @Parameter(description = "ID of the 3D model file") Long model3dId,
+        @Parameter(description = "IDs of the tags") Set<Long> tagIds,
         @Parameter(description = "Room number") Integer roomNumber,
         @Parameter(description = "ID of the classroom type") Long classroomTypeId,
         @Parameter(description = "Exact creation timestamp") Instant createdAt,

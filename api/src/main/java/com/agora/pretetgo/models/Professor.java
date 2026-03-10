@@ -43,6 +43,10 @@ public class Professor extends User {
     @OneToMany(mappedBy = "createdBy")
     private List<ClassroomType> classroomTypes = new ArrayList<>();
 
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "createdBy")
+    private List<Tag> tags = new ArrayList<>();
+
     public Professor(String firstName, String lastName, String email, String password, Boolean enabled, Instant createdAt, Set<Subject> subjects, Set<Resource> resources) {
         super(firstName, lastName, email, password, enabled, createdAt);
         this.subjects = subjects;

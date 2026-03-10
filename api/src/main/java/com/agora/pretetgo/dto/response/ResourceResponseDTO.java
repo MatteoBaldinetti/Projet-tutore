@@ -24,5 +24,6 @@ public sealed interface ResourceResponseDTO permits ClassroomResponseDTO, ItemRe
     Boolean available();
     Set<Long> imageIds();
     Long model3dId();
+    Set<Long> tagIds();
     Instant createdAt();
 }

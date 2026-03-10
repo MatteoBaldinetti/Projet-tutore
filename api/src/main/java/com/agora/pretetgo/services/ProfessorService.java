@@ -37,8 +37,7 @@ public class ProfessorService {
     @Transactional
     public Professor createProfessor(ProfessorInsertDTO dto) {
         Professor professor = professorMapper.toEntity(dto);
-        fetchSubjects(dto.subjectIds(), professor);
-        fetchResources(dto.resourceIds(), professor);
+        mapDTOIds(dto, professor);
         return professorRepository.save(professor);
     }
 
@@ -57,8 +56,7 @@ public class ProfessorService {
     public Professor updateProfessor(Long id, ProfessorInsertDTO dto) {
         Professor current = getProfessorById(id);
         professorMapper.updateProfessorFromDto(dto, current);
-        fetchSubjects(dto.subjectIds(), current);
-        fetchResources(dto.resourceIds(), current);
+        mapDTOIds(dto, current);
         return professorRepository.save(current);
     }
 
@@ -71,9 +69,23 @@ public class ProfessorService {
     public Professor patchProfessor(Long id, ProfessorInsertDTO dto) {
         Professor current = getProfessorById(id);
         professorMapper.patchProfessorFromDto(dto, current);
+        mapDTOIds(dto, current);
+        return professorRepository.save(current);
+    }
+
+    @Transactional
+    public List<ProfessorResponseDTO> searchProfessors(ProfessorFilterDTO filterDTO) {
+        return professorRepository.findAll(
+                        ProfessorSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(professorMapper::toResponseDTO)
+                .toList();
+    }
+
+    private void mapDTOIds(ProfessorInsertDTO dto, Professor current) {
         fetchSubjects(dto.subjectIds(), current);
         fetchResources(dto.resourceIds(), current);
-        return professorRepository.save(current);
     }
 
     private void fetchSubjects(Set<Long> subjectIds, Professor professor) {
@@ -88,6 +100,10 @@ public class ProfessorService {
                 .collect(Collectors.toSet());
 
         professor.setSubjects(subjects);
+
+        for (Subject subject : subjects) {
+            subject.getProfessors().add(professor);
+        }
     }
 
     private void fetchResources(Set<Long> resourceIds, Professor professor) {
@@ -102,15 +118,9 @@ public class ProfessorService {
                 .collect(Collectors.toSet());
 
         professor.setResources(resources);
-    }
 
-    @Transactional
-    public List<ProfessorResponseDTO> searchProfessors(ProfessorFilterDTO filterDTO) {
-        return professorRepository.findAll(
-                        ProfessorSpecification.withFilter(filterDTO)
-                )
-                .stream()
-                .map(professorMapper::toResponseDTO)
-                .toList();
+        for (Resource resource : resources) {
+            resource.getManagedBy().add(professor);
+        }
     }
 }

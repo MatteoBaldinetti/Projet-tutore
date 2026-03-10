@@ -5,6 +5,7 @@ import com.agora.pretetgo.dto.insert.NotificationInsertDTO;
 import com.agora.pretetgo.dto.response.NotificationResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.NotificationMapper;
+import com.agora.pretetgo.models.FileMetaData;
 import com.agora.pretetgo.models.Notification;
 import com.agora.pretetgo.repositories.NotificationRepository;
 import com.agora.pretetgo.specifications.NotificationSpecification;
@@ -22,9 +23,13 @@ public class NotificationService {
     @Autowired
     private NotificationMapper notificationMapper;
 
+    @Autowired
+    private FileMetaDataService fileMetaDataService;
+
     @Transactional
     public Notification createNotification(NotificationInsertDTO dto) {
         Notification notification = notificationMapper.toEntity(dto);
+        mapDTOIds(dto, notification);
         return notificationRepository.save(notification);
     }
 
@@ -43,6 +48,7 @@ public class NotificationService {
     public Notification updateNotification(Long id, NotificationInsertDTO dto) {
         Notification current = getNotificationById(id);
         notificationMapper.updateNotificationFromDto(dto, current);
+        mapDTOIds(dto, current);
         return notificationRepository.save(current);
     }
 
@@ -55,6 +61,7 @@ public class NotificationService {
     public Notification patchNotification(Long id, NotificationInsertDTO dto) {
         Notification current = getNotificationById(id);
         notificationMapper.patchNotificationFromDto(dto, current);
+        mapDTOIds(dto, current);
         return notificationRepository.save(current);
     }
 
@@ -66,5 +73,16 @@ public class NotificationService {
                 .stream()
                 .map(notificationMapper::toResponseDTO)
                 .toList();
+    }
+
+    private void mapDTOIds(NotificationInsertDTO dto, Notification current) {
+        setImage(dto, current);
+    }
+
+    private void setImage(NotificationInsertDTO dto, Notification current) {
+        if (dto.imageId() != null) {
+            FileMetaData image = fileMetaDataService.getFileMetaDataById(dto.imageId());
+            current.setImage(image);
+        }
     }
 }

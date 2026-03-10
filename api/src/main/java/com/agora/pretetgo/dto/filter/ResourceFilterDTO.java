@@ -13,6 +13,7 @@ public record ResourceFilterDTO(
         @Parameter(description = "Is the resource available?") Boolean available,
         @Parameter(description = "IDs of the image files") Set<Long> imageIds,
         @Parameter(description = "ID of the 3D model file") Long model3dId,
+        @Parameter(description = "IDs of the tags") Set<Long> tagIds,
         @Parameter(description = "Exact creation timestamp") Instant createdAt,
         @Parameter(description = "Created after this timestamp") Instant createdFrom,
         @Parameter(description = "Created before this timestamp") Instant createdTo
