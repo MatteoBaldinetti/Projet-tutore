@@ -2,7 +2,9 @@ import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
 import type { Item } from "../../types/types";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ItemCard from "../../components/ItemCard";
+import Layout from "../../components/Layout";
 
 type GroupedItem = {
     typeId: number;
@@ -13,6 +15,8 @@ type GroupedItem = {
 };
 
 export default function MaterielList() {
+    const navigate = useNavigate();
+
     const [itemList, setItemList] = useState<GroupedItem[]>([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -117,77 +121,87 @@ export default function MaterielList() {
         fetchItems();
     }, []);
 
+    const handleReserve = (item: Item) => {
+        navigate(`/student/materiel-reservation/${item.id}`);
+    };
+
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
-            <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
-                <div className="flex justify-end mb-5">
-                    <input
-                        type="text"
-                        placeholder="Rechercher..."
-                        value={search}
-                        onChange={(e) => {
-                            setSearch(e.target.value);
-                            setCurrentPage(1);
-                        }}
-                        className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-64"
-                    />
-                </div>
+        <Layout
+            titleHeader="Materiels disponibles"
+            children={
+                <div className="min-h-screen bg-gray-100 p-6">
+                    <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
+                        <div className="flex justify-end mb-5">
+                            <input
+                                type="text"
+                                placeholder="Rechercher..."
+                                value={search}
+                                onChange={(e) => {
+                                    setSearch(e.target.value);
+                                    setCurrentPage(1);
+                                }}
+                                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-64"
+                            />
+                        </div>
 
-                {currentItems.map((item) => (
-                    <div key={item.typeId} className="mb-5">
-                        <ItemCard
-                            name={item.name}
-                            description={item.description}
-                            quantity={item.quantity}
-                            imgUrl="https://media.licdn.com/dms/image/v2/D4E03AQEQxqd5LF9LNw/profile-displayphoto-scale_200_200/B4EZrPJ5d7KcAY-/0/1764412073411?e=2147483647&v=beta&t=f7dgU60qY16PdF6E-a6lec87c-zZG8LvWOtavAzycQU"
-                        />
-                    </div>
-                ))}
+                        {currentItems.map((item) => (
+                            <div key={item.typeId} className="mb-5">
+                                <ItemCard
+                                    name={item.name}
+                                    description={item.description}
+                                    quantity={item.quantity}
+                                    imgUrl="https://media.licdn.com/dms/image/v2/D4E03AQEQxqd5LF9LNw/profile-displayphoto-scale_200_200/B4EZrPJ5d7KcAY-/0/1764412073411?e=2147483647&v=beta&t=f7dgU60qY16PdF6E-a6lec87c-zZG8LvWOtavAzycQU"
+                                    onReserve={() => handleReserve(item.items[0])}
+                                />
+                            </div>
+                        ))}
 
-                {filteredItems.length === 0 && (
-                    <p className="text-center text-gray-500 italic">
-                        Aucun matériel trouvé
-                    </p>
-                )}
+                        {filteredItems.length === 0 && (
+                            <p className="text-center text-gray-500 italic">
+                                Aucun matériel trouvé
+                            </p>
+                        )}
 
-                <div className="flex justify-center items-center mt-6 space-x-2">
-                    <button
-                        disabled={currentPage === 1}
-                        onClick={() => setCurrentPage((p) => p - 1)}
-                        className="px-3 py-1 border rounded disabled:opacity-40"
-                    >
-                        &lt;
-                    </button>
-
-                    {getVisiblePages().map((page, index) =>
-                        page === "..." ? (
-                            <span key={index} className="px-2">
-                                ...
-                            </span>
-                        ) : (
+                        <div className="flex justify-center items-center mt-6 space-x-2">
                             <button
-                                key={index}
-                                onClick={() => setCurrentPage(page as number)}
-                                className={`px-3 py-1 rounded border ${currentPage === page
-                                    ? "bg-[#3A8C85] text-white"
-                                    : "bg-white text-gray-700"
-                                    }`}
+                                disabled={currentPage === 1}
+                                onClick={() => setCurrentPage((p) => p - 1)}
+                                className="px-3 py-1 border rounded disabled:opacity-40"
                             >
-                                {page}
+                                &lt;
                             </button>
-                        )
-                    )}
 
-                    <button
-                        disabled={currentPage === totalPages}
-                        onClick={() => setCurrentPage((p) => p + 1)}
-                        className="px-3 py-1 border rounded disabled:opacity-40"
-                    >
-                        &gt;
-                    </button>
+                            {getVisiblePages().map((page, index) =>
+                                page === "..." ? (
+                                    <span key={index} className="px-2">
+                                        ...
+                                    </span>
+                                ) : (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentPage(page as number)}
+                                        className={`px-3 py-1 rounded border ${currentPage === page
+                                            ? "bg-[#3A8C85] text-white"
+                                            : "bg-white text-gray-700"
+                                            }`}
+                                    >
+                                        {page}
+                                    </button>
+                                )
+                            )}
+
+                            <button
+                                disabled={currentPage === totalPages}
+                                onClick={() => setCurrentPage((p) => p + 1)}
+                                className="px-3 py-1 border rounded disabled:opacity-40"
+                            >
+                                &gt;
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
-
-            </div>
-        </div>
+            }
+        />
     );
 }
