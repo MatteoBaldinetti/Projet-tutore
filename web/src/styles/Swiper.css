@@ -1,0 +1,99 @@
+
+/* ═══════════════════════════════════
+   Layout du slider
+   ═══════════════════════════════════ */
+.slider-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: 280px;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════
+   Miniatures verticales (gauche)
+   ═══════════════════════════════════ */
+.thumbs-swiper {
+  width: 80px !important;
+  height: 280px !important;
+  flex-shrink: 0;
+}
+
+.thumbs-swiper .swiper-slide {
+  height: auto !important;
+  opacity: 0.4;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: opacity 0.2s;
+}
+
+.thumbs-swiper .swiper-slide-thumb-active {
+  opacity: 1;
+  outline: 2px solid var(--dark-cyan);
+  outline-offset: 2px;
+}
+
+.thumbs-swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ═══════════════════════════════════
+   Zone principale (flèches + image)
+   ═══════════════════════════════════ */
+.main-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ═══════════════════════════════════
+   Grande image principale
+   ═══════════════════════════════════ */
+.main-swiper {
+  flex: 1 !important;
+  min-width: 0 !important;
+  height: 280px !important;
+  border-radius: 12px;
+  overflow: hidden !important;
+}
+
+.main-swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ═══════════════════════════════════
+   Boutons de navigation
+   ═══════════════════════════════════ */
+.nav-btn {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--dark-cyan);
+  color: #fff;
+  border: none;
+  font-size: 26px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: var(--forest-green);
+}

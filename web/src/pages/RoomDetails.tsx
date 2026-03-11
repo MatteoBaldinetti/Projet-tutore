@@ -54,10 +54,12 @@ export default function RoomDetails() {
         {/* Bloc principal : slider (gauche) + infos (droite) dans la même carte */}
         <div
           className="bg-white p-6 rounded-xl shadow-sm mb-6 grid gap-6"
-          style={{ gridTemplateColumns: "3fr 2fr" }}
+          style={{ gridTemplateColumns: "1fr 1fr" }}
         >
           {/* Colonne gauche : slider */}
-          <div></div>
+          <div style={{ minWidth: 0 }}>
+            <ImageSlider images={props.images} />
+          </div>
 
           {/* Colonne droite : infos */}
           <div className="flex flex-col justify-between">
