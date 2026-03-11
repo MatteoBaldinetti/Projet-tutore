@@ -5,12 +5,10 @@ import ForgetPassword from "./pages/ForgetPassword";
 import ConfirmResetPassword from "./pages/ConfirmResetPassword";
 import Footer from "./components/Footer.tsx";
 
-// Admin - existants
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
 import ManageSubjects from "./pages/admin/ManageSubjects.tsx";
 
-// Admin - nouveaux
 import ManageTags from "./pages/admin/ManageTags.tsx";
 import ManageItemTypes from "./pages/admin/ManageItemTypes.tsx";
 import ManageClassroomTypes from "./pages/admin/ManageClassroomTypes.tsx";
@@ -20,9 +18,9 @@ import ManageReservations from "./pages/admin/ManageReservations.tsx";
 import ManageReports from "./pages/admin/ManageReports.tsx";
 import ManageNotifications from "./pages/admin/ManageNotifications.tsx";
 
-// Student
 import MaterielList from "./pages/student/MaterielList.tsx";
 import MaterielReservation from "./pages/student/MaterielReservation.tsx";
+import RoomDetails from "./pages/student/RoomDetails.tsx";
 
 function App() {
   return (
@@ -75,6 +73,10 @@ function App() {
             <Route
               path="/student/materiel-reservation/:id"
               element={<MaterielReservation />}
+            />
+            <Route
+              path="/student/room-details"
+              element={<RoomDetails />}
             />
           </Routes>
           <Footer />
