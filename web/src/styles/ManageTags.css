@@ -1,0 +1,30 @@
+.add-tag-btn {
+    background-color: var(--dark-cyan);
+}
+.add-tag-btn:hover {
+    background-color: var(--forest-green);
+}
+.send-tag-btn {
+    background-color: var(--dark-cyan);
+}
+.send-tag-btn:hover {
+    background-color: var(--forest-green);
+}
+.cancel-send-tag-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-send-tag-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.cancel-delete-tag-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-delete-tag-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

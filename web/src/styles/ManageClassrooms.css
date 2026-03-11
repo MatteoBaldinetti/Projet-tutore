@@ -1,0 +1,30 @@
+.add-classroom-btn {
+    background-color: var(--dark-cyan);
+}
+.add-classroom-btn:hover {
+    background-color: var(--forest-green);
+}
+.send-classroom-btn {
+    background-color: var(--dark-cyan);
+}
+.send-classroom-btn:hover {
+    background-color: var(--forest-green);
+}
+.cancel-send-classroom-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-send-classroom-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.cancel-delete-classroom-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-delete-classroom-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
