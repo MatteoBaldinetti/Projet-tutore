@@ -51,18 +51,16 @@ export default function RoomDetails() {
   return (
     <Layout titleHeader="Détails de la salle">
       <div className="min-h-screen bg-gray-100 p-6">
-        {/* Bloc principal : slider (gauche) + infos (droite) dans la même carte */}
-        <div
-          className="bg-white p-6 rounded-xl shadow-sm mb-6 grid gap-6"
-          style={{ gridTemplateColumns: "1fr 1fr" }}
-        >
-          {/* Colonne gauche : slider */}
-          <div style={{ minWidth: 0 }}>
+        {/* Bloc principal : deux cartes côte à côte */}
+        <div className="flex gap-6 mb-6">
+
+          {/* Carte slider (60%) */}
+          <div className="bg-white p-6 rounded-xl shadow-sm" style={{ flex: 6, minWidth: 0 }}>
             <ImageSlider images={props.images} />
           </div>
 
-          {/* Colonne droite : infos */}
-          <div className="flex flex-col justify-between">
+          {/* Carte infos (40%) */}
+          <div className="bg-white p-6 rounded-xl shadow-sm flex flex-col justify-between" style={{ flex: 4 }}>
             <div>
               {/* Titre + N° salle */}
               <h1 className="text-2xl font-bold text-gray-800 mb-1">
