@@ -7,6 +7,8 @@ import Footer from "./components/Footer.tsx";
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
 import ManageSubjects from "./pages/admin/ManageSubjects.tsx";
+import MaterielList from "./pages/student/MaterielList.tsx";
+import MaterielReservation from "./pages/student/MaterielReservation.tsx";
 import Test from "./pages/Test.tsx";
 
 function App() {
@@ -22,6 +24,9 @@ function App() {
             <Route path="/admin/manage-students" element={<ManageStudents />} />
             <Route path="/admin/manage-professors" element={<ManageProfessors />} />
             <Route path="/admin/manage-subjects" element={<ManageSubjects />} />
+
+            <Route path="/student/materiel-list" element={<MaterielList />} />
+            <Route path="/student/materiel-reservation/:id" element={<MaterielReservation />} />
 
             <Route path="/test" element={<Test />} />
           </Routes>

@@ -1,6 +1,14 @@
 import "../styles/ItemCard.css";
 
-function ItemCard(props: any) {
+interface ItemCardProps {
+    name: string;
+    description: string;
+    quantity: number;
+    imgUrl: string;
+    onReserve: () => void;
+}
+
+function ItemCard(props: ItemCardProps) {
     return (
         <div className="bg-white flex rounded-xl overflow-hidden border border-[#E2E8F0]">
 
@@ -45,7 +53,7 @@ function ItemCard(props: any) {
                         </svg>
                         Consulter les détails
                     </button>
-                    <button className="reserve-btn text-white py-3 px-4 rounded-3xl transition cursor-pointer flex items-center">
+                    <button className="reserve-btn text-white py-3 px-4 rounded-3xl transition cursor-pointer flex items-center" onClick={props.onReserve}>
                         Réserver
                         <svg className="ms-3" width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.40625 0L0 1.40625L4.59375 6L0 10.5938L1.40625 12L7.40625 6L1.40625 0Z" fill="currentColor" />
