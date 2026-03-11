@@ -1,14 +1,14 @@
 import { useState } from "react";
-import ImageSlider from "../components/ImageSlider";
-import Layout from "../components/Layout";
-import ReservationCalendar from "../components/ReservationCalendar";
+import ImageSlider from "../../components/ImageSlider";
+import Layout from "../../components/Layout";
+import ReservationCalendar from "../../components/ReservationCalendar";
 
-import room1 from "../assets/room1.png";
-import room2 from "../assets/room2.png";
-import room3 from "../assets/room3.png";
-import room4 from "../assets/room4.png";
+import room1 from "../../assets/room1.png";
+import room2 from "../../assets/room2.png";
+import room3 from "../../assets/room3.png";
+import room4 from "../../assets/room4.png";
 
-import "../styles/RoomDetails.css";
+import "../../styles/RoomDetails.css";
 
 const placeholderImages = [room1, room2, room3, room4];
 
