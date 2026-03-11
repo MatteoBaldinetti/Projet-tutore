@@ -21,6 +21,7 @@ public class ProfessorSpecification extends BaseSpecification {
             addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addEqual(predicates, criteriaBuilder, root.get("enabled"), filter.enabled());
             addIn(predicates, root.join("subjects").get("id"), filter.subjectIds());
+            addIn(predicates, root.join("resources").get("id"), filter.resourceIds());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());
 
             return andAll(criteriaBuilder, predicates);

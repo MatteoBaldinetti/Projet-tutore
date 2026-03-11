@@ -1,15 +1,17 @@
 package com.agora.pretetgo.dto.response;
 
 import java.time.Instant;
+import java.util.Set;
 
 public record ItemResponseDTO(
         Long id,
         String name,
         String description,
-        Long managedById,
+        Set<Long> managedByIds,
         Boolean available,
-        Long imageId,
+        Set<Long> imageIds,
         Long model3dId,
+        Set<Long> tagIds,
         Integer serialNumber,
         Long itemTypeId,
         Long usagePdfId,

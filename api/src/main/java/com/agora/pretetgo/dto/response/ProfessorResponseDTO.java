@@ -11,6 +11,7 @@ public record ProfessorResponseDTO(
         String password,
         Boolean enabled,
         Set<Long> subjectIds,
+        Set<Long> resourceIds,
         Instant createdAt
 ) implements UserResponseDTO {
 }

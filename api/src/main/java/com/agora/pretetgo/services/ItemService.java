@@ -5,16 +5,19 @@ import com.agora.pretetgo.dto.insert.ItemInsertDTO;
 import com.agora.pretetgo.dto.response.ItemResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.ItemMapper;
-import com.agora.pretetgo.models.Item;
-import com.agora.pretetgo.models.ItemType;
-import com.agora.pretetgo.models.Professor;
+import com.agora.pretetgo.models.*;
+import com.agora.pretetgo.repositories.FileMetaDataRepository;
 import com.agora.pretetgo.repositories.ItemRepository;
+import com.agora.pretetgo.repositories.ProfessorRepository;
+import com.agora.pretetgo.repositories.TagRepository;
 import com.agora.pretetgo.specifications.ItemSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
@@ -25,16 +28,24 @@ public class ItemService {
     private ItemMapper itemMapper;
 
     @Autowired
-    private ProfessorService professorService;
+    private FileMetaDataService fileMetaDataService;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private ItemTypeService itemTypeService;
 
+    @Autowired
+    private FileMetaDataRepository fileMetaDataRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
+
     @Transactional
     public Item createItem(ItemInsertDTO dto) {
         Item item = itemMapper.toEntity(dto);
-        setManagedBy(dto, item);
-        setTypeId(dto, item);
+        mapDTOIds(dto, item);
         return itemRepository.save(item);
     }
 
@@ -53,8 +64,7 @@ public class ItemService {
     public Item updateItem(Long id, ItemInsertDTO dto) {
         Item current = getItemById(id);
         itemMapper.updateItemFromDto(dto, current);
-        setManagedBy(dto, current);
-        setTypeId(dto, current);
+        mapDTOIds(dto, current);
         return itemRepository.save(current);
     }
 
@@ -67,23 +77,8 @@ public class ItemService {
     public Item patchItem(Long id, ItemInsertDTO dto) {
         Item current = getItemById(id);
         itemMapper.patchItemFromDto(dto, current);
-        setManagedBy(dto, current);
-        setTypeId(dto, current);
+        mapDTOIds(dto, current);
         return itemRepository.save(current);
-    }
-
-    private void setManagedBy(ItemInsertDTO dto, Item current) {
-        if (dto.managedById() != null) {
-            Professor professor = professorService.getProfessorById(dto.managedById());
-            current.setManagedBy(professor);
-        }
-    }
-
-    private void setTypeId(ItemInsertDTO dto, Item current) {
-        if (dto.itemTypeId() != null) {
-            ItemType itemType = itemTypeService.getItemTypeById(dto.itemTypeId());
-            current.setItemType(itemType);
-        }
     }
 
     @Transactional
@@ -94,5 +89,89 @@ public class ItemService {
                 .stream()
                 .map(itemMapper::toResponseDTO)
                 .toList();
+    }
+
+    public void mapDTOIds(ItemInsertDTO dto, Item current) {
+        fetchManagedBy(dto.managedByIds(), current);
+        fetchFileMetaData(dto.imageIds(), current);
+        setModel3d(dto, current);
+        fetchTag(dto.tagIds(), current);
+        setTypeId(dto, current);
+        setUsagePdf(dto, current);
+    }
+
+    private void setModel3d(ItemInsertDTO dto, Item current) {
+        if (dto.model3dId() != null) {
+            FileMetaData fileMetaData = fileMetaDataService.getFileMetaDataById(dto.model3dId());
+            current.setModel3d(fileMetaData);
+        }
+    }
+
+    private void setUsagePdf(ItemInsertDTO dto, Item current) {
+        if (dto.usagePdfId() != null) {
+            FileMetaData fileMetaData = fileMetaDataService.getFileMetaDataById(dto.usagePdfId());
+            current.setUsagePdf(fileMetaData);
+        }
+    }
+
+    private void setTypeId(ItemInsertDTO dto, Item current) {
+        if (dto.itemTypeId() != null) {
+            ItemType itemType = itemTypeService.getItemTypeById(dto.itemTypeId());
+            current.setItemType(itemType);
+        }
+    }
+
+    private void fetchManagedBy(Set<Long> professorIds, Item item) {
+        if (professorIds == null) return;
+
+        Set<Professor> professors = professorIds.stream()
+                .map(id -> professorRepository.findById(id)
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException("Professor with ID " + id + " not found")
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        item.setManagedBy(professors);
+
+        for (Professor professor : professors) {
+            professor.getResources().add(item);
+        }
+    }
+
+    private void fetchFileMetaData(Set<Long> fileMetaDataId, Item item) {
+        if (fileMetaDataId == null) return;
+
+        Set<FileMetaData> fileMetaData = fileMetaDataId.stream()
+                .map(id -> fileMetaDataRepository.findById(id)
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException("FileMetaData with ID " + id + " not found")
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        item.setImages(fileMetaData);
+
+        for (FileMetaData fileMetaData1 : fileMetaData) {
+            fileMetaData1.getResourcesImages().add(item);
+        }
+    }
+
+    private void fetchTag(Set<Long> tagId, Item item) {
+        if (tagId == null) return;
+
+        Set<Tag> tags = tagId.stream()
+                .map(id -> tagRepository.findById(id)
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException("Tag with ID " + id + " not found")
+                        )
+                )
+                .collect(Collectors.toSet());
+
+        item.setTags(tags);
+
+        for (Tag tag :  tags) {
+            tag.getResources().add(item);
+        }
     }
 }

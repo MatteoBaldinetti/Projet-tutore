@@ -32,7 +32,7 @@ public class SubjectService {
     @Transactional
     public Subject createSubject(SubjectInsertDTO dto) {
         Subject subject = subjectMapper.toEntity(dto);
-        fetchProfessors(dto.professorIds(), subject);
+        mapDTOIds(dto, subject);
         return subjectRepository.save(subject);
     }
 
@@ -51,7 +51,7 @@ public class SubjectService {
     public Subject updateSubject(Long id, SubjectInsertDTO dto) {
         Subject current = getSubjectById(id);
         subjectMapper.updateSubjectFromDto(dto, current);
-        fetchProfessors(dto.professorIds(), current);
+        mapDTOIds(dto, current);
         return subjectRepository.save(current);
     }
 
@@ -64,8 +64,22 @@ public class SubjectService {
     public Subject patchSubject(Long id, SubjectInsertDTO dto) {
         Subject current = getSubjectById(id);
         subjectMapper.patchSubjectFromDto(dto, current);
-        fetchProfessors(dto.professorIds(), current);
+        mapDTOIds(dto, current);
         return subjectRepository.save(current);
+    }
+
+    @Transactional
+    public List<SubjectResponseDTO> searchSubjects(SubjectFilterDTO filterDTO) {
+        return subjectRepository.findAll(
+                        SubjectSpecification.withFilter(filterDTO)
+                )
+                .stream()
+                .map(subjectMapper::toResponseDTO)
+                .toList();
+    }
+
+    private void mapDTOIds(SubjectInsertDTO dto, Subject current) {
+        fetchProfessors(dto.professorIds(), current);
     }
 
     private void fetchProfessors(Set<Long> ProfessorIds, Subject subject) {
@@ -80,15 +94,9 @@ public class SubjectService {
                 .collect(Collectors.toSet());
 
         subject.setProfessors(professors);
-    }
 
-    @Transactional
-    public List<SubjectResponseDTO> searchSubjects(SubjectFilterDTO filterDTO) {
-        return subjectRepository.findAll(
-                        SubjectSpecification.withFilter(filterDTO)
-                )
-                .stream()
-                .map(subjectMapper::toResponseDTO)
-                .toList();
+        for (Professor professor : professors) {
+            professor.getSubjects().add(subject);
+        }
     }
 }

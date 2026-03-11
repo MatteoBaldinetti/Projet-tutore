@@ -1,0 +1,30 @@
+.add-notification-btn {
+    background-color: var(--dark-cyan);
+}
+.add-notification-btn:hover {
+    background-color: var(--forest-green);
+}
+.send-notification-btn {
+    background-color: var(--dark-cyan);
+}
+.send-notification-btn:hover {
+    background-color: var(--forest-green);
+}
+.cancel-send-notification-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-send-notification-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.cancel-delete-notification-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-delete-notification-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

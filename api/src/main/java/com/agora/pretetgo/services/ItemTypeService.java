@@ -29,7 +29,7 @@ public class ItemTypeService {
     @Transactional
     public ItemType createItemType(ItemTypeInsertDTO dto) {
         ItemType itemType = itemTypeMapper.toEntity(dto);
-        setCreatedBy(dto, itemType);
+        mapDTOIds(dto, itemType);
         return itemTypeRepository.save(itemType);
     }
 
@@ -48,7 +48,7 @@ public class ItemTypeService {
     public ItemType updateItemType(Long id, ItemTypeInsertDTO dto) {
         ItemType current = getItemTypeById(id);
         itemTypeMapper.updateItemTypeFromDto(dto, current);
-        setCreatedBy(dto, current);
+        mapDTOIds(dto, current);
         return itemTypeRepository.save(current);
     }
 
@@ -61,15 +61,8 @@ public class ItemTypeService {
     public ItemType patchItemType(Long id, ItemTypeInsertDTO dto) {
         ItemType current = getItemTypeById(id);
         itemTypeMapper.patchItemTypeFromDto(dto, current);
-        setCreatedBy(dto, current);
+        mapDTOIds(dto, current);
         return itemTypeRepository.save(current);
-    }
-
-    private void setCreatedBy(ItemTypeInsertDTO dto, ItemType current) {
-        if (dto.createdById() != null) {
-            Professor professor = professorService.getProfessorById(dto.createdById());
-            current.setCreatedBy(professor);
-        }
     }
 
     @Transactional
@@ -80,5 +73,16 @@ public class ItemTypeService {
                 .stream()
                 .map(itemTypeMapper::toResponseDTO)
                 .toList();
+    }
+
+    private void mapDTOIds(ItemTypeInsertDTO dto, ItemType current) {
+        setCreatedBy(dto, current);
+    }
+
+    private void setCreatedBy(ItemTypeInsertDTO dto, ItemType current) {
+        if (dto.createdById() != null) {
+            Professor professor = professorService.getProfessorById(dto.createdById());
+            current.setCreatedBy(professor);
+        }
     }
 }

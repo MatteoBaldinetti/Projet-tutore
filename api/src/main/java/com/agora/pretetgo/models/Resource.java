@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,19 +25,33 @@ public abstract class Resource {
 
     protected String description;
 
-    @ManyToOne
-    @JoinColumn(name = "managed_by_id")
-    protected Professor managedBy;
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "resources")
+    protected Set<Professor> managedBy;
 
     protected Boolean available = true;
 
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    protected FileMetaData image;
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    @JoinTable(
+            name = "resource_image",
+            joinColumns = @JoinColumn(name = "resource_id"),
+            inverseJoinColumns = @JoinColumn(name = "file_meta_data_id")
+    )
+    protected Set<FileMetaData> images;
 
     @ManyToOne
     @JoinColumn(name = "model_3d_id")
     protected FileMetaData model3d;
+
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    @JoinTable(
+            name = "resource_tag",
+            joinColumns = @JoinColumn(name = "resource_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    protected Set<Tag> tags;
 
     @CreationTimestamp
     protected Instant createdAt;
@@ -49,13 +64,14 @@ public abstract class Resource {
     @OneToMany(mappedBy = "resource")
     protected List<Report> reports = new ArrayList<>();
 
-    protected Resource(String name, String description, Professor managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt) {
+    public Resource(String name, String description, Set<Professor> managedBy, Boolean available, Set<FileMetaData> images, FileMetaData model3d, Set<Tag> tags, Instant createdAt) {
         this.name = name;
         this.description = description;
         this.managedBy = managedBy;
         this.available = available;
-        this.image = image;
+        this.images = images;
         this.model3d = model3d;
+        this.tags = tags;
         this.createdAt = createdAt;
     }
 }

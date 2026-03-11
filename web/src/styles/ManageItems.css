@@ -1,0 +1,30 @@
+.add-item-btn {
+    background-color: var(--dark-cyan);
+}
+.add-item-btn:hover {
+    background-color: var(--forest-green);
+}
+.send-item-btn {
+    background-color: var(--dark-cyan);
+}
+.send-item-btn:hover {
+    background-color: var(--forest-green);
+}
+.cancel-send-item-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-send-item-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.cancel-delete-item-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-delete-item-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

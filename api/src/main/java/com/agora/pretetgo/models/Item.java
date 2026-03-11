@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -26,8 +27,8 @@ public class Item extends Resource {
     @JoinColumn(name = "usage_pdf_id")
     private FileMetaData usagePdf;
 
-    public Item(String name, String description, Professor managedBy, Boolean available, FileMetaData image, FileMetaData model3d, Instant createdAt, Integer serialNumber, ItemType itemType, FileMetaData usagePdf) {
-        super(name, description, managedBy, available, image, model3d, createdAt);
+    public Item(String name, String description, Set<Professor> managedBy, Boolean available, Set<FileMetaData> images, FileMetaData model3d, Set<Tag> tags, Instant createdAt, Integer serialNumber, ItemType itemType, FileMetaData usagePdf) {
+        super(name, description, managedBy, available, images, model3d, tags, createdAt);
         this.serialNumber = serialNumber;
         this.itemType = itemType;
         this.usagePdf = usagePdf;

@@ -13,6 +13,7 @@ public record ProfessorFilterDTO(
         @Parameter(description = "Password") String password,
         @Parameter(description = "Is the professor enabled?") Boolean enabled,
         @Parameter(description = "Set of subject IDs taught by the professor") Set<Long> subjectIds,
+        @Parameter(description = "Set of resource IDs the professor is managing") Set<Long> resourceIds,
         @Parameter(description = "Exact creation timestamp") Instant createdAt,
         @Parameter(description = "Created after this timestamp") Instant createdFrom,
         @Parameter(description = "Created before this timestamp") Instant createdTo

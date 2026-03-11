@@ -1,0 +1,30 @@
+.add-report-btn {
+    background-color: var(--dark-cyan);
+}
+.add-report-btn:hover {
+    background-color: var(--forest-green);
+}
+.send-report-btn {
+    background-color: var(--dark-cyan);
+}
+.send-report-btn:hover {
+    background-color: var(--forest-green);
+}
+.cancel-send-report-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-send-report-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.cancel-delete-report-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-delete-report-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

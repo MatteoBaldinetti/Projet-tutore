@@ -1,0 +1,42 @@
+.add-reservation-btn {
+    background-color: var(--dark-cyan);
+}
+.add-reservation-btn:hover {
+    background-color: var(--forest-green);
+}
+.send-reservation-btn {
+    background-color: var(--dark-cyan);
+}
+.send-reservation-btn:hover {
+    background-color: var(--forest-green);
+}
+.cancel-send-reservation-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-send-reservation-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.cancel-delete-reservation-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-delete-reservation-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.approve-btn {
+    background-color: #16a34a;
+}
+.approve-btn:hover {
+    background-color: #15803d;
+}
+.reject-btn {
+    background-color: #dc2626;
+}
+.reject-btn:hover {
+    background-color: #b91c1c;
+}

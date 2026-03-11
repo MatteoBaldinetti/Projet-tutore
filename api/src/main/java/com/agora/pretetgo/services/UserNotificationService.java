@@ -6,6 +6,7 @@ import com.agora.pretetgo.dto.response.UserNotificationResponseDTO;
 import com.agora.pretetgo.exceptions.ResourceNotFoundException;
 import com.agora.pretetgo.mappers.UserNotificationMapper;
 import com.agora.pretetgo.models.Notification;
+import com.agora.pretetgo.models.User;
 import com.agora.pretetgo.models.UserNotification;
 import com.agora.pretetgo.repositories.UserNotificationRepository;
 import com.agora.pretetgo.specifications.UserNotificationSpecification;
@@ -26,10 +27,13 @@ public class UserNotificationService {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional
     public UserNotification createUserNotification(UserNotificationInsertDTO dto) {
         UserNotification userNotification = userNotificationMapper.toEntity(dto);
-        setNotification(dto, userNotification);
+        mapDTOIds(dto, userNotification);
         return userNotificationRepository.save(userNotification);
     }
 
@@ -48,7 +52,7 @@ public class UserNotificationService {
     public UserNotification updateUserNotification(Long id, UserNotificationInsertDTO dto) {
         UserNotification current = getUserNotificationById(id);
         userNotificationMapper.updateUserNotificationFromDto(dto, current);
-        setNotification(dto, current);
+        mapDTOIds(dto, current);
         return userNotificationRepository.save(current);
     }
 
@@ -61,15 +65,8 @@ public class UserNotificationService {
     public UserNotification patchUserNotification(Long id, UserNotificationInsertDTO dto) {
         UserNotification current = getUserNotificationById(id);
         userNotificationMapper.patchUserNotificationFromDto(dto, current);
-        setNotification(dto, current);
+        mapDTOIds(dto, current);
         return userNotificationRepository.save(current);
-    }
-
-    private void setNotification(UserNotificationInsertDTO dto, UserNotification current) {
-        if (dto.notificationId() != null) {
-            Notification notification = notificationService.getNotificationById(dto.notificationId());
-            current.setNotification(notification);
-        }
     }
 
     @Transactional
@@ -80,5 +77,24 @@ public class UserNotificationService {
                 .stream()
                 .map(userNotificationMapper::toResponseDTO)
                 .toList();
+    }
+
+    private void mapDTOIds(UserNotificationInsertDTO dto, UserNotification current) {
+        setNotification(dto, current);
+        setUser(dto, current);
+    }
+
+    private void setNotification(UserNotificationInsertDTO dto, UserNotification current) {
+        if (dto.notificationId() != null) {
+            Notification notification = notificationService.getNotificationById(dto.notificationId());
+            current.setNotification(notification);
+        }
+    }
+
+    private void setUser(UserNotificationInsertDTO dto, UserNotification current) {
+        if (dto.userId() != null) {
+            User user = userService.getUserById(dto.userId());
+            current.setUser(user);
+        }
     }
 }
