@@ -1,0 +1,19 @@
+.reserve-room-btn {
+    background-color: var(--dark-cyan);
+}
+
+.reserve-room-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.room-info-badge {
+    background-color: #f0fafa;
+    border: 1px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.room-section-title {
+    color: var(--dark-cyan);
+    border-left: 4px solid var(--dark-cyan);
+    padding-left: 10px;
+}
