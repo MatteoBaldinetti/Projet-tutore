@@ -1,0 +1,7 @@
+.reserve-btn, .details-btn{
+    background-color: var(--dark-cyan);
+}
+
+.reserve-btn:hover, .details-btn:hover {
+    background-color: var(--forest-green);
+}

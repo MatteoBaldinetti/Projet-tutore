@@ -3,85 +3,86 @@ import type { FormEvent, ChangeEvent } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Header from "../components/Header.tsx";
 import "../styles/Login.css";
+import RoomCard from "../components/RoomCard";
 
 export default function Login() {
-    const { login } = useAuth();
+  const { login } = useAuth();
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const [emailError, setEmailError] = useState<string>("");
-    const [passwordError, setPasswordError] = useState<string>("");
-    const [formError, setFormError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [formError, setFormError] = useState<string>("");
 
-    // Validation email
-    const validateEmail = (value: string, showRequired = false) => {
-        if (!value.trim()) {
-            if (showRequired) {
-                setEmailError("Veuillez entrer votre email");
-            } else {
-                setEmailError("");
-            }
-            return false;
-        }
-
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!regex.test(value)) {
-            setEmailError("Adresse email invalide");
-            return false;
-        }
-
+  // Validation email
+  const validateEmail = (value: string, showRequired = false) => {
+    if (!value.trim()) {
+      if (showRequired) {
+        setEmailError("Veuillez entrer votre email");
+      } else {
         setEmailError("");
-        return true;
-    };
+      }
+      return false;
+    }
 
-    // Validation mot de passe
-    const validatePassword = (value: string, showRequired = false) => {
-        if (!value.trim()) {
-            if (showRequired) {
-                setPasswordError("Veuillez entrer votre mot de passe");
-            } else {
-                setPasswordError("");
-            }
-            return false;
-        }
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(value)) {
+      setEmailError("Adresse email invalide");
+      return false;
+    }
+
+    setEmailError("");
+    return true;
+  };
+
+  // Validation mot de passe
+  const validatePassword = (value: string, showRequired = false) => {
+    if (!value.trim()) {
+      if (showRequired) {
+        setPasswordError("Veuillez entrer votre mot de passe");
+      } else {
         setPasswordError("");
-        return true;
-    };
+      }
+      return false;
+    }
+    setPasswordError("");
+    return true;
+  };
 
-    // Gestion soumission formulaire
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+  // Gestion soumission formulaire
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-        // showRequired = true pour afficher les erreurs si champs vides
-        const isEmailValid = validateEmail(email, true);
-        const isPasswordValid = validatePassword(password, true);
+    // showRequired = true pour afficher les erreurs si champs vides
+    const isEmailValid = validateEmail(email, true);
+    const isPasswordValid = validatePassword(password, true);
 
-        if (!isEmailValid || !isPasswordValid) {
-            setFormError("Veuillez remplir tous les champs correctement");
-            return;
-        }
+    if (!isEmailValid || !isPasswordValid) {
+      setFormError("Veuillez remplir tous les champs correctement");
+      return;
+    }
 
-        setFormError("");
-        try {
-            await login(email, password);
-        } catch (err: any) {
-            setFormError(err.message || "Email ou mot de passe incorrect");
-        }
-    };
+    setFormError("");
+    try {
+      await login(email, password);
+    } catch (err: any) {
+      setFormError(err.message || "Email ou mot de passe incorrect");
+    }
+  };
 
-    // Gestion changement email
-    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-        if (emailError) validateEmail(e.target.value); // supprime l'erreur dès que l'utilisateur tape
-    };
+  // Gestion changement email
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (emailError) validateEmail(e.target.value); // supprime l'erreur dès que l'utilisateur tape
+  };
 
-    // Gestion changement mot de passe
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-        if (passwordError) validatePassword(e.target.value); // supprime l'erreur dès que l'utilisateur tape
-    };
+  // Gestion changement mot de passe
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (passwordError) validatePassword(e.target.value); // supprime l'erreur dès que l'utilisateur tape
+  };
 
     return (
         <>
