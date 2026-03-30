@@ -23,6 +23,8 @@ public class ClassroomSpecification extends BaseSpecification {
             addIn(predicates, root.get("tags").get("id"), filter.tagIds());
             addEqual(predicates, criteriaBuilder, root.get("roomNumber"), filter.roomNumber());
             addEqual(predicates, criteriaBuilder, root.get("classroomType").get("id"), filter.classroomTypeId());
+            addEqual(predicates, criteriaBuilder, root.get("capacity"), filter.capacity());
+            addEqual(predicates, criteriaBuilder, root.get("computers"), filter.computers());
             addEqual(predicates, criteriaBuilder, root.get("createdAt"), filter.createdAt());
             addBetween(predicates, criteriaBuilder, root.get("createdAt"), filter.createdFrom(), filter.createdTo());
 

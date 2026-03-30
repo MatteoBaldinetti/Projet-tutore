@@ -23,9 +23,15 @@ public class Classroom extends Resource {
     @JoinColumn(name = "classroom_type_id")
     private ClassroomType classroomType;
 
-    public Classroom(String name, String description, Set<Professor> managedBy, Boolean available, Set<FileMetaData> images, FileMetaData model3d, Set<Tag> tags, Instant createdAt, Integer roomNumber, ClassroomType classroomType) {
+    private Integer capacity;
+
+    private Integer computers;
+
+    public Classroom(String name, String description, Set<Professor> managedBy, Boolean available, Set<FileMetaData> images, FileMetaData model3d, Set<Tag> tags, Instant createdAt, Integer roomNumber, ClassroomType classroomType, Integer capacity, Integer computers) {
         super(name, description, managedBy, available, images, model3d, tags, createdAt);
         this.roomNumber = roomNumber;
         this.classroomType = classroomType;
+        this.capacity = capacity;
+        this.computers = computers;
     }
 }

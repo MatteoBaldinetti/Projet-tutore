@@ -11,7 +11,7 @@ import com.agora.pretetgo.services.UserService;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class ReportMapper {
 
     @Autowired

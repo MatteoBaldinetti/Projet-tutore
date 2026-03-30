@@ -5,7 +5,7 @@ import com.agora.pretetgo.dto.insert.StudentInsertDTO;
 import com.agora.pretetgo.models.Student;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface StudentMapper {
     Student toEntity(StudentInsertDTO dto);
 

@@ -6,7 +6,7 @@ import com.agora.pretetgo.models.ClassroomType;
 import com.agora.pretetgo.models.Professor;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ClassroomTypeMapper {
     @Mapping(target = "createdBy", source = "createdById")
     ClassroomType toEntity(ClassroomTypeInsertDTO dto);

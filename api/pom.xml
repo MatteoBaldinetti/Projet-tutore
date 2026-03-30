@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.agora</groupId>
 	<artifactId>pretetgo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>latest</version>
 	<name>pretetgo</name>
 	<description>An item reservation project for MMI.</description>
 	<url/>
@@ -30,6 +30,11 @@
 		<java.version>25</java.version>
 	</properties>
 	<dependencies>
+        <dependency>
+            <groupId>io.mailtrap</groupId>
+            <artifactId>mailtrap-java</artifactId>
+            <version>1.2.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>

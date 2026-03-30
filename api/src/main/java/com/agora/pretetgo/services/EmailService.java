@@ -33,15 +33,16 @@ public class EmailService {
         return templateEngine.process(templateName, context);
     }
 
-    private void sendEmail(String to, String subject, String content) {
+    public void sendEmail(String to, String subject, String content) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom("meaux.mmi@proton.me", "Pret&Go");
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content, true);
             mailSender.send(message);
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

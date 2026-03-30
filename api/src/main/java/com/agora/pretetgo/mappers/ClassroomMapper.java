@@ -5,7 +5,7 @@ import com.agora.pretetgo.dto.response.ClassroomResponseDTO;
 import com.agora.pretetgo.models.*;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ClassroomMapper {
     @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "images", source = "imageIds")

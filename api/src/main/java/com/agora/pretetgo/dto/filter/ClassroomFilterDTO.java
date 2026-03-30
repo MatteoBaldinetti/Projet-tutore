@@ -16,6 +16,8 @@ public record ClassroomFilterDTO(
         @Parameter(description = "IDs of the tags") Set<Long> tagIds,
         @Parameter(description = "Room number") Integer roomNumber,
         @Parameter(description = "ID of the classroom type") Long classroomTypeId,
+        @Parameter(description = "Capacity of the classroom") Integer capacity,
+        @Parameter(description = "Number of computers in the classroom") Integer computers,
         @Parameter(description = "Exact creation timestamp") Instant createdAt,
         @Parameter(description = "Created after this timestamp") Instant createdFrom,
         @Parameter(description = "Created before this timestamp") Instant createdTo

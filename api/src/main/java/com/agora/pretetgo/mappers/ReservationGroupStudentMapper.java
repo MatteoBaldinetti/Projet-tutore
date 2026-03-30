@@ -5,7 +5,7 @@ import com.agora.pretetgo.dto.response.ReservationGroupStudentResponseDTO;
 import com.agora.pretetgo.models.*;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ReservationGroupStudentMapper {
     @Mapping(target = "reservationGroup", source = "reservationGroupId")
     @Mapping(target = "student", source = "studentId")

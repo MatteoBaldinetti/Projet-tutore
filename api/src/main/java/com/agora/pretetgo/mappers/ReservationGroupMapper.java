@@ -5,7 +5,7 @@ import com.agora.pretetgo.dto.response.ReservationGroupResponseDTO;
 import com.agora.pretetgo.models.ReservationGroup;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ReservationGroupMapper {
     ReservationGroup toEntity(ReservationGroupInsertDTO dto);
 

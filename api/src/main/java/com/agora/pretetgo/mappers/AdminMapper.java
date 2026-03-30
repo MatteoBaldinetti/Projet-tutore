@@ -5,7 +5,7 @@ import com.agora.pretetgo.dto.response.AdminResponseDTO;
 import com.agora.pretetgo.models.Admin;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AdminMapper {
     Admin toEntity(AdminInsertDTO dto);
 

@@ -13,6 +13,8 @@ public record ClassroomInsertDTO(
         Set<Long> tagIds,
         Integer roomNumber,
         Long classroomTypeId,
+        Integer capacity,
+        Integer computers,
         Instant createdAt
 ) {
 }

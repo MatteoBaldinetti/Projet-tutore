@@ -6,7 +6,7 @@ import com.agora.pretetgo.models.FileMetaData;
 import com.agora.pretetgo.models.Notification;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface NotificationMapper {
     @Mapping(target = "image", source = "imageId")
     Notification toEntity(NotificationInsertDTO dto);

@@ -14,6 +14,8 @@ public record ClassroomResponseDTO(
         Set<Long> tagIds,
         Integer roomNumber,
         Long classroomTypeId,
+        Integer capacity,
+        Integer computers,
         Instant createdAt
 ) implements ResourceResponseDTO {
 }

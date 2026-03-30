@@ -5,7 +5,7 @@ import com.agora.pretetgo.dto.response.ItemResponseDTO;
 import com.agora.pretetgo.models.*;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ItemMapper {
     @Mapping(target = "managedBy", source = "managedByIds")
     @Mapping(target = "itemType", source = "itemTypeId")

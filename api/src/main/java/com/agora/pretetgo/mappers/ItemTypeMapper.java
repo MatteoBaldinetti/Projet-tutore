@@ -6,7 +6,7 @@ import com.agora.pretetgo.models.ItemType;
 import com.agora.pretetgo.models.Professor;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ItemTypeMapper {
     @Mapping(target = "createdBy", source = "createdById")
     ItemType toEntity(ItemTypeInsertDTO dto);

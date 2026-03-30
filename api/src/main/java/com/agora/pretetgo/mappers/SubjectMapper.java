@@ -6,7 +6,7 @@ import com.agora.pretetgo.models.Professor;
 import com.agora.pretetgo.models.Subject;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SubjectMapper {
     @Mapping(target = "professors", source = "professorIds")
     Subject toEntity(SubjectInsertDTO dto);
