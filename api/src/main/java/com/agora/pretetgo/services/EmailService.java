@@ -68,7 +68,11 @@ public class EmailService {
                     .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                     .build();
 
-            HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+
+            System.out.println("STATUS: " + response.statusCode());
+            System.out.println("BODY: " + response.body());
 
         } catch (Exception e) {
             e.printStackTrace();
