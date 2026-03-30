@@ -1,0 +1,11 @@
+.security-filter-active {
+    background-color: var(--dark-cyan);
+}
+
+.security-close-btn {
+    background-color: var(--dark-cyan);
+}
+
+.security-close-btn:hover {
+    background-color: var(--forest-green);
+}
