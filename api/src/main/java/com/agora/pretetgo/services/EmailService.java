@@ -1,24 +1,37 @@
 package com.agora.pretetgo.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
-import jakarta.mail.internet.MimeMessage;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final SpringTemplateEngine templateEngine;
 
-    @Autowired
-    private SpringTemplateEngine templateEngine;
+    @Value("${brevo.api.key}")
+    private String apiKey;
+
+    @Value("${brevo.sender.email}")
+    private String senderEmail;
+
+    @Value("${brevo.sender.name}")
+    private String senderName;
+
+    public EmailService(SpringTemplateEngine templateEngine) {
+        this.templateEngine = templateEngine;
+    }
 
     @Async
     public void sendTemplateEmail(String to, String subject, String templateName, Map<String, Object> variables) {
@@ -26,21 +39,37 @@ public class EmailService {
         sendEmail(to, subject, content);
     }
 
-    private String buildEmailContent(String templateName, Map<String, Object> variables) {
+    public String buildEmailContent(String templateName, Map<String, Object> variables) {
         Context context = new Context();
         context.setVariables(variables);
         return templateEngine.process(templateName, context);
     }
 
-    public void sendEmail(String to, String subject, String content) {
+    public void sendEmail(String to, String subject, String htmlContent) {
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom("meaux.mmi@proton.me", "Pret&Go");
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(content, true);
-            mailSender.send(message);
+            ObjectMapper mapper = new ObjectMapper();
+
+            Map<String, Object> body = new HashMap<>();
+            body.put("sender", Map.of(
+                    "name", senderName,
+                    "email", senderEmail
+            ));
+            body.put("to", List.of(Map.of("email", to)));
+            body.put("subject", subject);
+            body.put("htmlContent", htmlContent);
+
+            String jsonBody = mapper.writeValueAsString(body);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.brevo.com/v3/smtp/email"))
+                    .header("accept", "application/json")
+                    .header("api-key", apiKey)
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                    .build();
+
+            HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
