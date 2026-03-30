@@ -1,0 +1,10 @@
+.report-icon-wrapper {
+    background-color: #fff7ed;
+    border: 2px solid #fb923c;
+}
+.submit-report-btn {
+    background-color: var(--dark-cyan);
+}
+.submit-report-btn:hover {
+    background-color: var(--forest-green);
+}

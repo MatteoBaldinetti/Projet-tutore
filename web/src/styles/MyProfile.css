@@ -1,0 +1,29 @@
+.profile-avatar {
+    background-color: var(--dark-cyan);
+}
+.edit-profile-btn {
+    background-color: var(--dark-cyan);
+}
+.edit-profile-btn:hover {
+    background-color: var(--forest-green);
+}
+.save-profile-btn {
+    background-color: var(--dark-cyan);
+}
+.save-profile-btn:hover {
+    background-color: var(--forest-green);
+}
+.cancel-edit-profile-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-edit-profile-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+.profile-section-title {
+    color: var(--dark-cyan);
+    border-left: 4px solid var(--dark-cyan);
+    padding-left: 10px;
+}

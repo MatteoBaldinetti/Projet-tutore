@@ -1,0 +1,14 @@
+.reserve-room-btn {
+    background-color: var(--dark-cyan);
+}
+.reserve-room-btn:hover {
+    background-color: var(--forest-green);
+}
+.more-room-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.more-room-btn:hover {
+    background-color: var(--dark-cyan);
+    color: white;
+}

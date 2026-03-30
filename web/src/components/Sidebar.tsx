@@ -81,19 +81,19 @@ const navGroups: NavGroup[] = [
         label: "Utilisateurs",
         icon: <IconUser />,
         items: [
-            { label: "Étudiants", href: "/admin/manage-students", icon: <IconUser /> },
-            { label: "Professeurs", href: "/admin/manage-professors", icon: <IconUser /> },
+            { label: "Étudiants",    href: "/admin/manage-students",   icon: <IconUser /> },
+            { label: "Professeurs",  href: "/admin/manage-professors", icon: <IconUser /> },
         ],
     },
     {
         label: "Ressources",
         icon: <IconBox />,
         items: [
-            { label: "Matériels", href: "/admin/manage-items", icon: <IconBox /> },
-            { label: "Types de matériel", href: "/admin/manage-item-types", icon: <IconTag /> },
-            { label: "Salles", href: "/admin/manage-classrooms", icon: <IconDoor /> },
-            { label: "Types de salle", href: "/admin/manage-classroom-types", icon: <IconTag /> },
-            { label: "Tags", href: "/admin/manage-tags", icon: <IconTag /> },
+            { label: "Matériels",          href: "/admin/manage-items",            icon: <IconBox /> },
+            { label: "Types de matériel",  href: "/admin/manage-item-types",       icon: <IconTag /> },
+            { label: "Salles",             href: "/admin/manage-classrooms",       icon: <IconDoor /> },
+            { label: "Types de salle",     href: "/admin/manage-classroom-types",  icon: <IconTag /> },
+            { label: "Tags",               href: "/admin/manage-tags",             icon: <IconTag /> },
         ],
     },
     {

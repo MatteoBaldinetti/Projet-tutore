@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
 import type { Item, Student } from "../../types/types";
 import { useEffect, useRef, useState } from "react";
-import Layout from "../../components/Layout";
+import StudentLayout from "../../components/StudentLayout";
 import ReservationCalendarSelection from "../../components/ReservationCalendarSelection";
 import "../../styles/MaterielReservation.css";
 
@@ -135,7 +135,7 @@ export default function MaterielReservation() {
         .sort((a, b) => a.lastName.localeCompare(b.lastName)); // tri croissant par nom de famille
 
     return (
-        <Layout
+        <StudentLayout
             titleHeader="Reservations"
             children={
                 <div className="min-h-screen bg-gray-100 p-6">
