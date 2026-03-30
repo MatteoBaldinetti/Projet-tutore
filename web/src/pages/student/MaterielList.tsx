@@ -1,10 +1,10 @@
 import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
-import type { Item } from "../../types/types";
+import type { Item } from "../../../types/types";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ItemCard from "../../components/ItemCard";
-import Layout from "../../components/Layout";
+import StudentLayout from "../../components/StudentLayout";
 
 type GroupedItem = {
     typeId: number;
@@ -126,7 +126,7 @@ export default function MaterielList() {
     };
 
     return (
-        <Layout
+        <StudentLayout
             titleHeader="Materiels disponibles"
             children={
                 <div className="min-h-screen bg-gray-100 p-6">

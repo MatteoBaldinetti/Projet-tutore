@@ -1,0 +1,6 @@
+.approve-btn { background-color: #16a34a; }
+.approve-btn:hover { background-color: #15803d; }
+.reject-btn { background-color: #dc2626; }
+.reject-btn:hover { background-color: #b91c1c; }
+.cancel-prof-btn { border: 2px solid var(--dark-cyan); color: var(--dark-cyan); }
+.cancel-prof-btn:hover { border-color: var(--forest-green); background-color: var(--forest-green); color: white; }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
-import type { Notification, User } from "../../types/types";
+import type { Notification, User } from "../../../types/types";
 import "../../styles/ManageNotifications.css";
 import Layout from "../../components/Layout";
 

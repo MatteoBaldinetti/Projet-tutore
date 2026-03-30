@@ -1,0 +1,21 @@
+.admin-shortcut-btn {
+    background-color: var(--dark-cyan);
+}
+.admin-shortcut-btn:hover {
+    background-color: var(--forest-green);
+}
+.admin-link-btn {
+    color: var(--dark-cyan);
+}
+.admin-link-btn:hover {
+    color: var(--forest-green);
+}
+.admin-icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f1f5f9;
+    border-radius: 9999px;
+}

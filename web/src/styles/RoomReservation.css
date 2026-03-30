@@ -1,0 +1,6 @@
+.reserve-room-btn {
+    background-color: var(--dark-cyan);
+}
+.reserve-room-btn:hover {
+    background-color: var(--forest-green);
+}

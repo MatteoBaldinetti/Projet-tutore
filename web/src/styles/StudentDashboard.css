@@ -1,0 +1,12 @@
+.dashboard-shortcut-btn {
+    background-color: var(--dark-cyan);
+}
+.dashboard-shortcut-btn:hover {
+    background-color: var(--forest-green);
+}
+.dashboard-link-btn {
+    color: var(--dark-cyan);
+}
+.dashboard-link-btn:hover {
+    color: var(--forest-green);
+}

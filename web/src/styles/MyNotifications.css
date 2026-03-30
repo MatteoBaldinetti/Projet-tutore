@@ -1,0 +1,17 @@
+.notif-filter-active {
+    background-color: var(--dark-cyan);
+}
+.mark-all-read-btn {
+    background-color: var(--dark-cyan);
+}
+.mark-all-read-btn:hover {
+    background-color: var(--forest-green);
+}
+.mark-read-btn {
+    border: 1px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.mark-read-btn:hover {
+    background-color: var(--dark-cyan);
+    color: white;
+}
