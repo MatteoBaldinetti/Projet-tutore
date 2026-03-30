@@ -25,41 +25,21 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-type AuthProviderProps = {
-    children: ReactNode;
-};
+type AuthProviderProps = { children: ReactNode };
 
 function safeParse(value: string | null) {
-    try {
-        return value ? JSON.parse(value) : null;
-    } catch {
-        return null;
-    }
+    try { return value ? JSON.parse(value) : null; }
+    catch { return null; }
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const navigate = useNavigate();
 
-    const [userId, setUserId] = useState<number | null>(() =>
-        safeParse(localStorage.getItem("id"))
-    );
-
-    const [userFirstname, setUserFirstName] = useState<string | null>(() =>
-        safeParse(localStorage.getItem("firstname"))
-    );
-
-    const [userLastname, setUserLastName] = useState<string | null>(() =>
-        safeParse(localStorage.getItem("lastname"))
-    );
-
-    const [userEmail, setUserEmail] = useState<string | null>(() =>
-        safeParse(localStorage.getItem("email"))
-    );
-
-    const [userType, setUserType] = useState<string | null>(() =>
-        safeParse(localStorage.getItem("type"))
-    );
-
+    const [userId, setUserId] = useState<number | null>(() => safeParse(localStorage.getItem("id")));
+    const [userFirstname, setUserFirstName] = useState<string | null>(() => safeParse(localStorage.getItem("firstname")));
+    const [userLastname, setUserLastName] = useState<string | null>(() => safeParse(localStorage.getItem("lastname")));
+    const [userEmail, setUserEmail] = useState<string | null>(() => safeParse(localStorage.getItem("email")));
+    const [userType, setUserType] = useState<string | null>(() => safeParse(localStorage.getItem("type")));
     const [authLoading, setAuthLoading] = useState(false);
 
     const login = async (email: string, password: string) => {
@@ -75,7 +55,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 throw new Error("Aucun utilisateur trouvé pour cette adresse mail");
             }
 
-            const isValid = true //await bcrypt.compare(password, data.password);
+            const isValid = await bcrypt.compare(password, data.password);
 
             if (!isValid) {
                 throw new Error("Mot de passe incorrect");
@@ -87,18 +67,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setUserEmail(data.email);
             setUserType(data.type);
 
-            console.log(data);
-
             localStorage.setItem("id", JSON.stringify(data.id));
             localStorage.setItem("firstname", JSON.stringify(data.firstName));
             localStorage.setItem("lastname", JSON.stringify(data.lastName));
             localStorage.setItem("email", JSON.stringify(data.email));
             localStorage.setItem("type", JSON.stringify(data.type));
 
+            // Redirection selon le type d'utilisateur
             if (data.type === "ADMIN") {
                 navigate("/admin/manage-students");
+            } else if (data.type === "PROFESSOR") {
+                navigate("/professor/dashboard");
             } else {
-                navigate("/dashboard");
+                // STUDENT
+                navigate("/student/dashboard");
             }
 
         } catch (err) {
@@ -133,7 +115,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         userType: string
     ) => {
         setAuthLoading(true);
-
         setUserId(userId);
         setUserFirstName(userFirstname);
         setUserLastName(userLastname);
@@ -145,29 +126,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
         localStorage.setItem("lastname", JSON.stringify(userLastname));
         localStorage.setItem("email", JSON.stringify(userEmail));
         localStorage.setItem("type", JSON.stringify(userType));
-
         setAuthLoading(false);
     };
 
-    const value = {
-        userId,
-        userFirstname,
-        userLastname,
-        userEmail,
-        userType,
-        login,
-        logout,
-        updateContext,
-        authLoading,
-    };
+    const value = { userId, userFirstname, userLastname, userEmail, userType, login, logout, updateContext, authLoading };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth(): AuthContextType {
     const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error("useAuth doit être utilisé avec un AuthProvider");
-    }
+    if (!context) throw new Error("useAuth doit être utilisé avec un AuthProvider");
     return context;
 }

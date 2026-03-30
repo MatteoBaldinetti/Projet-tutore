@@ -1,0 +1,9 @@
+.cancel-myreservation-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+.cancel-myreservation-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

@@ -1,0 +1,6 @@
+.prof-shortcut-btn { background-color: var(--dark-cyan); }
+.prof-shortcut-btn:hover { background-color: var(--forest-green); }
+.prof-link-btn { color: var(--dark-cyan); }
+.prof-link-btn:hover { color: var(--forest-green); }
+.prof-validate-btn { background-color: var(--dark-cyan); }
+.prof-validate-btn:hover { background-color: var(--forest-green); }

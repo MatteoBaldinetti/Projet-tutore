@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
-import type { Student } from "../../types/types";
+import type { Student } from "../../../types/types";
 import "../../styles/ManageStudents.css";
 import Layout from "../../components/Layout";
 

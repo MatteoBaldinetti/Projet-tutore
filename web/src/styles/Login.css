@@ -1,12 +1,32 @@
+.login-panel-left {
+    background: linear-gradient(135deg, var(--dark-cyan) 0%, #2a6e68 50%, #1e5247 100%);
+}
+
 .login-input:focus {
     border-color: var(--dark-cyan);
-    box-shadow: 0 0 5px var(--dark-cyan);
+    box-shadow: 0 0 0 3px rgba(58, 140, 133, 0.15);
 }
 
 .login-btn {
     background-color: var(--dark-cyan);
 }
 
-.login-btn:hover {
+.login-btn:hover:not(:disabled) {
     background-color: var(--forest-green);
+}
+
+.login-forgot-link {
+    color: var(--dark-cyan);
+}
+
+.login-forgot-link:hover {
+    color: var(--forest-green);
+}
+
+.login-logo-mobile {
+    background-color: var(--dark-cyan);
+}
+
+.login-brand-text {
+    color: var(--dark-cyan);
 }
