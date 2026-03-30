@@ -35,18 +35,18 @@ function safeParse(value: string | null) {
 export function AuthProvider({ children }: AuthProviderProps) {
     const navigate = useNavigate();
 
-    const [userId, setUserId] = useState<number | null>(() => safeParse(localStorage.getItem("id")));
+    const [userId,        setUserId]        = useState<number | null>(() => safeParse(localStorage.getItem("id")));
     const [userFirstname, setUserFirstName] = useState<string | null>(() => safeParse(localStorage.getItem("firstname")));
-    const [userLastname, setUserLastName] = useState<string | null>(() => safeParse(localStorage.getItem("lastname")));
-    const [userEmail, setUserEmail] = useState<string | null>(() => safeParse(localStorage.getItem("email")));
-    const [userType, setUserType] = useState<string | null>(() => safeParse(localStorage.getItem("type")));
-    const [authLoading, setAuthLoading] = useState(false);
+    const [userLastname,  setUserLastName]  = useState<string | null>(() => safeParse(localStorage.getItem("lastname")));
+    const [userEmail,     setUserEmail]     = useState<string | null>(() => safeParse(localStorage.getItem("email")));
+    const [userType,      setUserType]      = useState<string | null>(() => safeParse(localStorage.getItem("type")));
+    const [authLoading,   setAuthLoading]   = useState(false);
 
     const login = async (email: string, password: string) => {
         setAuthLoading(true);
         try {
             const res = await axios.get(`${API_URL}/users/search?email=${email}`, {
-                headers: { "x-api-key": API_KEY }
+                headers: { "x-api-key": API_KEY },
             });
 
             const data = res.data[0];
@@ -56,7 +56,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
             }
 
             const isValid = await bcrypt.compare(password, data.password);
-
             if (!isValid) {
                 throw new Error("Mot de passe incorrect");
             }
@@ -67,22 +66,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setUserEmail(data.email);
             setUserType(data.type);
 
-            localStorage.setItem("id", JSON.stringify(data.id));
+            localStorage.setItem("id",        JSON.stringify(data.id));
             localStorage.setItem("firstname", JSON.stringify(data.firstName));
-            localStorage.setItem("lastname", JSON.stringify(data.lastName));
-            localStorage.setItem("email", JSON.stringify(data.email));
-            localStorage.setItem("type", JSON.stringify(data.type));
+            localStorage.setItem("lastname",  JSON.stringify(data.lastName));
+            localStorage.setItem("email",     JSON.stringify(data.email));
+            localStorage.setItem("type",      JSON.stringify(data.type));
 
-            // Redirection selon le type d'utilisateur
+            // Redirection selon le rôle
             if (data.type === "ADMIN") {
-                navigate("/admin/manage-students");
+                navigate("/admin/dashboard");
             } else if (data.type === "PROFESSOR") {
                 navigate("/professor/dashboard");
+            } else if (data.type === "SECURITY") {
+                navigate("/security/today");
             } else {
                 // STUDENT
                 navigate("/student/dashboard");
             }
-
         } catch (err) {
             console.error(err);
             throw err;
@@ -121,17 +121,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUserEmail(userEmail);
         setUserType(userType);
 
-        localStorage.setItem("id", JSON.stringify(userId));
+        localStorage.setItem("id",        JSON.stringify(userId));
         localStorage.setItem("firstname", JSON.stringify(userFirstname));
-        localStorage.setItem("lastname", JSON.stringify(userLastname));
-        localStorage.setItem("email", JSON.stringify(userEmail));
-        localStorage.setItem("type", JSON.stringify(userType));
+        localStorage.setItem("lastname",  JSON.stringify(userLastname));
+        localStorage.setItem("email",     JSON.stringify(userEmail));
+        localStorage.setItem("type",      JSON.stringify(userType));
         setAuthLoading(false);
     };
 
-    const value = { userId, userFirstname, userLastname, userEmail, userType, login, logout, updateContext, authLoading };
-
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider value={{ userId, userFirstname, userLastname, userEmail, userType, login, logout, updateContext, authLoading }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
 export function useAuth(): AuthContextType {
