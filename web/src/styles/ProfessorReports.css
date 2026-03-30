@@ -1,0 +1,2 @@
+.cancel-prof-btn { border: 2px solid var(--dark-cyan); color: var(--dark-cyan); }
+.cancel-prof-btn:hover { border-color: var(--forest-green); background-color: var(--forest-green); color: white; }

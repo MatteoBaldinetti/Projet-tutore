@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import type { Reservation, UserNotification, Notification, Resource } from "../../types/types";
+import type { Reservation, UserNotification, Notification, Resource } from "../../../types/types";
 import StudentLayout from "../../components/StudentLayout";
 import "../../styles/StudentDashboard.css";
 

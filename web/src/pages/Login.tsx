@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 import "../styles/Login.css";
 
 const IconEyeOpen = () => (
@@ -20,19 +22,19 @@ const IconEyeClosed = () => (
 
 const IconKey = () => (
     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 2L19 4M11.388 11.612C11.9079 12.1243 12.3199 12.7357 12.6001 13.4102C12.8803 14.0846 13.0232 14.8087 13.0202 15.5396C13.0172 16.2704 12.8684 16.9934 12.5828 17.6656C12.2972 18.3378 11.8803 18.9459 11.3563 19.4539C10.8322 19.9619 10.2115 20.3597 9.53062 20.624C8.84974 20.8882 8.12265 21.0136 7.39195 20.9929C6.66126 20.9723 5.9424 20.806 5.27768 20.5039C4.61296 20.2017 4.01568 19.7699 3.522 19.234C2.47757 18.1001 1.92543 16.6009 1.98333 15.0588C2.04124 13.5167 2.70466 12.0627 3.83 11.01C4.95534 9.95735 6.45513 9.38416 8.0 9.415C9.09 9.438 10.119 9.765 11 10.334L14 7M14 7L17 10L20 7L17 4M14 7L17 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M21 2L19 4M11.388 11.612C11.9079 12.1243 12.3199 12.7357 12.6001 13.4102C12.8803 14.0846 13.0232 14.8087 13.0202 15.5396C13.0172 16.2704 12.8684 16.9934 12.5828 17.6656C12.2972 18.3378 11.8803 18.9459 11.3563 19.4539C10.8322 19.9619 10.2115 20.3597 9.53062 20.624C8.84974 20.8882 8.12265 21.0136 7.39195 20.9929C6.66126 20.9723 5.9424 20.806 5.27768 20.5039C4.61296 20.2017 4.01568 19.7699 3.522 19.234C2.47757 18.1001 1.92543 16.6009 1.98333 15.0588C2.04124 13.5167 2.70466 12.0627 3.83 11.01C4.95534 9.95735 6.45513 9.38416 8.0 9.415C9.09 9.438 10.119 9.765 11 10.334L14 7M14 7L17 10L20 7L17 4M14 7L17 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
 const IconLock = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-400">
-        <path d="M16 10V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V10M5 10H19C19.5523 10 20 10.4477 20 11V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V11C4 10.4477 4.44772 10 5 10Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M16 10V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V10M5 10H19C19.5523 10 20 10.4477 20 11V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V11C4 10.4477 4.44772 10 5 10Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
 const IconMail = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-400">
-        <path d="M3 8L10.8906 13.2604C11.5624 13.7083 12.4376 13.7083 13.1094 13.2604L21 8M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M3 8L10.8906 13.2604C11.5624 13.7083 12.4376 13.7083 13.1094 13.2604L21 8M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -40,39 +42,41 @@ const IconMail = () => (
 const IllustrationLogin = () => (
     <svg viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-sm mx-auto">
         {/* Bâtiment */}
-        <rect x="80" y="160" width="240" height="220" rx="8" fill="white" fillOpacity="0.15"/>
-        <rect x="80" y="160" width="240" height="220" rx="8" stroke="white" strokeOpacity="0.4" strokeWidth="1.5"/>
+        <rect x="80" y="160" width="240" height="220" rx="8" fill="white" fillOpacity="0.15" />
+        <rect x="80" y="160" width="240" height="220" rx="8" stroke="white" strokeOpacity="0.4" strokeWidth="1.5" />
         {/* Toit */}
-        <path d="M60 165 L200 80 L340 165" stroke="white" strokeOpacity="0.5" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M60 165 L200 80 L340 165" stroke="white" strokeOpacity="0.5" strokeWidth="2" strokeLinecap="round" />
         {/* Fenêtres */}
-        <rect x="110" y="195" width="45" height="40" rx="4" fill="white" fillOpacity="0.25"/>
-        <rect x="177" y="195" width="45" height="40" rx="4" fill="white" fillOpacity="0.25"/>
-        <rect x="244" y="195" width="45" height="40" rx="4" fill="white" fillOpacity="0.25"/>
-        <rect x="110" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25"/>
-        <rect x="177" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25"/>
-        <rect x="244" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25"/>
+        <rect x="110" y="195" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
+        <rect x="177" y="195" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
+        <rect x="244" y="195" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
+        <rect x="110" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
+        <rect x="177" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
+        <rect x="244" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
         {/* Porte */}
-        <rect x="167" y="320" width="66" height="60" rx="33" fill="white" fillOpacity="0.3"/>
-        <circle cx="224" cy="350" r="4" fill="white" fillOpacity="0.7"/>
+        <rect x="167" y="320" width="66" height="60" rx="33" fill="white" fillOpacity="0.3" />
+        <circle cx="224" cy="350" r="4" fill="white" fillOpacity="0.7" />
         {/* Sol */}
-        <line x1="40" y1="380" x2="360" y2="380" stroke="white" strokeOpacity="0.3" strokeWidth="1.5"/>
+        <line x1="40" y1="380" x2="360" y2="380" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" />
         {/* Éléments déco : boîte matériel */}
-        <rect x="30" y="300" width="48" height="48" rx="6" fill="white" fillOpacity="0.15" stroke="white" strokeOpacity="0.3" strokeWidth="1.5"/>
-        <path d="M54 316 L54 332 M46 324 L62 324" stroke="white" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round"/>
+        <rect x="30" y="300" width="48" height="48" rx="6" fill="white" fillOpacity="0.15" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" />
+        <path d="M54 316 L54 332 M46 324 L62 324" stroke="white" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round" />
         {/* Éléments déco : clé */}
-        <circle cx="340" cy="280" r="14" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" fill="none"/>
-        <line x1="349" y1="271" x2="365" y2="255" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="362" y1="258" x2="358" y2="262" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="340" cy="280" r="14" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" fill="none" />
+        <line x1="349" y1="271" x2="365" y2="255" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="362" y1="258" x2="358" y2="262" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" />
         {/* Points décoratifs */}
-        <circle cx="60" cy="220" r="3" fill="white" fillOpacity="0.3"/>
-        <circle cx="348" cy="200" r="4" fill="white" fillOpacity="0.2"/>
-        <circle cx="360" cy="340" r="2.5" fill="white" fillOpacity="0.3"/>
-        <circle cx="35" cy="170" r="3" fill="white" fillOpacity="0.25"/>
+        <circle cx="60" cy="220" r="3" fill="white" fillOpacity="0.3" />
+        <circle cx="348" cy="200" r="4" fill="white" fillOpacity="0.2" />
+        <circle cx="360" cy="340" r="2.5" fill="white" fillOpacity="0.3" />
+        <circle cx="35" cy="170" r="3" fill="white" fillOpacity="0.25" />
     </svg>
 );
 
 export default function Login() {
     const { login } = useAuth();
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -188,7 +192,7 @@ export default function Login() {
                         {formError && (
                             <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3 mb-5">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0">
-                                    <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                                    <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                                 </svg>
                                 {formError}
                             </div>
@@ -215,7 +219,7 @@ export default function Login() {
                                 </div>
                                 {emailError && (
                                     <p className="text-xs text-red-500 flex items-center gap-1">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
                                         {emailError}
                                     </p>
                                 )}
@@ -247,7 +251,7 @@ export default function Login() {
                                 </div>
                                 {passwordError && (
                                     <p className="text-xs text-red-500 flex items-center gap-1">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
                                         {passwordError}
                                     </p>
                                 )}
@@ -269,13 +273,20 @@ export default function Login() {
                                 {loading ? (
                                     <>
                                         <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                                         </svg>
                                         Connexion…
                                     </>
                                 ) : "Se connecter"}
                             </button>
+
+                            <p className="text-center text-sm text-gray-500 pt-1">
+                                Pas de compte ?{" "}
+                                <button type="button" onClick={() => navigate("/register")} className="login-forgot-link hover:underline cursor-pointer font-medium">
+                                    S'inscrire
+                                </button>
+                            </p>
 
                         </form>
                     </div>

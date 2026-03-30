@@ -1,0 +1,9 @@
+.prof-avatar { background-color: var(--dark-cyan); }
+.edit-prof-btn { background-color: var(--dark-cyan); }
+.edit-prof-btn:hover { background-color: var(--forest-green); }
+.save-prof-btn { background-color: var(--dark-cyan); }
+.save-prof-btn:hover { background-color: var(--forest-green); }
+.cancel-edit-prof-btn { border: 2px solid var(--dark-cyan); color: var(--dark-cyan); }
+.cancel-edit-prof-btn:hover { border-color: var(--forest-green); background-color: var(--forest-green); color: white; }
+.prof-section-title { color: var(--dark-cyan); border-left: 4px solid var(--dark-cyan); padding-left: 10px; }
+.prof-subject-badge { background-color: #E8F4F3; color: var(--dark-cyan); border: 1px solid var(--dark-cyan); }

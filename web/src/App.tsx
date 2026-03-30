@@ -4,6 +4,7 @@ import Footer from "./components/Footer.tsx";
 
 // Auth
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import ForgetPassword from "./pages/ForgetPassword";
 import ConfirmResetPassword from "./pages/ConfirmResetPassword";
 
@@ -23,6 +24,14 @@ import ManageClassrooms from "./pages/admin/ManageClassrooms.tsx";
 import ManageReservations from "./pages/admin/ManageReservations.tsx";
 import ManageReports from "./pages/admin/ManageReports.tsx";
 import ManageNotifications from "./pages/admin/ManageNotifications.tsx";
+
+// Professor
+import ProfessorDashboard from "./pages/professor/ProfessorDashboard.tsx";
+import ProfessorPendingReservations from "./pages/professor/ProfessorPendingReservations.tsx";
+import ProfessorReservations from "./pages/professor/ProfessorReservations.tsx";
+import ProfessorResources from "./pages/professor/ProfessorResources.tsx";
+import ProfessorReports from "./pages/professor/ProfessorReports.tsx";
+import ProfessorProfile from "./pages/professor/ProfessorProfile.tsx";
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.tsx";
@@ -45,6 +54,7 @@ function App() {
 
             {/* ── Auth ── */}
             <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/confirm-reset-password" element={<ConfirmResetPassword />} />
 
@@ -60,6 +70,15 @@ function App() {
             <Route path="/admin/manage-reservations" element={<ManageReservations />} />
             <Route path="/admin/manage-reports" element={<ManageReports />} />
             <Route path="/admin/manage-notifications" element={<ManageNotifications />} />
+
+            {/* ── Professor ── */}
+            <Route path="/professor/dashboard" element={<ProfessorDashboard />} />
+            <Route path="/professor/reservations/pending" element={<ProfessorPendingReservations />} />
+            <Route path="/professor/reservations" element={<ProfessorReservations />} />
+            <Route path="/professor/resources/items" element={<ProfessorResources type="items" />} />
+            <Route path="/professor/resources/classrooms" element={<ProfessorResources type="classrooms" />} />
+            <Route path="/professor/reports" element={<ProfessorReports />} />
+            <Route path="/professor/profile" element={<ProfessorProfile />} />
 
             {/* ── Student ── */}
             <Route path="/student/dashboard" element={<StudentDashboard />} />

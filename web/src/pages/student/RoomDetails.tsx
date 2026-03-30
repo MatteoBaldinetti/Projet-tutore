@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
-import type { Classroom } from "../../types/types";
+import type { Classroom } from "../../../types/types";
 import StudentLayout from "../../components/StudentLayout";
 import ReservationCalendar from "../../components/ReservationCalendar";
 import "../../styles/RoomDetails.css";

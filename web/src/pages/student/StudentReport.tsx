@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
-import type { Resource } from "../../types/types";
+import type { Resource } from "../../../types/types";
 import StudentLayout from "../../components/StudentLayout";
 import "../../styles/StudentReport.css";
 

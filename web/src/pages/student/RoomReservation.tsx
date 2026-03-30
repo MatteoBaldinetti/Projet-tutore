@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
-import type { Classroom, Student } from "../../types/types";
+import type { Classroom, Student } from "../../../types/types";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import StudentLayout from "../../components/StudentLayout";

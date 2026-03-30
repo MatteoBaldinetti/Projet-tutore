@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
-import type { Item, Student } from "../../types/types";
+import type { Item, Student } from "../../../types/types";
 import { useEffect, useRef, useState } from "react";
 import StudentLayout from "../../components/StudentLayout";
 import ReservationCalendarSelection from "../../components/ReservationCalendarSelection";

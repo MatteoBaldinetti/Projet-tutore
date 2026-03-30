@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
-import type { Item } from "../../types/types";
+import type { Item } from "../../../types/types";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ItemCard from "../../components/ItemCard";
