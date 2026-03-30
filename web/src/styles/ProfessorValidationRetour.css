@@ -1,0 +1,29 @@
+/* ── ProfessorValidationRetour (enseignant) ── */
+.val-confirm-btn {
+    background-color: var(--dark-cyan);
+}
+.val-confirm-btn:hover:not(:disabled) {
+    background-color: var(--forest-green);
+}
+.val-overdue-btn {
+    background-color: #dc2626;
+}
+.val-overdue-btn:hover {
+    background-color: #b91c1c;
+}
+.val-reject-btn {
+    background-color: #dc2626;
+}
+.val-reject-btn:hover:not(:disabled) {
+    background-color: #b91c1c;
+}
+.val-cancel-btn {
+    background-color: #F1F5F9;
+    color: #64748B;
+}
+.val-cancel-btn:hover {
+    background-color: #E2E8F0;
+}
+.val-modal-header {
+    background: linear-gradient(135deg, var(--dark-cyan) 0%, #2a6e68 100%);
+}

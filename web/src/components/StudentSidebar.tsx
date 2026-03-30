@@ -152,6 +152,11 @@ const navGroups: NavGroup[] = [
         href: "/student/my-reservations",
         icon: <IconCalendar />,
       },
+      {
+        label: "Retour d'emprunt",
+        href: "/student/retour-emprunt",
+        icon: <IconCalendar />,
+      },
     ],
   },
 ];
