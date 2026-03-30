@@ -44,7 +44,11 @@ import MyReservations from "./pages/student/MyReservations.tsx";
 import MyNotifications from "./pages/student/MyNotifications.tsx";
 import MyProfile from "./pages/student/MyProfile.tsx";
 import StudentReport from "./pages/student/StudentReport.tsx";
+import RetourEmprunt from "./pages/student/RetourEmprunt.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+
+// Professor
+import ProfessorValidationRetour from "./pages/professor/ProfessorValidationRetour.tsx";
 
 function App() {
   return (
@@ -116,6 +120,10 @@ function App() {
             />
             <Route path="/professor/reports" element={<ProfessorReports />} />
             <Route path="/professor/profile" element={<ProfessorProfile />} />
+            <Route
+              path="/professor/validation-retour"
+              element={<ProfessorValidationRetour />}
+            />
 
             {/* ── Student ── */}
             <Route path="/student/dashboard" element={<StudentDashboard />} />
@@ -140,6 +148,7 @@ function App() {
             />
             <Route path="/student/profile" element={<MyProfile />} />
             <Route path="/student/report" element={<StudentReport />} />
+            <Route path="/student/retour-emprunt" element={<RetourEmprunt />} />
 
             {/* ── Erreurs ── */}
             <Route path="/403" element={<Forbidden />} />
