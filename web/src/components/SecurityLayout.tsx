@@ -1,5 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 type SecurityLayoutProps = {
     children: React.ReactNode;
@@ -8,7 +8,6 @@ type SecurityLayoutProps = {
 
 function SecurityLayout({ children, title }: SecurityLayoutProps) {
     const { userFirstname, userLastname, logout } = useAuth();
-    const navigate = useNavigate();
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -16,18 +15,8 @@ function SecurityLayout({ children, title }: SecurityLayoutProps) {
             <header className="bg-[#39393A] text-white px-6 py-4 flex items-center justify-between shadow-md">
                 <div className="flex items-center gap-4">
                     {/* Logo */}
-                    <button
-                        onClick={() => navigate("/security/today")}
-                        className="flex items-center gap-2 cursor-pointer"
-                    >
-                        <div className="w-8 h-8 rounded-lg bg-[#3A8C85] flex items-center justify-center">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 2L3 7V12C3 16.55 6.84 20.74 12 22C17.16 20.74 21 16.55 21 12V7L12 2Z"
-                                    stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </div>
-                        <span className="font-bold text-lg tracking-tight">PrêtEtGo</span>
-                    </button>
+                    <Logo className="w-12 h-12" />
+                    <span className="text-white text-2xl font-bold tracking-wider uppercase">Pret&Go</span>
 
                     {title && (
                         <>
