@@ -1,0 +1,21 @@
+.profile-page-avatar {
+    background-color: var(--dark-cyan);
+}
+
+.profile-page-section-title {
+    color: var(--dark-cyan);
+    border-left: 4px solid var(--dark-cyan);
+    padding-left: 10px;
+}
+
+.profile-page-role-badge {
+    color: var(--dark-cyan);
+}
+
+.profile-page-save-btn {
+    background-color: var(--dark-cyan);
+}
+
+.profile-page-save-btn:hover {
+    background-color: var(--forest-green);
+}

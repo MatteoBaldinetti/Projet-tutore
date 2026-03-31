@@ -89,7 +89,7 @@ export default function ManageItems() {
         setDescription(item.description);
         setSerialNumber(String(item.serialNumber));
         setAvailable(item.available);
-        setTypeId(item.typeId);
+        setTypeId(item.itemTypeId);
         setManagedByIds(typeof item.manageById === "number" ? [item.manageById] : []);
         setShowAddItem(true);
     };
@@ -190,7 +190,7 @@ export default function ManageItems() {
                                     {filteredItems.map((item) => (
                                         <tr key={item.id}>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{item.name}</td>
-                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getTypeName(item.typeId)}</td>
+                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getTypeName(item.itemTypeId)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{item.serialNumber}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">
                                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${item.available ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>

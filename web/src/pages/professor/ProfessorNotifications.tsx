@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 import type { UserNotification, Notification } from "../../../types/types";
-import StudentLayout from "../../components/StudentLayout";
+import ProfessorLayout from "../../components/ProfessorLayout";
 import "../../styles/MyNotifications.css";
 
 const formatDate = (iso: string) => {
@@ -23,7 +23,7 @@ const IconBellEmpty = () => (
     </svg>
 );
 
-export default function MyNotifications() {
+export default function ProfessorNotifications() {
     const { userId } = useAuth();
 
     const [userNotifications, setUserNotifications] = useState<UserNotification[]>([]);
@@ -85,7 +85,7 @@ export default function MyNotifications() {
     const unreadCount = userNotifications.filter(un => !un.isRead).length;
 
     return (
-        <StudentLayout titleHeader="Mes notifications">
+        <ProfessorLayout titleHeader="Mes notifications">
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="w-full bg-white rounded-xl shadow-md p-6">
 
@@ -159,6 +159,6 @@ export default function MyNotifications() {
 
                 </div>
             </div>
-        </StudentLayout>
+        </ProfessorLayout>
     );
 }

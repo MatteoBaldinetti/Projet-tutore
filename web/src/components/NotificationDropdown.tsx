@@ -34,9 +34,10 @@ export default function NotificationDropdown() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    // Charger les notifs à l'ouverture
+    // Charger les notifs
     useEffect(() => {
-        if (!open || !userId) return;
+        if (!userId) return;
+
         const fetch = async () => {
             setLoading(true);
             try {
@@ -79,8 +80,8 @@ export default function NotificationDropdown() {
     const unreadCount = userNotifications.filter(un => !un.isRead).length;
 
     const sorted = [...userNotifications].sort((a, b) => {
-        const nA = getNotification(a.notificationid);
-        const nB = getNotification(b.notificationid);
+        const nA = getNotification(a.notificationId);
+        const nB = getNotification(b.notificationId);
         return new Date(nB?.createdAt || 0).getTime() - new Date(nA?.createdAt || 0).getTime();
     });
 
@@ -131,7 +132,7 @@ export default function NotificationDropdown() {
                             </div>
                         ) : (
                             sorted.map(un => {
-                                const notif = getNotification(un.notificationid);
+                                const notif = getNotification(un.notificationId);
                                 return (
                                     <div
                                         key={un.id}

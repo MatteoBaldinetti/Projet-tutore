@@ -9,7 +9,7 @@ import StudentLayout from "../../components/StudentLayout";
 type ItemWithImage = Item & { imageIds?: number[] };
 
 type GroupedItem = {
-    typeId: number;
+    itemTypeId: number;
     name: string;
     description: string;
     quantity: number;
@@ -55,14 +55,14 @@ export default function MaterielList() {
     };
 
     const fuseItemListByTypeId = async (items: ItemWithImage[]): Promise<GroupedItem[]> => {
-        const grouped: Record<number, { typeId: number; name: string; description: string; quantity: number; imgUrl: string; items: ItemWithImage[]; firstImageIds: number[] }> = {};
+        const grouped: Record<number, { itemTypeId: number; name: string; description: string; quantity: number; imgUrl: string; items: ItemWithImage[]; firstImageIds: number[] }> = {};
 
         for (const item of items) {
             if (!item.available) continue;
 
-            if (!grouped[item.typeId]) {
-                grouped[item.typeId] = {
-                    typeId: item.typeId,
+            if (!grouped[item.itemTypeId]) {
+                grouped[item.itemTypeId] = {
+                    itemTypeId: item.itemTypeId,
                     name: item.name,
                     description: item.description,
                     quantity: 0,
@@ -72,8 +72,8 @@ export default function MaterielList() {
                 };
             }
 
-            grouped[item.typeId].quantity += 1;
-            grouped[item.typeId].items.push(item);
+            grouped[item.itemTypeId].quantity += 1;
+            grouped[item.itemTypeId].items.push(item);
         }
 
         // Charger les images en parallèle pour chaque groupe
@@ -136,7 +136,7 @@ export default function MaterielList() {
                         </div>
 
                         {currentItems.map((item) => (
-                            <div key={item.typeId} className="mb-5">
+                            <div key={item.itemTypeId} className="mb-5">
                                 <ItemCard
                                     name={item.name}
                                     description={item.description}

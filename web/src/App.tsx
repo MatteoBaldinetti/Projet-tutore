@@ -39,6 +39,7 @@ import ProfessorValidationRetour from "./pages/professor/ProfessorValidationReto
 
 // Security
 import SecurityToday from "./pages/security/SecurityToday.tsx";
+import SecurityProfile from "./pages/security/SecurityProfile.tsx";
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.tsx";
@@ -144,6 +145,9 @@ function App() {
             {/* ── Security ── */}
             <Route path="/security/today" element={
               <ProtectedRoute><SecurityToday /></ProtectedRoute>
+            } />
+            <Route path="/security/profile" element={
+              <ProtectedRoute><SecurityProfile /></ProtectedRoute>
             } />
 
             {/* ── Student ── */}

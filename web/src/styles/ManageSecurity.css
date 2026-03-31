@@ -1,0 +1,37 @@
+.add-security-btn {
+    background-color: var(--dark-cyan);
+}
+
+.add-security-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.send-security-btn {
+    background-color: var(--dark-cyan);
+}
+
+.send-security-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.cancel-send-security-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-send-security-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+
+.cancel-delete-security-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-delete-security-btn:hover {
+    border: 2px solid var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}

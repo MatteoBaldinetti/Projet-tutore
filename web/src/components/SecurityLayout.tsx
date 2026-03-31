@@ -1,4 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 
 type SecurityLayoutProps = {
@@ -8,6 +9,7 @@ type SecurityLayoutProps = {
 
 function SecurityLayout({ children, title }: SecurityLayoutProps) {
     const { userFirstname, userLastname, logout } = useAuth();
+    const navigate = useNavigate();
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -28,10 +30,13 @@ function SecurityLayout({ children, title }: SecurityLayoutProps) {
 
                 {/* Droite */}
                 <div className="flex items-center gap-4">
-                    <div className="text-right">
+                    <button
+                        onClick={() => navigate("/security/profile")}
+                        className="text-right hover:opacity-80 transition cursor-pointer"
+                    >
                         <p className="text-sm font-medium">{userFirstname} {userLastname}</p>
                         <p className="text-xs text-[#64748B]">Agent de sécurité</p>
-                    </div>
+                    </button>
                     <button
                         onClick={logout}
                         className="bg-[#4a4a4b] hover:bg-[#5a5a5b] p-2.5 rounded-full cursor-pointer transition"

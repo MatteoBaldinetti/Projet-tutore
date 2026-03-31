@@ -15,7 +15,8 @@ export type Classroom = {
     manageById: number,
     available: boolean,
     createdAt: string,
-    roomNumber: number
+    roomNumber: number,
+    classroomTypeId: number
 }
 
 export type FileMetaDatas = {
@@ -33,7 +34,7 @@ export type Item = {
     available: boolean,
     createdAt: string,
     serialNumber: number,
-    typeId: number
+    itemTypeId: number
 }
 
 export type ItemType = {
@@ -134,7 +135,7 @@ export type User = {
 
 export type UserNotification = {
     id: number,
-    notificationid: number,
+    notificationId: number,
     userId: number,
     readAt: string,
     isRead: boolean

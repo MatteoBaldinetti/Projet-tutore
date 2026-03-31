@@ -202,7 +202,7 @@ export default function StudentDashboard() {
                                 {unreadNotifications.map(un => (
                                     <div key={un.id} className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 border border-blue-100">
                                         <div className="text-blue-500 mt-0.5 shrink-0"><IconBell /></div>
-                                        <p className="text-sm text-gray-700">{getNotificationMessage(un.notificationid)}</p>
+                                        <p className="text-sm text-gray-700">{getNotificationMessage(un.notificationId)}</p>
                                     </div>
                                 ))}
                             </div>

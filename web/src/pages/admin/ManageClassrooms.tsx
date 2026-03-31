@@ -94,7 +94,7 @@ export default function ManageClassrooms() {
         setDescription(classroom.description);
         setRoomNumber(String(classroom.roomNumber));
         setAvailable(classroom.available);
-        setClassroomTypeId(typeof classroom.manageById === "number" ? classroom.manageById : "");
+        setClassroomTypeId(typeof classroom.classroomTypeId === "number" ? classroom.classroomTypeId : "");
         setManagedByIds(typeof classroom.manageById === "number" ? [classroom.manageById] : []);
         setShowAddClassroom(true);
     };
@@ -195,7 +195,7 @@ export default function ManageClassrooms() {
                                     {filteredClassrooms.map((classroom) => (
                                         <tr key={classroom.id}>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{classroom.name}</td>
-                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getClassroomTypeName(classroom.manageById)}</td>
+                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getClassroomTypeName(classroom.classroomTypeId)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{classroom.roomNumber}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">
                                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${classroom.available ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
