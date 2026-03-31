@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Footer from "./components/Footer.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 // Auth
 import Login from "./pages/Login";
@@ -14,6 +15,7 @@ import Forbidden from "./pages/error/Forbidden.tsx";
 
 // Admin
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+import AdminProfile from "./pages/admin/AdminProfile.tsx";
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
 import ManageSubjects from "./pages/admin/ManageSubjects.tsx";
@@ -58,51 +60,126 @@ function App() {
         <AuthProvider>
           <Routes>
 
-            {/* ── Auth ── */}
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forget-password" element={<ForgetPassword />} />
-            <Route path="/confirm-reset-password" element={<ConfirmResetPassword />} />
+            {/* ── Auth publiques → redirige si déjà connecté ── */}
+            <Route path="/" element={
+              <ProtectedRoute authOnly><Login /></ProtectedRoute>
+            } />
+            <Route path="/register" element={
+              <ProtectedRoute authOnly><Register /></ProtectedRoute>
+            } />
+            <Route path="/forget-password" element={
+              <ProtectedRoute authOnly><ForgetPassword /></ProtectedRoute>
+            } />
+            <Route path="/confirm-reset-password" element={
+              <ProtectedRoute authOnly><ConfirmResetPassword /></ProtectedRoute>
+            } />
 
             {/* ── Admin ── */}
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/manage-students" element={<ManageStudents />} />
-            <Route path="/admin/manage-professors" element={<ManageProfessors />} />
-            <Route path="/admin/manage-subjects" element={<ManageSubjects />} />
-            <Route path="/admin/manage-tags" element={<ManageTags />} />
-            <Route path="/admin/manage-item-types" element={<ManageItemTypes />} />
-            <Route path="/admin/manage-classroom-types" element={<ManageClassroomTypes />} />
-            <Route path="/admin/manage-items" element={<ManageItems />} />
-            <Route path="/admin/manage-classrooms" element={<ManageClassrooms />} />
-            <Route path="/admin/manage-reservations" element={<ManageReservations />} />
-            <Route path="/admin/manage-reports" element={<ManageReports />} />
-            <Route path="/admin/manage-notifications" element={<ManageNotifications />} />
+            <Route path="/admin/dashboard" element={
+              <ProtectedRoute><AdminDashboard /></ProtectedRoute>
+            } />
+            <Route path="/admin/profile" element={
+              <ProtectedRoute><AdminProfile /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-students" element={
+              <ProtectedRoute><ManageStudents /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-professors" element={
+              <ProtectedRoute><ManageProfessors /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-subjects" element={
+              <ProtectedRoute><ManageSubjects /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-tags" element={
+              <ProtectedRoute><ManageTags /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-item-types" element={
+              <ProtectedRoute><ManageItemTypes /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-classroom-types" element={
+              <ProtectedRoute><ManageClassroomTypes /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-items" element={
+              <ProtectedRoute><ManageItems /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-classrooms" element={
+              <ProtectedRoute><ManageClassrooms /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-reservations" element={
+              <ProtectedRoute><ManageReservations /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-reports" element={
+              <ProtectedRoute><ManageReports /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-notifications" element={
+              <ProtectedRoute><ManageNotifications /></ProtectedRoute>
+            } />
 
             {/* ── Professor ── */}
-            <Route path="/professor/dashboard" element={<ProfessorDashboard />} />
-            <Route path="/professor/reservations/pending" element={<ProfessorPendingReservations />} />
-            <Route path="/professor/reservations" element={<ProfessorReservations />} />
-            <Route path="/professor/resources/items" element={<ProfessorResources type="items" />} />
-            <Route path="/professor/resources/classrooms" element={<ProfessorResources type="classrooms" />} />
-            <Route path="/professor/reports" element={<ProfessorReports />} />
-            <Route path="/professor/profile" element={<ProfessorProfile />} />
-            <Route path="/professor/validation-retour" element={<ProfessorValidationRetour />} />
+            <Route path="/professor/dashboard" element={
+              <ProtectedRoute><ProfessorDashboard /></ProtectedRoute>
+            } />
+            <Route path="/professor/reservations/pending" element={
+              <ProtectedRoute><ProfessorPendingReservations /></ProtectedRoute>
+            } />
+            <Route path="/professor/reservations" element={
+              <ProtectedRoute><ProfessorReservations /></ProtectedRoute>
+            } />
+            <Route path="/professor/resources/items" element={
+              <ProtectedRoute><ProfessorResources type="items" /></ProtectedRoute>
+            } />
+            <Route path="/professor/resources/classrooms" element={
+              <ProtectedRoute><ProfessorResources type="classrooms" /></ProtectedRoute>
+            } />
+            <Route path="/professor/reports" element={
+              <ProtectedRoute><ProfessorReports /></ProtectedRoute>
+            } />
+            <Route path="/professor/profile" element={
+              <ProtectedRoute><ProfessorProfile /></ProtectedRoute>
+            } />
+            <Route path="/professor/validation-retour" element={
+              <ProtectedRoute><ProfessorValidationRetour /></ProtectedRoute>
+            } />
 
             {/* ── Security ── */}
-            <Route path="/security/today" element={<SecurityToday />} />
+            <Route path="/security/today" element={
+              <ProtectedRoute><SecurityToday /></ProtectedRoute>
+            } />
 
             {/* ── Student ── */}
-            <Route path="/student/dashboard" element={<StudentDashboard />} />
-            <Route path="/student/materiel-list" element={<MaterielList />} />
-            <Route path="/student/materiel-reservation/:id" element={<MaterielReservation />} />
-            <Route path="/student/room-list" element={<RoomList />} />
-            <Route path="/student/room-details/:id" element={<RoomDetails />} />
-            <Route path="/student/room-reservation/:id" element={<RoomReservation />} />
-            <Route path="/student/my-reservations" element={<MyReservations />} />
-            <Route path="/student/notifications" element={<MyNotifications />} />
-            <Route path="/student/profile" element={<MyProfile />} />
-            <Route path="/student/report" element={<StudentReport />} />
-            <Route path="/student/retour-emprunt" element={<RetourEmprunt />} />
+            <Route path="/student/dashboard" element={
+              <ProtectedRoute><StudentDashboard /></ProtectedRoute>
+            } />
+            <Route path="/student/materiel-list" element={
+              <ProtectedRoute><MaterielList /></ProtectedRoute>
+            } />
+            <Route path="/student/materiel-reservation/:id" element={
+              <ProtectedRoute><MaterielReservation /></ProtectedRoute>
+            } />
+            <Route path="/student/room-list" element={
+              <ProtectedRoute><RoomList /></ProtectedRoute>
+            } />
+            <Route path="/student/room-details/:id" element={
+              <ProtectedRoute><RoomDetails /></ProtectedRoute>
+            } />
+            <Route path="/student/room-reservation/:id" element={
+              <ProtectedRoute><RoomReservation /></ProtectedRoute>
+            } />
+            <Route path="/student/my-reservations" element={
+              <ProtectedRoute><MyReservations /></ProtectedRoute>
+            } />
+            <Route path="/student/notifications" element={
+              <ProtectedRoute><MyNotifications /></ProtectedRoute>
+            } />
+            <Route path="/student/profile" element={
+              <ProtectedRoute><MyProfile /></ProtectedRoute>
+            } />
+            <Route path="/student/report" element={
+              <ProtectedRoute><StudentReport /></ProtectedRoute>
+            } />
+            <Route path="/student/retour-emprunt" element={
+              <ProtectedRoute><RetourEmprunt /></ProtectedRoute>
+            } />
 
             {/* ── Erreurs ── */}
             <Route path="/403" element={<Forbidden />} />

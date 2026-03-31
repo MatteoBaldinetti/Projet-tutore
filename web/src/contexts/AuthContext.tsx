@@ -55,6 +55,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 throw new Error("Aucun utilisateur trouvé pour cette adresse mail");
             }
 
+            const test = await bcrypt.hash(password, 10);
+            console.log("Hash de test :", test);
+                        console.log(test, data.password);
+
             const isValid = await bcrypt.compare(password, data.password);
             if (!isValid) {
                 throw new Error("Mot de passe incorrect");

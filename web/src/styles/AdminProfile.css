@@ -1,0 +1,36 @@
+.admin-avatar {
+    background-color: var(--dark-cyan);
+}
+
+.edit-admin-btn {
+    background-color: var(--dark-cyan);
+}
+
+.edit-admin-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.save-admin-btn {
+    background-color: var(--dark-cyan);
+}
+
+.save-admin-btn:hover {
+    background-color: var(--forest-green);
+}
+
+.cancel-edit-admin-btn {
+    border: 2px solid var(--dark-cyan);
+    color: var(--dark-cyan);
+}
+
+.cancel-edit-admin-btn:hover {
+    border-color: var(--forest-green);
+    background-color: var(--forest-green);
+    color: white;
+}
+
+.admin-section-title {
+    color: var(--dark-cyan);
+    border-left: 4px solid var(--dark-cyan);
+    padding-left: 10px;
+}

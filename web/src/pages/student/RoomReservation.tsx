@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
 import type { Classroom, Student } from "../../../types/types";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import StudentLayout from "../../components/StudentLayout";
 import ReservationCalendarSelection from "../../components/ReservationCalendarSelection";
@@ -18,13 +18,14 @@ export default function RoomReservation() {
     const [endReservation, setEndReservation] = useState<number | null>(null);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [successMessage, setSuccessMessage] = useState<string>("");
+    const [loading, setLoading] = useState(false);
 
     const [studentList, setStudentList] = useState<Student[]>([]);
     const [searchStudent, setSearchStudent] = useState("");
     const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);
 
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const [isDrawing, setIsDrawing] = useState(false);
+    // Checkbox d'attestation (remplace la signature)
+    const [attested, setAttested] = useState(false);
 
     const fetchRoomById = async (roomId: number) => {
         try {
@@ -59,37 +60,6 @@ export default function RoomReservation() {
         return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")} à ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
     };
 
-    const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-        setIsDrawing(true);
-    };
-
-    const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
-        if (!isDrawing) return;
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-        ctx.stroke();
-    };
-
-    const stopDrawing = () => setIsDrawing(false);
-
-    const clearSignature = () => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        setErrorMessage("");
-    };
-
     const handleReservation = async () => {
         setErrorMessage("");
         setSuccessMessage("");
@@ -99,63 +69,65 @@ export default function RoomReservation() {
             return;
         }
 
-        const canvas = canvasRef.current;
-        if (!canvas) { setErrorMessage("Canvas non disponible."); return; }
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        const isCanvasEmpty = ctx.getImageData(0, 0, canvas.width, canvas.height).data.every(v => v === 0);
-        if (isCanvasEmpty) {
-            setErrorMessage("Veuillez signer avant de valider la réservation.");
+        if (!attested) {
+            setErrorMessage("Vous devez cocher la case d'attestation pour valider la réservation.");
             return;
         }
 
+        setLoading(true);
         try {
-            // Créer le groupe de réservation
-            const groupRes = await axios.post(`${API_URL}/reservationGroups`, {
-                name: `Groupe ${selectedRoom?.name} - ${new Date().toLocaleDateString("fr-FR")}`,
-                createdAt: new Date().toISOString(),
-            }, { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } });
-
+            const groupRes = await axios.post(
+                `${API_URL}/reservationGroups`,
+                {
+                    name: `Groupe ${selectedRoom?.name} - ${new Date().toLocaleDateString("fr-FR")}`,
+                    createdAt: new Date().toISOString(),
+                },
+                { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } }
+            );
             const groupId = groupRes.data.id;
 
-            // Ajouter les étudiants au groupe
-            const studentsToAdd = selectedStudents.length > 0 ? selectedStudents : [];
             if (userId) {
-                await axios.post(`${API_URL}/reservationGroupStudents`, {
-                    reservationGroupId: groupId,
-                    studentId: userId,
-                    role: "LEADER",
-                    createdAt: new Date().toISOString(),
-                }, { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } });
+                await axios.post(
+                    `${API_URL}/reservationGroupStudents`,
+                    { reservationGroupId: groupId, studentId: userId, role: "LEADER", createdAt: new Date().toISOString() },
+                    { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } }
+                );
             }
 
-            for (const student of studentsToAdd) {
+            for (const student of selectedStudents) {
                 if (student.id !== userId) {
-                    await axios.post(`${API_URL}/reservationGroupStudents`, {
-                        reservationGroupId: groupId,
-                        studentId: student.id,
-                        role: "MEMBER",
-                        createdAt: new Date().toISOString(),
-                    }, { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } });
+                    await axios.post(
+                        `${API_URL}/reservationGroupStudents`,
+                        { reservationGroupId: groupId, studentId: student.id, role: "MEMBER", createdAt: new Date().toISOString() },
+                        { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } }
+                    );
                 }
             }
 
-            // Créer la réservation
-            await axios.post(`${API_URL}/reservations`, {
-                startDate: new Date(startReservation).toISOString(),
-                endDate: new Date(endReservation).toISOString(),
-                reservedById: groupId,
-                resourceId: selectedRoom?.id,
-                status: "PENDING",
-                validationDate: null,
-                createdAt: new Date().toISOString(),
-            }, { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } });
+            await axios.post(
+                `${API_URL}/reservations`,
+                {
+                    startDate: new Date(startReservation).toISOString(),
+                    endDate: new Date(endReservation).toISOString(),
+                    reservedById: groupId,
+                    resourceId: selectedRoom?.id,
+                    status: "PENDING",
+                    validationDate: null,
+                    createdAt: new Date().toISOString(),
+                },
+                { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } }
+            );
 
-            setSuccessMessage("Réservation envoyée avec succès ! En attente de validation.");
+            setSuccessMessage("Réservation envoyée avec succès ! En attente de validation par un professeur.");
+            setAttested(false);
+            setSelectedStudents([]);
+            setStartReservation(null);
+            setEndReservation(null);
         } catch (err) {
             console.error("Erreur lors de la réservation :", err);
-            setErrorMessage("Une erreur est survenue lors de la réservation.");
+            setErrorMessage("Une erreur est survenue lors de la réservation. Veuillez réessayer.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -176,7 +148,7 @@ export default function RoomReservation() {
                     className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#3A8C85] transition mb-4 cursor-pointer"
                 >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path d="M16.1795 3.26875C15.7889 2.87823 15.1558 2.87823 14.7652 3.26875L8.12078 9.91322C6.94952 11.0845 6.94916 12.9833 8.11996 14.155L14.6903 20.7304C15.0808 21.121 15.714 21.121 16.1045 20.7304C16.495 20.3399 16.495 19.7067 16.1045 19.3162L9.53246 12.7442C9.14194 12.3536 9.14194 11.7205 9.53246 11.33L16.1795 4.68297C16.57 4.29244 16.57 3.65928 16.1795 3.26875Z" fill="currentColor" />
+                        <path d="M16.1795 3.26875C15.7889 2.87823 15.1558 2.87823 14.7652 3.26875L8.12078 9.91322C6.94952 11.0845 6.94916 12.9833 8.11996 14.155L14.6903 20.7304C15.0808 21.121 15.714 21.121 16.1045 20.7304C16.495 20.3399 16.495 19.7067 16.1045 19.3162L9.53246 12.7442C9.14194 12.3536 9.14194 11.7205 9.53246 11.33L16.1795 4.68297C16.57 4.29244 16.57 3.65928 16.1795 3.26875Z" fill="currentColor"/>
                     </svg>
                     Retour aux détails
                 </button>
@@ -234,60 +206,91 @@ export default function RoomReservation() {
                     />
                 </div>
 
-                {/* RÉCAPITULATIF + SIGNATURE */}
+                {/* RÉCAPITULATIF */}
                 <div className="w-full mx-auto mb-5 bg-white rounded-xl shadow-md p-6">
-                    <h1 className="text-3xl mb-3 font-semibold">Récapitulatif de la réservation</h1>
+                    <h1 className="text-3xl mb-5 font-semibold">Récapitulatif de la réservation</h1>
 
-                    <div className="flex flex-row justify-between">
-                        <div>
-                            <p className="mx-5 mb-2">
-                                <span className="font-bold">Salle réservée : </span>
-                                {selectedRoom?.name}
-                            </p>
-                            <p className="mx-5 mb-2">
-                                <span className="font-bold">Étudiants : </span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                            <p className="text-xs text-gray-400 uppercase font-medium mb-1">Salle réservée</p>
+                            <p className="font-semibold text-gray-800">{selectedRoom?.name || "—"}</p>
+                        </div>
+                        <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                            <p className="text-xs text-gray-400 uppercase font-medium mb-1">Étudiants</p>
+                            <p className="font-medium text-gray-700 text-sm">
                                 {selectedStudents.length > 0
                                     ? selectedStudents.map(s => `${s.firstName} ${s.lastName}`).join(", ")
                                     : "—"}
                             </p>
-                            <div className="flex mb-5 flex-row">
-                                <p className="mx-5"><span className="font-bold">Du </span>{formatDateTime(startReservation)}</p>
-                                <p className="mx-5"><span className="font-bold">Au </span>{formatDateTime(endReservation)}</p>
-                            </div>
                         </div>
-
-                        <div>
-                            <h2 className="text-2xl font-semibold mb-4">Signature</h2>
-                            <canvas
-                                ref={canvasRef}
-                                width={500}
-                                height={200}
-                                className="border rounded-md bg-white"
-                                onMouseDown={startDrawing}
-                                onMouseMove={draw}
-                                onMouseUp={stopDrawing}
-                                onMouseLeave={stopDrawing}
-                            />
-                            <div className="flex gap-4 mt-4">
-                                <button
-                                    onClick={clearSignature}
-                                    className="px-2 py-2 mx-5 rounded bg-red-500 hover:bg-red-600 text-white transition cursor-pointer"
-                                >
-                                    Effacer la signature
-                                </button>
-                                <button
-                                    onClick={handleReservation}
-                                    className="reserve-room-btn text-white px-2 py-2 mx-5 rounded transition cursor-pointer flex items-center"
-                                >
-                                    Valider la réservation
-                                </button>
-                            </div>
-                            {errorMessage && <p className="mt-3 mx-5 text-red-600 font-medium">{errorMessage}</p>}
-                            {successMessage && <p className="mt-3 mx-5 text-green-600 font-medium">{successMessage}</p>}
+                        <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                            <p className="text-xs text-gray-400 uppercase font-medium mb-1">Créneau</p>
+                            <p className="font-medium text-gray-700 text-sm">
+                                {startReservation && endReservation
+                                    ? `${formatDateTime(startReservation)} → ${formatDateTime(endReservation)}`
+                                    : "Non sélectionné"}
+                            </p>
                         </div>
                     </div>
-                </div>
 
+                    {/* ATTESTATION */}
+                    <div className={`rounded-xl border-2 p-5 mb-5 transition-colors ${attested ? "border-[#3A8C85] bg-[#E8F4F3]" : "border-gray-200 bg-gray-50"}`}>
+                        <label className="flex items-start gap-4 cursor-pointer select-none">
+                            <div className="mt-0.5 shrink-0">
+                                <input
+                                    type="checkbox"
+                                    checked={attested}
+                                    onChange={e => setAttested(e.target.checked)}
+                                    className="w-5 h-5 cursor-pointer accent-[#3A8C85]"
+                                />
+                            </div>
+                            <div>
+                                <p className={`font-semibold mb-1 ${attested ? "text-[#3A8C85]" : "text-gray-700"}`}>
+                                    Attestation sur l'honneur
+                                </p>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    Je comprends et atteste que je suis responsable de la salle réservée
+                                    pour la durée indiquée. Je m'engage à laisser les lieux en bon état,
+                                    à respecter les règles d'utilisation des espaces de l'établissement
+                                    et à signaler immédiatement tout problème ou incident constaté.
+                                </p>
+                            </div>
+                        </label>
+                    </div>
+
+                    {errorMessage && (
+                        <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3 mb-4">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                                <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                            </svg>
+                            {errorMessage}
+                        </div>
+                    )}
+                    {successMessage && (
+                        <div className="flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 text-sm rounded-lg px-4 py-3 mb-4">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            {successMessage}
+                        </div>
+                    )}
+
+                    <div className="flex justify-end">
+                        <button
+                            onClick={handleReservation}
+                            disabled={loading || !attested}
+                            className="reserve-room-btn text-white px-6 py-2.5 rounded-lg transition cursor-pointer flex items-center gap-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {loading && (
+                                <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                                </svg>
+                            )}
+                            Valider la réservation
+                        </button>
+                    </div>
+                </div>
             </div>
         </StudentLayout>
     );

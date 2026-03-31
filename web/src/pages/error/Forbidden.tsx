@@ -1,7 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { ROLE_DASHBOARDS } from "../../components/ProtectedRoute";
+
+const ROLE_LABELS: Record<string, string> = {
+    ADMIN:     "Administrateur",
+    PROFESSOR: "Professeur",
+    STUDENT:   "Étudiant",
+    SECURITY:  "Agent de sécurité",
+};
 
 export default function Forbidden() {
     const navigate = useNavigate();
+    const { userType } = useAuth();
+
+    const dashboard = userType ? ROLE_DASHBOARDS[userType] : null;
+    const roleLabel = userType ? ROLE_LABELS[userType] : null;
 
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
@@ -9,9 +22,17 @@ export default function Forbidden() {
 
                 <h1 className="text-5xl font-bold text-gray-800 mt-6 mb-2">403</h1>
                 <h2 className="text-xl font-semibold text-gray-600 mb-3">Accès refusé</h2>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-                    Vous n'avez pas les permissions nécessaires pour accéder à cette page. Connectez-vous avec un compte approprié ou contactez un administrateur.
-                </p>
+
+                {userType ? (
+                    <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
+                        Votre compte <span className="font-medium text-gray-600">{roleLabel}</span> n'a pas accès à cette page.
+                        Retournez à votre espace ou contactez un administrateur.
+                    </p>
+                ) : (
+                    <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
+                        Vous devez être connecté avec les droits appropriés pour accéder à cette page.
+                    </p>
+                )}
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <button
@@ -23,17 +44,29 @@ export default function Forbidden() {
                         </svg>
                         Page précédente
                     </button>
-                    <button
-                        onClick={() => navigate("/")}
-                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#3A8C85] text-white rounded-lg font-medium hover:bg-[#44a36d] transition cursor-pointer"
-                    >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M3 12L12 3L21 12V20C21 20.5523 20.5523 21 20 21H15V16H9V21H4C3.44772 21 3 20.5523 3 20V12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        Se connecter
-                    </button>
-                </div>
 
+                    {dashboard ? (
+                        <button
+                            onClick={() => navigate(dashboard)}
+                            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#3A8C85] text-white rounded-lg font-medium hover:bg-[#44a36d] transition cursor-pointer"
+                        >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 12L12 3L21 12V20C21 20.5523 20.5523 21 20 21H15V16H9V21H4C3.44772 21 3 20.5523 3 20V12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            <p className="text-sm">Mon tableau de bord</p>
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => navigate("/")}
+                            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#3A8C85] text-white rounded-lg font-medium hover:bg-[#44a36d] transition cursor-pointer"
+                        >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 12L12 3L21 12V20C21 20.5523 20.5523 21 20 21H15V16H9V21H4C3.44772 21 3 20.5523 3 20V12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            Se connecter
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );
