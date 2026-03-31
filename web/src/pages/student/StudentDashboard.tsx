@@ -144,7 +144,7 @@ export default function StudentDashboard() {
                     <h1 className="text-3xl font-semibold">
                         Bonjour, {userFirstname} {userLastname}
                     </h1>
-                    <p className="text-gray-500 mt-1">Bienvenue sur votre espace étudiant PrêtEtGo.</p>
+                    <p className="text-gray-500 mt-1">Bienvenue sur votre espace étudiant Prêt&Go.</p>
                 </div>
 
                 {/* STATS */}

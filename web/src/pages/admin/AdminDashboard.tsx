@@ -229,7 +229,7 @@ export default function AdminDashboard() {
               Bonjour, {userFirstname} {userLastname}
             </h1>
             <p className="text-gray-500 mt-1">
-              Bienvenue sur votre espace administrateur PrêtEtGo.
+              Bienvenue sur votre espace administrateur Prêt&Go.
             </p>
           </div>
           <div className="hidden sm:flex items-center gap-3 text-sm text-gray-400">
