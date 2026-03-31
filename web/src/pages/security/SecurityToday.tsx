@@ -59,7 +59,7 @@ function assignColumns(reservations: EnrichedReservation[]) {
 
 export default function SecurityToday() {
     const [reservations, setReservations] = useState<EnrichedReservation[]>([]);
-    const [resources, setResources] = useState<Resource[]>([]);
+    //const [resources, setResources] = useState<Resource[]>([]);
     const [loading, setLoading] = useState(true);
     const [now, setNow] = useState(new Date());
     const [filter, setFilter] = useState<"all" | "approved">("approved");
@@ -92,7 +92,7 @@ export default function SecurityToday() {
                     axios.get(`${API_URL}/students`,     { headers: { "x-api-key": API_KEY } }),
                 ]);
 
-                setResources(resourcesRes.data);
+                //setResources(resourcesRes.data);
 
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
@@ -199,7 +199,7 @@ export default function SecurityToday() {
 
     return (
         <SecurityLayout title="Planning du jour">
-            <div className="p-6 max-w-screen-xl mx-auto">
+            <div className="p-6 max-w-7xl mx-auto">
 
                 {/* EN-TÊTE */}
                 <div className="bg-white rounded-xl shadow-md p-6 mb-6">

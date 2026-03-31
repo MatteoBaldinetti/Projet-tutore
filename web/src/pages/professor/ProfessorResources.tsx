@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
-import type { Resource } from "../../types/types";
+import type { Resource } from "../../../types/types";
 import ProfessorLayout from "../../components/ProfessorLayout";
 import "../../styles/ProfessorResources.css";
 
@@ -111,7 +111,7 @@ export default function ProfessorResources({ type = "items" }: { type?: Resource
                             {filtered.map(r => (
                                 <div key={r.id} className="border border-[#E2E8F0] rounded-xl overflow-hidden flex flex-col">
                                     {/* PLACEHOLDER */}
-                                    <div className="h-32 bg-gradient-to-br from-[#E8F4F3] to-[#c8e8e6] flex items-center justify-center">
+                                    <div className="h-32 bg-linear-to-br from-[#E8F4F3] to-[#c8e8e6] flex items-center justify-center">
                                         {isItems ? <IconBox /> : <IconDoor />}
                                     </div>
 

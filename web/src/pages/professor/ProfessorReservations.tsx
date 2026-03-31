@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
-import type { Reservation, Resource, ReservationGroup } from "../../types/types";
+import type { Reservation, Resource, ReservationGroup } from "../../../types/types";
 import ProfessorLayout from "../../components/ProfessorLayout";
 import "../../styles/ProfessorReservations.css";
 

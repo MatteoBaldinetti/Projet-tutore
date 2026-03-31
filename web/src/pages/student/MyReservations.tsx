@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
-import type { Reservation, Resource, ReservationGroup, ReservationGroupStudent } from "../../../types/types";
+import type { Reservation, Resource, ReservationGroupStudent } from "../../../types/types";
 import StudentLayout from "../../components/StudentLayout";
 import "../../styles/MyReservations.css";
 
@@ -23,7 +23,7 @@ export default function MyReservations() {
 
     const [reservations, setReservations] = useState<Reservation[]>([]);
     const [resources, setResources] = useState<Resource[]>([]);
-    const [groups, setGroups] = useState<ReservationGroup[]>([]);
+    //const [groups, setGroups] = useState<ReservationGroup[]>([]);
     const [loading, setLoading] = useState(true);
 
     const [statusFilter, setStatusFilter] = useState("");
@@ -34,7 +34,7 @@ export default function MyReservations() {
     useEffect(() => {
         const fetchAll = async () => {
             try {
-                const [resRes, resourcesRes, groupsRes, groupStudentsRes] = await Promise.all([
+                const [resRes, resourcesRes, groupStudentsRes] = await Promise.all([
                     axios.get(`${API_URL}/reservations`, { headers: { "x-api-key": API_KEY } }),
                     axios.get(`${API_URL}/resources`, { headers: { "x-api-key": API_KEY } }),
                     axios.get(`${API_URL}/reservationGroups`, { headers: { "x-api-key": API_KEY } }),
@@ -52,7 +52,7 @@ export default function MyReservations() {
 
                 setReservations(myReservations);
                 setResources(resourcesRes.data);
-                setGroups(groupsRes.data);
+                //setGroups(groupsRes.data);
             } catch (err) {
                 console.error("Erreur lors de la récupération :", err);
             } finally {
