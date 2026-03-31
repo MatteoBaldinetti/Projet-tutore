@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Logo from "./Logo";
 
 type NavItem = { label: string; href: string; icon: React.ReactNode };
 type NavGroup = { label: string; icon: React.ReactNode; items: NavItem[] };
@@ -241,27 +242,15 @@ function ProfessorSidebar() {
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-  const simpleLinks = [
-    {
-      href: "/professor/dashboard",
-      label: "Tableau de bord",
-      icon: <IconDashboard />,
-    },
-    {
-      href: "/professor/notifications",
-      label: "Notifications",
-      icon: <IconBell />,
-    },
-    {
-      href: "/professor/reports",
-      label: "Signalements reçus",
-      icon: <IconWarning />,
-    },
-    { href: "/professor/profile", label: "Mon profil", icon: <IconUser /> },
-  ];
-
   return (
     <aside className="h-screen bg-[#39393A] text-[#CBD5E1] overflow-y-auto">
+      <div
+        className="flex items-center gap-3 p-4 border-b border-[#4a4a4b] cursor-pointer"
+        onClick={() => navigate("/professor/dashboard")}
+      >
+        <Logo className="w-10 h-10" />
+        <h1 className="text-xl font-bold text-white tracking-wider uppercase">Pret&Go</h1>
+      </div>
       <nav className="p-4 space-y-1">
         {/* Tableau de bord */}
         <div

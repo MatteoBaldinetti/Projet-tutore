@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 import "../styles/Login.css";
 
@@ -17,12 +18,6 @@ const IconEyeClosed = () => (
         <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-7 0-1.04.773-2.378 2.1-3.7M6.18 6.18A9.956 9.956 0 0112 5c5.523 0 10 4.477 10 7 0 1.306-1.214 2.93-3.1 4.3" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-);
-
-const IconKey = () => (
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 2L19 4M11.388 11.612C11.9079 12.1243 12.3199 12.7357 12.6001 13.4102C12.8803 14.0846 13.0232 14.8087 13.0202 15.5396C13.0172 16.2704 12.8684 16.9934 12.5828 17.6656C12.2972 18.3378 11.8803 18.9459 11.3563 19.4539C10.8322 19.9619 10.2115 20.3597 9.53062 20.624C8.84974 20.8882 8.12265 21.0136 7.39195 20.9929C6.66126 20.9723 5.9424 20.806 5.27768 20.5039C4.61296 20.2017 4.01568 19.7699 3.522 19.234C2.47757 18.1001 1.92543 16.6009 1.98333 15.0588C2.04124 13.5167 2.70466 12.0627 3.83 11.01C4.95534 9.95735 6.45513 9.38416 8.0 9.415C9.09 9.438 10.119 9.765 11 10.334L14 7M14 7L17 10L20 7L17 4M14 7L17 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -148,10 +143,8 @@ export default function Login() {
             <div className="login-panel-left hidden lg:flex flex-col justify-between p-12">
                 {/* Logo / Nom appli */}
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-                        <IconKey />
-                    </div>
-                    <span className="text-white text-2xl font-bold tracking-tight">PrêtEtGo</span>
+                    <Logo className="w-12 h-12" />
+                    <span className="text-white text-2xl font-bold tracking-wider uppercase">Pret&Go</span>
                 </div>
 
                 {/* Illustration centrale */}
@@ -174,11 +167,9 @@ export default function Login() {
                 <div className="w-full max-w-md">
 
                     {/* Logo mobile */}
-                    <div className="lg:hidden flex items-center gap-2 mb-8">
-                        <div className="w-8 h-8 rounded-lg login-logo-mobile flex items-center justify-center">
-                            <IconKey />
-                        </div>
-                        <span className="text-xl font-bold login-brand-text">PrêtEtGo</span>
+                    <div className="lg:hidden flex items-center gap-3 mb-8">
+                        <Logo className="w-10 h-10" />
+                        <span className="text-xl font-bold login-brand-text tracking-wider uppercase">Pret&Go</span>
                     </div>
 
                     {/* Carte formulaire */}
