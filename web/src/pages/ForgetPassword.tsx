@@ -97,7 +97,7 @@ export default function ForgetPassword() {
                     </p>
                 </div>
 
-                <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} PrêtEtGo — Agora</p>
+                <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} Prêt&Go — Agora</p>
             </div>
 
             {/* ── PANNEAU DROIT ── */}

@@ -121,7 +121,7 @@ export default function ProfessorDashboard() {
                 {/* WELCOME */}
                 <div className="bg-white rounded-xl shadow-md p-6 mb-6">
                     <h1 className="text-3xl font-semibold">Bonjour, {userFirstname} {userLastname}</h1>
-                    <p className="text-gray-500 mt-1">Bienvenue sur votre espace professeur PrêtEtGo.</p>
+                    <p className="text-gray-500 mt-1">Bienvenue sur votre espace professeur Prêt&Go.</p>
                 </div>
 
                 {/* STATS */}

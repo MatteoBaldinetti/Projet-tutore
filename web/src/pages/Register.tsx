@@ -191,14 +191,14 @@ export default function Register() {
             <div className="min-h-screen grid lg:grid-cols-2 bg-gray-100">
                 <div className="login-panel-left hidden lg:flex flex-col justify-between p-12">
                     <div className="flex items-center gap-3">
-                        <span className="text-white text-2xl font-bold tracking-tight">PrêtEtGo</span>
+                        <span className="text-white text-2xl font-bold tracking-tight">Prêt&Go</span>
                     </div>
                     <div className="flex flex-col items-center text-center">
                         <IllustrationRegister />
                         <h2 className="text-white text-2xl font-semibold mt-6">Compte créé !</h2>
                         <p className="text-white/70 mt-3 text-sm max-w-xs">Votre compte a bien été créé. Vous pouvez maintenant vous connecter.</p>
                     </div>
-                    <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} PrêtEtGo — Agora</p>
+                    <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} Prêt&Go — Agora</p>
                 </div>
                 <div className="flex items-center justify-center p-8">
                     <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8 text-center">
@@ -208,7 +208,7 @@ export default function Register() {
                             </svg>
                         </div>
                         <h1 className="text-2xl font-bold text-gray-800 mb-2">Compte créé avec succès</h1>
-                        <p className="text-gray-500 text-sm mb-8">Votre compte étudiant PrêtEtGo a été créé. Vous pouvez maintenant vous connecter avec vos identifiants.</p>
+                        <p className="text-gray-500 text-sm mb-8">Votre compte étudiant Prêt&Go a été créé. Vous pouvez maintenant vous connecter avec vos identifiants.</p>
                         <button onClick={() => navigate("/")} className="w-full login-btn text-white py-2.5 rounded-lg font-medium transition cursor-pointer">
                             Se connecter
                         </button>
@@ -245,10 +245,10 @@ export default function Register() {
                         Créez votre compte étudiant
                     </h2>
                     <p className="text-white/70 mt-3 text-sm max-w-xs leading-relaxed">
-                        Rejoignez PrêtEtGo avec votre adresse universitaire <strong className="text-white/90">@edu.univ-eiffel.fr</strong>
+                        Rejoignez Prêt&Go avec votre adresse universitaire <strong className="text-white/90">@edu.univ-eiffel.fr</strong>
                     </p>
                 </div>
-                <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} PrêtEtGo — Agora</p>
+                <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} Prêt&Go — Agora</p>
             </div>
 
             {/* PANNEAU DROIT */}
