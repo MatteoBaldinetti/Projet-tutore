@@ -4,6 +4,21 @@ import NotificationDropdown from "./NotificationDropdown";
 export default function HeaderSidebar(props: any) {
   const { userFirstname, userLastname, userType, logout } = useAuth();
 
+  const getUserTypeLabel = (type: string | null) => {
+    switch (type) {
+      case "ADMIN":
+        return "Administrateur";
+      case "PROFESSOR":
+        return "Professeur";
+      case "STUDENT":
+        return "Étudiant";
+      case "SECURITY":
+        return "Agent de sécurité";
+      default:
+        return type;
+    }
+  }
+
   return (
     <div className="flex items-center justify-between p-3 mx-5">
       {/* Titre à gauche */}
@@ -15,10 +30,10 @@ export default function HeaderSidebar(props: any) {
           <p>
             {userFirstname} {userLastname}
           </p>
-          <p className="text-[#64748B] text-sm">{userType}</p>
+          <p className="text-[#64748B] text-sm">{getUserTypeLabel(userType)}</p>
         </div>
 
-        {/* 🔔 Icône notifications */}
+        {/* Icône notifications */}
         <NotificationDropdown />
 
         {/* Bouton déconnexion */}
