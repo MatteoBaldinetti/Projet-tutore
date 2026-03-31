@@ -13,9 +13,10 @@ import java.time.Instant;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = StudentResponseDTO.class, name = "STUDENT"),
         @JsonSubTypes.Type(value = ProfessorResponseDTO.class, name = "PROFESSOR"),
-        @JsonSubTypes.Type(value = AdminResponseDTO.class, name = "ADMIN")
+        @JsonSubTypes.Type(value = AdminResponseDTO.class, name = "ADMIN"),
+        @JsonSubTypes.Type(value = SecurityAgentResponseDTO.class, name = "SECURITY")
 })
-public sealed interface UserResponseDTO permits AdminResponseDTO, StudentResponseDTO, ProfessorResponseDTO {
+public sealed interface UserResponseDTO permits AdminResponseDTO, StudentResponseDTO, ProfessorResponseDTO, SecurityAgentResponseDTO {
     Long id();
     String firstName();
     String lastName();

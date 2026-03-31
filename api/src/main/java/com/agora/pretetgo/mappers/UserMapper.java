@@ -3,6 +3,7 @@ package com.agora.pretetgo.mappers;
 import com.agora.pretetgo.dto.response.UserResponseDTO;
 import com.agora.pretetgo.models.Admin;
 import com.agora.pretetgo.models.Professor;
+import com.agora.pretetgo.models.SecurityAgent;
 import com.agora.pretetgo.models.Student;
 import com.agora.pretetgo.models.User;
 import org.mapstruct.Mapper;
@@ -19,6 +20,9 @@ public abstract class UserMapper {
     @Autowired
     protected AdminMapper adminMapper;
 
+    @Autowired
+    protected SecurityAgentMapper securityAgentMapper;
+
     public UserResponseDTO toResponseDTO(User user) {
         if (user instanceof Student s) {
             return studentMapper.toResponseDTO(s);
@@ -28,6 +32,9 @@ public abstract class UserMapper {
         }
         if (user instanceof Admin a) {
             return adminMapper.toResponseDTO(a);
+        }
+        if (user instanceof SecurityAgent sa) {
+            return securityAgentMapper.toResponseDTO(sa);
         }
 
         throw new IllegalArgumentException("Unknown user type: " + user.getClass().getName());

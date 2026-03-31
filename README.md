@@ -87,7 +87,12 @@ npm run dev
 ```
 Le frontend sera accessible à l'adresse indiquée dans votre terminal (généralement `http://localhost:5173`).
 
+## 👥 Comptes
+`admin@agora.fr` : `admin123`
+
 ## 📚 Documentation API
 
 Une fois le backend démarré, la documentation interactive de l'API (Swagger UI) est accessible à l'adresse suivante :  
 👉 `http://localhost:8080/swagger-ui/index.html` (port par défaut, modifiez-le si nécessaire).
+
+La clé d'API pour pouvoir utiliser les endpoints: `@pret&go2026!`
