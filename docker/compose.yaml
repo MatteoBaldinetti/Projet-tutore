@@ -59,6 +59,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/pretetgo
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: pretetgo
+      BREVO_API_KEY: cannot-be-shared
     volumes:
       - api_uploads:/app/uploads
 
