@@ -48,18 +48,8 @@ const IllustrationLogin = () => (
         <rect x="110" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
         <rect x="177" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
         <rect x="244" y="255" width="45" height="40" rx="4" fill="white" fillOpacity="0.25" />
-        {/* Porte */}
-        <rect x="167" y="320" width="66" height="60" rx="33" fill="white" fillOpacity="0.3" />
-        <circle cx="224" cy="350" r="4" fill="white" fillOpacity="0.7" />
         {/* Sol */}
         <line x1="40" y1="380" x2="360" y2="380" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" />
-        {/* Éléments déco : boîte matériel */}
-        <rect x="30" y="300" width="48" height="48" rx="6" fill="white" fillOpacity="0.15" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" />
-        <path d="M54 316 L54 332 M46 324 L62 324" stroke="white" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round" />
-        {/* Éléments déco : clé */}
-        <circle cx="340" cy="280" r="14" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" fill="none" />
-        <line x1="349" y1="271" x2="365" y2="255" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="362" y1="258" x2="358" y2="262" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" />
         {/* Points décoratifs */}
         <circle cx="60" cy="220" r="3" fill="white" fillOpacity="0.3" />
         <circle cx="348" cy="200" r="4" fill="white" fillOpacity="0.2" />

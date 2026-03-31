@@ -54,18 +54,11 @@ const IllustrationRegister = () => (
         <rect x="110" y="260" width="180" height="10" rx="5" fill="white" fillOpacity="0.15" />
         {/* Bouton bas de carte */}
         <rect x="130" y="290" width="140" height="26" rx="13" fill="white" fillOpacity="0.3" />
-        {/* Avatar en haut de carte */}
-        <circle cx="200" cy="115" r="32" fill="white" fillOpacity="0.2" stroke="white" strokeOpacity="0.4" strokeWidth="1.5" />
-        <circle cx="200" cy="108" r="12" fill="white" fillOpacity="0.4" />
-        <path d="M175 140 Q200 128 225 140" stroke="white" strokeOpacity="0.4" strokeWidth="2" strokeLinecap="round" />
         {/* Éléments flottants */}
         <circle cx="68" cy="200" r="6" fill="white" fillOpacity="0.2" />
         <circle cx="340" cy="240" r="5" fill="white" fillOpacity="0.15" />
         <circle cx="85" cy="310" r="4" fill="white" fillOpacity="0.18" />
         <circle cx="345" cy="170" r="3" fill="white" fillOpacity="0.2" />
-        {/* Check mark */}
-        <circle cx="330" cy="130" r="20" fill="white" fillOpacity="0.15" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" />
-        <path d="M322 130 L328 136 L340 122" stroke="white" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         {/* Sol */}
         <line x1="40" y1="368" x2="360" y2="368" stroke="white" strokeOpacity="0.2" strokeWidth="1.5" />
         <ellipse cx="200" cy="374" rx="120" ry="8" fill="white" fillOpacity="0.05" />
