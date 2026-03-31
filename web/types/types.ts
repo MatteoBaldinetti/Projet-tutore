@@ -104,6 +104,16 @@ export type Resource = {
     createdAt: string
 }
 
+export type SecurityAgent = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    createdAt: string,
+    enabled: boolean
+}
+
 export type Student = {
     id: number,
     firstName: string,
