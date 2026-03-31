@@ -3,7 +3,6 @@ import type { FormEvent, ChangeEvent } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
-
 import "../styles/Login.css";
 
 const IconEyeOpen = () => (
