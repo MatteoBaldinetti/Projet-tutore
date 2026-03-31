@@ -25,10 +25,8 @@ public class ApiKeyFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         // Skip non-API endpoints, CORS preflight requests, and public downloads
         return !request.getRequestURI().startsWith("/api/") ||
-                "OPTIONS".equalsIgnoreCase(request.getMethod());
-                // Maybe we will make the download public
-                //||
-                //request.getRequestURI().startsWith("/api/fileMetaData/download");
+                "OPTIONS".equalsIgnoreCase(request.getMethod()) ||
+                request.getRequestURI().startsWith("/api/fileMetaData/download");
     }
 
     @Override
