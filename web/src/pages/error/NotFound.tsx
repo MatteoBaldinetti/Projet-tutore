@@ -1,45 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
-const Illustration404 = () => (
-    <svg viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-md mx-auto">
-        {/* Chiffres 404 */}
-        {/* 4 gauche */}
-        <path d="M60 60 L60 160 M60 110 L110 60 L110 160" stroke="#3A8C85" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" opacity="0.9"/>
-        {/* 0 central */}
-        <ellipse cx="240" cy="110" rx="70" ry="60" stroke="#3A8C85" strokeWidth="14" strokeLinecap="round" opacity="0.9"/>
-        {/* 4 droite */}
-        <path d="M310 60 L310 160 M310 110 L360 60 L360 160" stroke="#3A8C85" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" opacity="0.9"/>
-
-        {/* Loupe cherchant quelque chose */}
-        <circle cx="240" cy="110" r="28" fill="#E8F4F3" stroke="#3A8C85" strokeWidth="3" opacity="0.6"/>
-        <line x1="260" y1="132" x2="278" y2="150" stroke="#3A8C85" strokeWidth="4" strokeLinecap="round" opacity="0.6"/>
-
-        {/* Point d'interrogation dans la loupe */}
-        <text x="240" y="118" textAnchor="middle" fill="#3A8C85" fontSize="22" fontWeight="bold" opacity="0.7">?</text>
-
-        {/* Sol et ombre */}
-        <ellipse cx="240" cy="238" rx="140" ry="12" fill="#3A8C85" fillOpacity="0.06"/>
-        <line x1="60" y1="230" x2="420" y2="230" stroke="#E2E8F0" strokeWidth="1.5"/>
-
-        {/* Petits éléments flottants */}
-        <circle cx="90" cy="200" r="6" fill="#3A8C85" fillOpacity="0.15"/>
-        <circle cx="380" cy="185" r="8" fill="#3A8C85" fillOpacity="0.1"/>
-        <circle cx="150" cy="240" r="4" fill="#3A8C85" fillOpacity="0.12"/>
-        <circle cx="330" cy="245" r="5" fill="#3A8C85" fillOpacity="0.1"/>
-
-        {/* Lignes décoratives */}
-        <path d="M60 255 Q120 248 180 255 Q240 262 300 255 Q360 248 420 255" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="4 4"/>
-    </svg>
-);
-
 export default function NotFound() {
     const navigate = useNavigate();
 
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
             <div className="w-full max-w-lg bg-white rounded-2xl shadow-md p-10 text-center">
-
-                <Illustration404 />
 
                 <h1 className="text-5xl font-bold text-gray-800 mt-6 mb-2">404</h1>
                 <h2 className="text-xl font-semibold text-gray-600 mb-3">Page introuvable</h2>
