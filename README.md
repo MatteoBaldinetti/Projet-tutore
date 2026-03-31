@@ -89,6 +89,8 @@ Le frontend sera accessible à l'adresse indiquée dans votre terminal (généra
 
 ## 👥 Comptes
 `admin@agora.fr` : `admin123`
+`fares.zaidi@univ-eiffel.fr` : `test`
+`liam.cheurfa@edu.univ-eiffel.fr` : `Liamdu77&`
 
 ## 📚 Documentation API
 
