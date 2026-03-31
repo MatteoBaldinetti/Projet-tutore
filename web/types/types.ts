@@ -12,7 +12,7 @@ export type Classroom = {
     id: number,
     name: string,
     description: string,
-    manageById: number,
+    managedByIds: number[],
     available: boolean,
     createdAt: string,
     roomNumber: number,
@@ -30,7 +30,7 @@ export type Item = {
     id: number,
     name: string,
     description: string,
-    manageById: number,
+    managedByIds: number[],
     available: boolean,
     createdAt: string,
     serialNumber: number,
@@ -99,7 +99,7 @@ export type Resource = {
     id: number,
     name: string,
     description: string,
-    manageById: number,
+    managedByIds: number[],
     available: boolean,
     createdAt: string
 }

@@ -27,9 +27,9 @@ export default function RoomDetails() {
                 });
                 setRoom(res.data);
 
-                if (res.data.manageById) {
+                if (res.data.classroomTypeId) {
                     try {
-                        const typeRes = await axios.get(`${API_URL}/classroomTypes/${res.data.manageById}`, {
+                        const typeRes = await axios.get(`${API_URL}/classroomTypes/${res.data.classroomTypeId}`, {
                             headers: { "x-api-key": API_KEY },
                         });
                         setClassroomType(typeRes.data);

@@ -66,7 +66,7 @@ export default function ProfessorPendingReservations() {
         ]);
 
       const mine: Resource[] = resourcesRes.data.filter(
-        (r: Resource) => r.manageById === userId,
+        (r: Resource) => userId !== null && r.managedByIds?.includes(userId),
       );
       setResources(mine);
       const myIds = new Set(mine.map((r) => r.id));

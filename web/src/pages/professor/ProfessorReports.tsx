@@ -36,7 +36,7 @@ export default function ProfessorReports() {
                     axios.get(`${API_URL}/users`, { headers: { "x-api-key": API_KEY } }),
                 ]);
 
-                const mine: Resource[] = resourcesRes.data.filter((r: Resource) => r.manageById === userId);
+                const mine: Resource[] = resourcesRes.data.filter((r: Resource) => userId !== null && r.managedByIds?.includes(userId));
                 setResources(mine);
                 const myIds = new Set(mine.map(r => r.id));
 

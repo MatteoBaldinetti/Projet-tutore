@@ -90,7 +90,7 @@ export default function ManageItems() {
         setSerialNumber(String(item.serialNumber));
         setAvailable(item.available);
         setTypeId(item.itemTypeId);
-        setManagedByIds(typeof item.manageById === "number" ? [item.manageById] : []);
+        setManagedByIds(Array.isArray(item.managedByIds) ? item.managedByIds : []);
         setShowAddItem(true);
     };
 

@@ -95,7 +95,7 @@ export default function ManageClassrooms() {
         setRoomNumber(String(classroom.roomNumber));
         setAvailable(classroom.available);
         setClassroomTypeId(typeof classroom.classroomTypeId === "number" ? classroom.classroomTypeId : "");
-        setManagedByIds(typeof classroom.manageById === "number" ? [classroom.manageById] : []);
+        setManagedByIds(Array.isArray(classroom.managedByIds) ? classroom.managedByIds : []);
         setShowAddClassroom(true);
     };
 

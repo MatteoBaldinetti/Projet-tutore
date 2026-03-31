@@ -135,7 +135,7 @@ export default function ProfessorValidationRetour() {
           }),
         ]);
         const mine: Resource[] = resrcRes.data.filter(
-          (r: Resource) => r.manageById === userId,
+          (r: Resource) => userId !== null && r.managedByIds?.includes(userId),
         );
         setMyResources(mine);
         const myIds = new Set(mine.map((r) => r.id));

@@ -38,7 +38,7 @@ export default function ProfessorResources({ type = "items" }: { type?: Resource
                 const res = await axios.get(`${API_URL}${endpoint}`, {
                     headers: { "x-api-key": API_KEY },
                 });
-                const mine: Resource[] = res.data.filter((r: Resource) => r.manageById === userId);
+                const mine: Resource[] = res.data.filter((r: Resource) => userId !== null && r.managedByIds?.includes(userId));
                 setResources(mine);
             } catch (err) {
                 console.error("Erreur ressources :", err);

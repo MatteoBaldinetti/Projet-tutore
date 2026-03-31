@@ -46,7 +46,7 @@ export default function RoomList() {
     const filteredRooms = roomList.filter(r => {
         const value = search.toLowerCase();
         const matchSearch = r.name.toLowerCase().includes(value) || r.description.toLowerCase().includes(value);
-        const matchType = typeFilter ? r.manageById === typeFilter : true;
+        const matchType = typeFilter ? r.classroomTypeId === typeFilter : true;
         const matchAvailable = availableOnly ? r.available : true;
         return matchSearch && matchType && matchAvailable;
     });
@@ -115,7 +115,7 @@ export default function RoomList() {
                                                 {room.available ? "Disponible" : "Indisponible"}
                                             </span>
                                         </div>
-                                        <p className="text-sm text-gray-500 mb-1">N° {room.roomNumber} · {getTypeName(room.manageById)}</p>
+                                        <p className="text-sm text-gray-500 mb-1">N° {room.roomNumber} · {getTypeName(room.classroomTypeId)}</p>
                                         <p className="text-sm text-gray-600 flex-1 line-clamp-2">{room.description}</p>
 
                                         <div className="flex gap-2 mt-4">
