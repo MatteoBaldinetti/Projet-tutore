@@ -80,7 +80,8 @@ export default function MaterielList() {
         const groupArray = Object.values(grouped);
         const withImages = await Promise.all(
             groupArray.map(async (g) => {
-                const imgUrl = await fetchImageUrl(g.firstImageIds);
+                const rawUrl = await fetchImageUrl(g.firstImageIds);
+                const imgUrl = API_URL.replace(/\/api$/, "") + rawUrl;
                 return { ...g, imgUrl };
             })
         );
