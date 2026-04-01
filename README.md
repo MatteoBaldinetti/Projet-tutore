@@ -88,9 +88,9 @@ npm run dev
 Le frontend sera accessible à l'adresse indiquée dans votre terminal (généralement `http://localhost:5173`).
 
 ## 👥 Comptes
-`admin@agora.fr` : `admin123`
-`fares.zaidi@univ-eiffel.fr` : `test`
-`liam.cheurfa@edu.univ-eiffel.fr` : `Liamdu77&`
+- `admin@agora.fr` : `admin123`
+- `fares.zaidi@univ-eiffel.fr` : `test`
+- `liam.cheurfa@edu.univ-eiffel.fr` : `Liamdu77&`
 
 ## 📚 Documentation API
 
