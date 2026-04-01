@@ -125,14 +125,6 @@ export default function StudentDashboard() {
             iconColor: "text-blue-500",
             textColor: "text-blue-700",
         },
-        {
-            label: "Total réservations",
-            value: reservations.length,
-            icon: <IconList />,
-            color: "bg-gray-50 border-gray-200",
-            iconColor: "text-gray-400",
-            textColor: "text-gray-700",
-        },
     ];
 
     return (
@@ -148,7 +140,7 @@ export default function StudentDashboard() {
                 </div>
 
                 {/* STATS */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                     {stats.map((stat) => (
                         <div key={stat.label} className={`bg-white rounded-xl shadow-md p-5 border ${stat.color}`}>
                             <div className={`mb-3 ${stat.iconColor}`}>{stat.icon}</div>

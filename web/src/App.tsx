@@ -18,6 +18,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
 import AdminProfile from "./pages/admin/AdminProfile.tsx";
 import ManageStudents from "./pages/admin/ManageStudents.tsx";
 import ManageProfessors from "./pages/admin/ManageProfessors.tsx";
+import ManageSecurity from "./pages/admin/ManageSecurity.tsx";
 import ManageSubjects from "./pages/admin/ManageSubjects.tsx";
 import ManageTags from "./pages/admin/ManageTags.tsx";
 import ManageItemTypes from "./pages/admin/ManageItemTypes.tsx";
@@ -88,6 +89,9 @@ function App() {
             } />
             <Route path="/admin/manage-professors" element={
               <ProtectedRoute><ManageProfessors /></ProtectedRoute>
+            } />
+            <Route path="/admin/manage-security" element={
+              <ProtectedRoute><ManageSecurity /></ProtectedRoute>
             } />
             <Route path="/admin/manage-subjects" element={
               <ProtectedRoute><ManageSubjects /></ProtectedRoute>

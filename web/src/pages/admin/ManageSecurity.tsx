@@ -124,8 +124,8 @@ export default function ManageSecurity() {
                 <div className="min-h-screen bg-gray-100 p-6">
                     <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
 
-                        <div className="flex justify-between items-center mb-6 gap-4">
-                            <h1 className="text-3xl font-semibold text-left whitespace-nowrap">
+                        <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
+                            <h1 className="text-xl sm:text-3xl font-semibold">
                                 Liste des agents de sécurité
                             </h1>
                             <div className="flex items-center gap-3">
@@ -134,7 +134,7 @@ export default function ManageSecurity() {
                                     placeholder="Rechercher..."
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
-                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-64"
+                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-full sm:w-64"
                                 />
                                 <button onClick={handleAddButtonPress} className="add-security-btn text-white px-4 py-2 rounded transition cursor-pointer whitespace-nowrap">
                                     + Ajouter un agent
@@ -186,7 +186,7 @@ export default function ManageSecurity() {
                         {/* Pop-up ajout / modification */}
                         {showAddAgent && (
                             <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-                                <div className="bg-white p-6 rounded-xl w-250">
+                                <div className="bg-white p-6 rounded-xl w-full max-w-2xl mx-4">
                                     <h2 className="text-xl font-semibold mb-4">{editingAgent ? "Modifier l'agent" : "Ajouter un agent de sécurité"}</h2>
                                     <form onSubmit={(e) => { e.preventDefault(); addOrUpdateAgent(); }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="flex flex-col">
@@ -236,7 +236,7 @@ export default function ManageSecurity() {
                         {/* Pop-up suppression */}
                         {agentToDelete !== null && (
                             <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-                                <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
+                                <div className="bg-white p-6 rounded-xl w-full max-w-md mx-4 shadow-lg">
                                     <h2 className="text-lg font-semibold mb-4">Confirmer la suppression</h2>
                                     <p>Êtes-vous sûr de vouloir supprimer cet agent de sécurité ?</p>
                                     <div className="flex justify-end gap-4 mt-6">

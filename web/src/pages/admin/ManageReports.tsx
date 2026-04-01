@@ -126,8 +126,8 @@ export default function ManageReports() {
                 <div className="min-h-screen bg-gray-100 p-6">
                     <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
 
-                        <div className="flex justify-between items-center mb-6 gap-4">
-                            <h1 className="text-3xl font-semibold text-left whitespace-nowrap">
+                        <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
+                            <h1 className="text-xl sm:text-3xl font-semibold">
                                 Liste des signalements
                             </h1>
                             <div className="flex items-center gap-3">
@@ -146,7 +146,7 @@ export default function ManageReports() {
                                     placeholder="Rechercher..."
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
-                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-64"
+                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-full sm:w-64"
                                 />
                             </div>
                         </div>
@@ -203,7 +203,7 @@ export default function ManageReports() {
                         {/* Pop-up détail */}
                         {reportToView !== null && (
                             <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-                                <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
+                                <div className="bg-white p-6 rounded-xl w-full max-w-md mx-4 shadow-lg">
                                     <h2 className="text-xl font-semibold mb-4">Détail du signalement</h2>
                                     <div className="grid grid-cols-1 gap-3 text-sm mb-4">
                                         <div><span className="font-medium">Ressource :</span> {getResourceName(reportToView.resourceId)}</div>
@@ -233,7 +233,7 @@ export default function ManageReports() {
                         {/* Pop-up suppression */}
                         {reportToDelete !== null && (
                             <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-                                <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
+                                <div className="bg-white p-6 rounded-xl w-full max-w-md mx-4 shadow-lg">
                                     <h2 className="text-lg font-semibold mb-4">Confirmer la suppression</h2>
                                     <p>Êtes-vous sûr de vouloir supprimer ce signalement ?</p>
                                     <div className="flex justify-end gap-4 mt-6">

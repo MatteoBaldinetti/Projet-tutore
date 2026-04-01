@@ -38,6 +38,7 @@ export default function MaterielDetails() {
     }, [itemTypeId]);
 
     const availableItems = items.filter(item => item.available);
+    const firstItem = items[0];
 
     if (loading) {
         return (
@@ -49,7 +50,7 @@ export default function MaterielDetails() {
         );
     }
 
-    if (!itemType) {
+    if (!firstItem) {
         return (
             <StudentLayout titleHeader="Détails du matériel">
                 <div className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
@@ -61,7 +62,7 @@ export default function MaterielDetails() {
 
     return (
         <StudentLayout titleHeader="Détails du matériel">
-            <div className="min-h-screen bg-gray-100 p-6">
+            <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
 
                 {/* BOUTON RETOUR */}
                 <button
@@ -75,30 +76,32 @@ export default function MaterielDetails() {
                 </button>
 
                 {/* HEADER */}
-                <div className="flex gap-6 mb-6">
-                    <div className="bg-white p-6 rounded-xl shadow-sm flex items-center justify-center" style={{ flex: 6, minWidth: 0, minHeight: "220px" }}>
-                        <div className="w-full h-52 bg-gradient-to-br from-[#E8F4F3] to-[#3A8C8520] rounded-xl flex items-center justify-center">
-                            <span className="text-8xl">📦</span>
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-6">
+                    <div className="bg-white p-6 rounded-xl shadow-sm flex items-center justify-center sm:flex-none" style={{ flex: 6, minHeight: "180px" }}>
+                        <div className="w-full h-44 bg-gradient-to-br from-[#E8F4F3] to-[#3A8C8520] rounded-xl flex items-center justify-center">
+                            <span className="text-7xl sm:text-8xl">📦</span>
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl shadow-sm flex flex-col justify-between" style={{ flex: 4 }}>
+                    <div className="bg-white p-5 sm:p-6 rounded-xl shadow-sm flex flex-col justify-between" style={{ flex: 4 }}>
                         <div>
-                            <div className="flex items-center gap-3 mb-1">
-                                <h1 className="text-2xl font-bold text-gray-800">{items[0]?.name || itemType.name}</h1>
+                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                                <h1 className="text-xl sm:text-2xl font-bold text-gray-800">{firstItem.name}</h1>
                                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${availableItems.length > 0 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
                                     {availableItems.length > 0 ? "Disponible" : "Indisponible"}
                                 </span>
                             </div>
-                            <p className="text-sm text-gray-400 mb-1">Catégorie : {itemType.name}</p>
-                            <p className="text-gray-500 mb-4">{availableItems.length} / {items.length} disponibles</p>
+                            {itemType && (
+                                <span className="inline-block text-xs bg-[#E8F4F3] text-[#3A8C85] px-2 py-0.5 rounded-full mb-3">{itemType.name}</span>
+                            )}
+                            <p className="text-sm text-gray-500">{availableItems.length} exemplaire{availableItems.length > 1 ? "s" : ""} disponible{availableItems.length > 1 ? "s" : ""} sur {items.length}</p>
                         </div>
 
                         {availableItems.length > 0 && (
-                            <div className="flex justify-end">
+                            <div className="flex justify-end mt-4">
                                 <button
                                     onClick={() => navigate(`/student/materiel-reservation/${availableItems[0].id}`)}
-                                    className="bg-[#3A8C85] hover:bg-[#2d6e68] text-white px-5 py-2 rounded transition cursor-pointer font-medium"
+                                    className="bg-[#3A8C85] hover:bg-[#2d6e68] text-white px-5 py-2 rounded transition cursor-pointer font-medium text-sm"
                                 >
                                     Réserver ce matériel
                                 </button>
@@ -111,32 +114,39 @@ export default function MaterielDetails() {
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="flex border-b border-gray-200">
                         <button
-                            className={`px-6 py-3 text-sm font-medium transition cursor-pointer ${activeTab === "description" ? "border-b-2 text-[#3A8C85] border-[#3A8C85]" : "text-gray-500 hover:text-gray-700"}`}
+                            className={`px-5 py-3 text-sm font-medium transition cursor-pointer ${activeTab === "description" ? "border-b-2 text-[#3A8C85] border-[#3A8C85]" : "text-gray-500 hover:text-gray-700"}`}
                             onClick={() => setActiveTab("description")}
                         >
                             Description
                         </button>
                         <button
-                            className={`px-6 py-3 text-sm font-medium transition cursor-pointer ${activeTab === "calendar" ? "border-b-2 text-[#3A8C85] border-[#3A8C85]" : "text-gray-500 hover:text-gray-700"}`}
+                            className={`px-5 py-3 text-sm font-medium transition cursor-pointer ${activeTab === "calendar" ? "border-b-2 text-[#3A8C85] border-[#3A8C85]" : "text-gray-500 hover:text-gray-700"}`}
                             onClick={() => setActiveTab("calendar")}
                         >
                             Disponibilités
                         </button>
                     </div>
 
-                    <div className="p-6">
+                    <div className="p-4 sm:p-6">
                         {activeTab === "description" && (
-                            <div>
-                                <h2 className="text-lg font-semibold mb-3 text-[#3A8C85]">Équipements disponibles</h2>
-                                {items.length === 0 ? (
-                                    <p className="text-gray-500 italic">Aucun équipement dans cette catégorie.</p>
-                                ) : (
+                            <div className="space-y-5">
+                                <div>
+                                    <h2 className="text-base font-semibold mb-2 text-[#3A8C85]">Description</h2>
+                                    <p className="text-gray-600 leading-relaxed text-sm">
+                                        {firstItem.description || "Aucune description disponible."}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h2 className="text-base font-semibold mb-2 text-[#3A8C85]">Exemplaires</h2>
                                     <div className="space-y-2">
-                                        {items.map(item => (
-                                            <div key={item.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-lg">
+                                        {items.map((item, index) => (
+                                            <div key={item.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-lg bg-gray-50">
                                                 <div>
-                                                    <p className="font-medium text-gray-800">{item.name}</p>
-                                                    <p className="text-sm text-gray-500">{item.description}</p>
+                                                    <p className="text-sm font-medium text-gray-700">Exemplaire #{index + 1}</p>
+                                                    {item.serialNumber && (
+                                                        <p className="text-xs text-gray-400">N° série : {item.serialNumber}</p>
+                                                    )}
                                                 </div>
                                                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${item.available ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
                                                     {item.available ? "Disponible" : "Indisponible"}
@@ -144,12 +154,12 @@ export default function MaterielDetails() {
                                             </div>
                                         ))}
                                     </div>
-                                )}
+                                </div>
                             </div>
                         )}
                         {activeTab === "calendar" && (
                             <div>
-                                <h2 className="text-lg font-semibold mb-3 text-[#3A8C85]">Calendrier des disponibilités</h2>
+                                <h2 className="text-base font-semibold mb-3 text-[#3A8C85]">Calendrier des disponibilités</h2>
                                 <ReservationCalendar />
                             </div>
                         )}

@@ -130,8 +130,8 @@ export default function ManageStudents() {
                 <div className="min-h-screen bg-gray-100 p-6">
                     <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
 
-                        <div className="flex justify-between items-center mb-6 gap-4">
-                            <h1 className="text-3xl font-semibold text-left whitespace-nowrap">
+                        <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
+                            <h1 className="text-xl sm:text-3xl font-semibold">
                                 Liste des étudiants
                             </h1>
 
@@ -141,7 +141,7 @@ export default function ManageStudents() {
                                     placeholder="Rechercher..."
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
-                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-64"
+                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85] w-full sm:w-64"
                                 />
 
                                 <button onClick={handleAddStudentButtonPress} className="add-student-btn text-white px-4 py-2 rounded transition cursor-pointer whitespace-nowrap">
@@ -201,7 +201,7 @@ export default function ManageStudents() {
                         {/* Pop-up ajout / modification */}
                         {showAddStudent && (
                             <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-                                <div className="bg-white p-6 rounded-xl w-250">
+                                <div className="bg-white p-6 rounded-xl w-full max-w-2xl mx-4">
                                     <h2 className="text-xl font-semibold mb-4">{editingStudent ? "Modifier l'étudiant" : "Ajouter un étudiant"}</h2>
                                     <form onSubmit={(e) => { e.preventDefault(); addOrUpdateStudent(); }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="flex flex-col">
@@ -258,7 +258,7 @@ export default function ManageStudents() {
                         {/* Pop-up suppression */}
                         {studentToDelete !== null && (
                             <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-                                <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
+                                <div className="bg-white p-6 rounded-xl w-full max-w-md mx-4 shadow-lg">
                                     <h2 className="text-lg font-semibold mb-4">Confirmer la suppression</h2>
                                     <p>Êtes-vous sûr de vouloir supprimer cet étudiant ?</p>
                                     <div className="flex justify-end gap-4 mt-6">
