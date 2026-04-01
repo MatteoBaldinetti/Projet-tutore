@@ -155,8 +155,8 @@ export default function Login() {
             <div className="flex items-center justify-center p-8">
                 <div className="w-full max-w-md">
 
-                    {/* Logo mobile */}
-                    <div className="lg:hidden flex items-center gap-3 mb-8">
+                    {/* Logo */}
+                    <div className="flex items-center gap-3 mb-8">
                         <Logo className="w-10 h-10" />
                         <span className="text-xl font-bold login-brand-text tracking-wider uppercase">Pret&Go</span>
                     </div>

@@ -85,11 +85,12 @@ export default function MaterielDetails() {
                     <div className="bg-white p-6 rounded-xl shadow-sm flex flex-col justify-between" style={{ flex: 4 }}>
                         <div>
                             <div className="flex items-center gap-3 mb-1">
-                                <h1 className="text-2xl font-bold text-gray-800">{itemType.name}</h1>
+                                <h1 className="text-2xl font-bold text-gray-800">{items[0]?.name || itemType.name}</h1>
                                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${availableItems.length > 0 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
                                     {availableItems.length > 0 ? "Disponible" : "Indisponible"}
                                 </span>
                             </div>
+                            <p className="text-sm text-gray-400 mb-1">Catégorie : {itemType.name}</p>
                             <p className="text-gray-500 mb-4">{availableItems.length} / {items.length} disponibles</p>
                         </div>
 
