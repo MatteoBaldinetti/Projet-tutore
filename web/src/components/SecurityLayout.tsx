@@ -14,25 +14,22 @@ function SecurityLayout({ children, title }: SecurityLayoutProps) {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
             {/* HEADER */}
-            <header className="bg-[#39393A] text-white px-6 py-4 flex items-center justify-between shadow-md">
-                <div className="flex items-center gap-4">
-                    {/* Logo */}
-                    <Logo className="w-12 h-12" />
-                    <span className="text-white text-2xl font-bold tracking-wider uppercase">Pret&Go</span>
-
+            <header className="bg-[#39393A] text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between shadow-md gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                    <Logo className="w-9 h-9 sm:w-12 sm:h-12 shrink-0" />
+                    <span className="text-white text-lg sm:text-2xl font-bold tracking-wider uppercase shrink-0">Pret&Go</span>
                     {title && (
                         <>
-                            <span className="text-[#4a4a4b] select-none">/</span>
-                            <span className="font-medium text-[#CBD5E1]">{title}</span>
+                            <span className="text-[#4a4a4b] select-none hidden sm:inline">/</span>
+                            <span className="font-medium text-[#CBD5E1] truncate hidden sm:inline">{title}</span>
                         </>
                     )}
                 </div>
 
-                {/* Droite */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4 shrink-0">
                     <button
                         onClick={() => navigate("/security/profile")}
-                        className="text-right hover:opacity-80 transition cursor-pointer"
+                        className="text-right hover:opacity-80 transition cursor-pointer hidden sm:block"
                     >
                         <p className="text-sm font-medium">{userFirstname} {userLastname}</p>
                         <p className="text-xs text-[#64748B]">Agent de sécurité</p>

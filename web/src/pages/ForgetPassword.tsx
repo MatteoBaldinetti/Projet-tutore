@@ -81,13 +81,8 @@ export default function ForgetPassword() {
         <div className="min-h-screen grid lg:grid-cols-2 bg-gray-100">
 
             {/* ── PANNEAU GAUCHE ── */}
-            <div className="login-panel-left hidden lg:flex flex-col justify-between p-12">
-                <div className="flex items-center gap-3">
-                    <Logo className="w-12 h-12" />
-                    <span className="text-white text-2xl font-bold tracking-wider uppercase">Pret&Go</span>
-                </div>
-
-                <div className="flex flex-col items-center text-center">
+            <div className="login-panel-left hidden lg:flex flex-col p-12">
+                <div className="flex-1 flex flex-col items-center justify-center text-center">
                     <IllustrationForgot />
                     <h2 className="text-white text-2xl font-semibold mt-6 leading-snug">
                         Mot de passe oublié ?
@@ -96,13 +91,18 @@ export default function ForgetPassword() {
                         Pas de panique. Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
                     </p>
                 </div>
-
                 <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} Prêt&Go — Agora</p>
             </div>
 
             {/* ── PANNEAU DROIT ── */}
             <div className="flex items-center justify-center p-8">
                 <div className="w-full max-w-md">
+
+                    {/* Logo */}
+                    <div className="flex items-center gap-3 mb-8">
+                        <Logo className="w-10 h-10" />
+                        <span className="text-xl font-bold login-brand-text tracking-wider uppercase">Pret&Go</span>
+                    </div>
 
                     <div className="bg-white rounded-2xl shadow-md p-8">
                         {/* RETOUR */}

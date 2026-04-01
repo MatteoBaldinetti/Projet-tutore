@@ -260,7 +260,7 @@ const navGroups: NavGroup[] = [
   },
 ];
 
-function NavLink({ item, active }: { item: NavItem; active: boolean }) {
+function NavLink({ item, active, onClose }: { item: NavItem; active: boolean; onClose?: () => void }) {
   const navigate = useNavigate();
   return (
     <div
@@ -270,7 +270,7 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
                     ? "border-[#3A8C85] bg-[#3A8C851A] text-[#3A8C85]"
                     : "border-transparent hover:border-[#3A8C85] hover:bg-[#3A8C851A] hover:text-[#3A8C85]"
                 }`}
-      onClick={() => navigate(item.href)}
+      onClick={() => { navigate(item.href); onClose?.(); }}
     >
       <span className="flex items-center gap-2 pl-3 py-2.5 text-sm">
         {item.icon}
@@ -283,9 +283,11 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
 function NavGroupSection({
   group,
   currentPath,
+  onClose,
 }: {
   group: NavGroup;
   currentPath: string;
+  onClose?: () => void;
 }) {
   const isGroupActive = group.items.some((item) => item.href === currentPath);
   const [open, setOpen] = useState(isGroupActive);
@@ -321,6 +323,7 @@ function NavGroupSection({
               key={item.href}
               item={item}
               active={currentPath === item.href}
+              onClose={onClose}
             />
           ))}
         </div>
@@ -329,16 +332,18 @@ function NavGroupSection({
   );
 }
 
-function Sidebar() {
+function Sidebar({ onClose }: { onClose?: () => void }) {
   const location = useLocation();
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
+  const go = (href: string) => { navigate(href); onClose?.(); };
+
   return (
-    <aside className="h-screen bg-[#39393A] text-[#CBD5E1] overflow-y-auto">
+    <aside className="h-full bg-[#39393A] text-[#CBD5E1] overflow-y-auto">
       <div
         className="flex items-center gap-3 p-4 border-b border-[#4a4a4b] cursor-pointer"
-        onClick={() => navigate("/admin/dashboard")}
+        onClick={() => go("/admin/dashboard")}
       >
         <Logo className="w-10 h-10" />
         <h1 className="text-xl font-bold text-white tracking-wider uppercase">Pret&Go</h1>
@@ -352,7 +357,7 @@ function Sidebar() {
                             ? "border-[#3A8C85] bg-[#3A8C851A] text-[#3A8C85]"
                             : "border-transparent hover:border-[#3A8C85] hover:bg-[#3A8C851A] hover:text-[#3A8C85]"
                         }`}
-          onClick={() => navigate("/admin/dashboard")}
+          onClick={() => go("/admin/dashboard")}
         >
           <span className="flex items-center gap-2 pl-3 py-3 text-sm">
             <IconDashboard />
@@ -369,6 +374,7 @@ function Sidebar() {
             key={group.label}
             group={group}
             currentPath={currentPath}
+            onClose={onClose}
           />
         ))}
 
@@ -383,7 +389,7 @@ function Sidebar() {
                             ? "border-[#3A8C85] bg-[#3A8C851A] text-[#3A8C85]"
                             : "border-transparent hover:border-[#3A8C85] hover:bg-[#3A8C851A] hover:text-[#3A8C85]"
                         }`}
-          onClick={() => navigate("/admin/profile")}
+          onClick={() => go("/admin/profile")}
         >
           <span className="flex items-center gap-2 pl-3 py-3 text-sm">
             <IconUser />

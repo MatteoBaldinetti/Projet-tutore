@@ -129,15 +129,8 @@ export default function Login() {
         <div className="min-h-screen grid lg:grid-cols-2 bg-gray-100">
 
             {/* ── PANNEAU GAUCHE ── */}
-            <div className="login-panel-left hidden lg:flex flex-col justify-between p-12">
-                {/* Logo / Nom appli */}
-                <div className="flex items-center gap-3">
-                    <Logo className="w-12 h-12" />
-                    <span className="text-white text-2xl font-bold tracking-wider uppercase">Pret&Go</span>
-                </div>
-
-                {/* Illustration centrale */}
-                <div className="flex flex-col items-center text-center">
+            <div className="login-panel-left hidden lg:flex flex-col p-12">
+                <div className="flex-1 flex flex-col items-center justify-center text-center">
                     <IllustrationLogin />
                     <h2 className="text-white text-2xl font-semibold mt-6 leading-snug">
                         Gérez vos réservations<br />de matériel et de salles
@@ -146,8 +139,6 @@ export default function Login() {
                         Réservez du matériel pédagogique et des salles en quelques clics, depuis un seul espace.
                     </p>
                 </div>
-
-                {/* Footer panneau */}
                 <p className="text-white/40 text-xs text-center">© {new Date().getFullYear()} Prêt&Go — Agora</p>
             </div>
 
