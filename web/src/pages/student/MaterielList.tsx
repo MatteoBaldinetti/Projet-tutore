@@ -34,7 +34,8 @@ export default function MaterielList() {
             const res = await axios.get(`${API_URL}/fileMetaData/${imageIds[0]}`, {
                 headers: { "x-api-key": API_KEY },
             });
-            return res.data?.url || FALLBACK_IMG;
+            const imgUrl = API_URL.replace(/\/api$/, "") + res.data?.url;
+            return imgUrl || FALLBACK_IMG;
         } catch {
             return FALLBACK_IMG;
         }
@@ -80,8 +81,7 @@ export default function MaterielList() {
         const groupArray = Object.values(grouped);
         const withImages = await Promise.all(
             groupArray.map(async (g) => {
-                const rawUrl = await fetchImageUrl(g.firstImageIds);
-                const imgUrl = API_URL.replace(/\/api$/, "") + rawUrl;
+                const imgUrl = await fetchImageUrl(g.firstImageIds);
                 return { ...g, imgUrl };
             })
         );
