@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_KEY, API_URL } from "../../constants/apiConstants";
-import type { Item } from "../../../types/types";
+import type { Item, ItemType } from "../../../types/types";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ItemCard from "../../components/ItemCard";
@@ -24,7 +24,9 @@ export default function MaterielList() {
     const navigate = useNavigate();
 
     const [itemList, setItemList] = useState<GroupedItem[]>([]);
+    const [itemTypes, setItemTypes] = useState<ItemType[]>([]);
     const [search, setSearch] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState<number | "">("");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
 
@@ -43,13 +45,15 @@ export default function MaterielList() {
 
     const fetchItems = async () => {
         try {
-            const res = await axios.get(`${API_URL}/items`, {
-                headers: { "x-api-key": API_KEY },
-            });
+            const [itemsRes, typesRes] = await Promise.all([
+                axios.get(`${API_URL}/items`, { headers: { "x-api-key": API_KEY } }),
+                axios.get(`${API_URL}/itemTypes`, { headers: { "x-api-key": API_KEY } }),
+            ]);
 
-            const items: ItemWithImage[] = res.data;
+            const items: ItemWithImage[] = itemsRes.data;
             const grouped = await fuseItemListByTypeId(items);
             setItemList(grouped);
+            setItemTypes(typesRes.data);
         } catch (err) {
             console.error("Erreur lors de la récupération des items :", err);
         }
@@ -91,10 +95,9 @@ export default function MaterielList() {
 
     const filteredItems = itemList.filter((item) => {
         const value = search.toLowerCase();
-        return (
-            item.name.toLowerCase().includes(value) ||
-            item.description.toLowerCase().includes(value)
-        );
+        const matchSearch = item.name.toLowerCase().includes(value) || item.description.toLowerCase().includes(value);
+        const matchCategory = categoryFilter !== "" ? item.itemTypeId === categoryFilter : true;
+        return matchSearch && matchCategory;
     });
 
     const totalPages = Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
@@ -120,13 +123,25 @@ export default function MaterielList() {
         navigate(`/student/materiel-reservation/${item.id}`);
     };
 
+    const getCategoryName = (itemTypeId: number) => {
+        return itemTypes.find(t => t.id === itemTypeId)?.name;
+    };
+
     return (
         <StudentLayout
             titleHeader="Matériels disponibles"
             children={
                 <div className="min-h-screen bg-gray-100 p-6">
                     <div className="w-full mx-auto bg-white rounded-xl shadow-md p-6">
-                        <div className="flex justify-end mb-5">
+                        <div className="flex justify-end mb-5 gap-3">
+                            <select
+                                value={categoryFilter}
+                                onChange={e => { setCategoryFilter(e.target.value ? Number(e.target.value) : ""); setCurrentPage(1); }}
+                                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85]"
+                            >
+                                <option value="">Toutes les catégories</option>
+                                {itemTypes.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                            </select>
                             <input
                                 type="text"
                                 placeholder="Rechercher..."
@@ -143,7 +158,9 @@ export default function MaterielList() {
                                     description={item.description}
                                     quantity={item.quantity}
                                     imgUrl={item.imgUrl}
+                                    categoryName={getCategoryName(item.itemTypeId)}
                                     onReserve={() => handleReserve(item.items[0])}
+                                    onDetails={() => navigate(`/student/materiel-details/${item.itemTypeId}`)}
                                 />
                             </div>
                         ))}

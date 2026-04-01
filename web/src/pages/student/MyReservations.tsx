@@ -37,7 +37,6 @@ export default function MyReservations() {
                 const [resRes, resourcesRes, groupStudentsRes] = await Promise.all([
                     axios.get(`${API_URL}/reservations`, { headers: { "x-api-key": API_KEY } }),
                     axios.get(`${API_URL}/resources`, { headers: { "x-api-key": API_KEY } }),
-                    axios.get(`${API_URL}/reservationGroups`, { headers: { "x-api-key": API_KEY } }),
                     axios.get(`${API_URL}/reservationGroupStudents`, { headers: { "x-api-key": API_KEY } }),
                 ]);
 

@@ -44,6 +44,7 @@ import SecurityProfile from "./pages/security/SecurityProfile.tsx";
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.tsx";
 import MaterielList from "./pages/student/MaterielList.tsx";
+import MaterielDetails from "./pages/student/MaterielDetails.tsx";
 import MaterielReservation from "./pages/student/MaterielReservation.tsx";
 import RoomList from "./pages/student/RoomList.tsx";
 import RoomDetails from "./pages/student/RoomDetails.tsx";
@@ -156,6 +157,9 @@ function App() {
             } />
             <Route path="/student/materiel-list" element={
               <ProtectedRoute><MaterielList /></ProtectedRoute>
+            } />
+            <Route path="/student/materiel-details/:itemTypeId" element={
+              <ProtectedRoute><MaterielDetails /></ProtectedRoute>
             } />
             <Route path="/student/materiel-reservation/:id" element={
               <ProtectedRoute><MaterielReservation /></ProtectedRoute>
