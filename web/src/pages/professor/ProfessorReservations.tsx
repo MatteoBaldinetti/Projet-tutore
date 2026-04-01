@@ -43,7 +43,7 @@ export default function ProfessorReservations() {
 
             const myIds = new Set(mine.map(r => r.id));
             const myReservations: Reservation[] = reservationsRes.data.filter(
-                (r: Reservation) => myIds.has(r.ressourceId)
+                (r: Reservation) => myIds.has(r.resourceId)
             );
             setReservations(myReservations);
             setGroups(groupsRes.data);
@@ -79,7 +79,7 @@ export default function ProfessorReservations() {
 
     const filtered = reservations
         .filter(r => {
-            const name = getResourceName(r.ressourceId).toLowerCase();
+            const name = getResourceName(r.resourceId).toLowerCase();
             const matchSearch = search ? name.includes(search.toLowerCase()) : true;
             const matchStatus = statusFilter ? r.status === statusFilter : true;
             return matchSearch && matchStatus;
@@ -152,8 +152,8 @@ export default function ProfessorReservations() {
                                 <tbody>
                                     {filtered.map(r => (
                                         <tr key={r.id}>
-                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9] font-medium">{getResourceName(r.ressourceId)}</td>
-                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getGroupName(r.reserveById)}</td>
+                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9] font-medium">{getResourceName(r.resourceId)}</td>
+                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getGroupName(r.reservedById)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{formatDate(r.startDate)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{formatDate(r.endDate)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">
@@ -190,8 +190,8 @@ export default function ProfessorReservations() {
                         <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
                             <h2 className="text-xl font-semibold mb-4">Détail de la réservation</h2>
                             <div className="grid grid-cols-1 gap-3 text-sm mb-5">
-                                <div><span className="font-medium">Ressource :</span> {getResourceName(reservationToView.ressourceId)}</div>
-                                <div><span className="font-medium">Groupe :</span> {getGroupName(reservationToView.reserveById)}</div>
+                                <div><span className="font-medium">Ressource :</span> {getResourceName(reservationToView.resourceId)}</div>
+                                <div><span className="font-medium">Groupe :</span> {getGroupName(reservationToView.reservedById)}</div>
                                 <div><span className="font-medium">Du :</span> {formatDate(reservationToView.startDate)}</div>
                                 <div><span className="font-medium">Au :</span> {formatDate(reservationToView.endDate)}</div>
                                 <div><span className="font-medium">Créée le :</span> {formatDate(reservationToView.createdAt)}</div>

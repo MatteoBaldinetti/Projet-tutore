@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import bcrypt from "bcryptjs";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import type { Professor, Subject } from "../../../types/types";
 import "../../styles/ManageProfessors.css";
@@ -101,11 +102,15 @@ export default function ManageProfessors() {
 
     const addOrUpdateProfessors = async () => {
         try {
+            const password = editingProfessors
+                ? editingProfessors.password
+                : await bcrypt.hash("test", 10);
+
             const payload = {
                 firstName,
                 lastName,
                 email,
-                password: "string",
+                password,
                 createdAt: editingProfessors ? editingProfessors.createdAt : new Date().toISOString(),
                 enabled: true,
                 subjectIds: selectedSubjectIds,

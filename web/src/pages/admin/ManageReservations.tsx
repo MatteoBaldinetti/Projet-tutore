@@ -68,8 +68,8 @@ export default function ManageReservations() {
     }, []);
 
     const filteredReservations = reservationList.filter((r) => {
-        const resource = resourceList.find((res) => res.id === r.ressourceId);
-        const group = groupList.find((g) => g.id === r.reserveById);
+        const resource = resourceList.find((res) => res.id === r.resourceId);
+        const group = groupList.find((g) => g.id === r.reservedById);
         const value = search.toLowerCase();
         const matchSearch =
             resource?.name.toLowerCase().includes(value) ||
@@ -162,8 +162,8 @@ export default function ManageReservations() {
                                 <tbody>
                                     {filteredReservations.map((reservation) => (
                                         <tr key={reservation.id}>
-                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getResourceName(reservation.ressourceId)}</td>
-                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getGroupName(reservation.reserveById)}</td>
+                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getResourceName(reservation.resourceId)}</td>
+                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{getGroupName(reservation.reservedById)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{formatDate(reservation.startDate)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{formatDate(reservation.endDate)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">
@@ -218,8 +218,8 @@ export default function ManageReservations() {
                                 <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
                                     <h2 className="text-xl font-semibold mb-4">Détail de la réservation</h2>
                                     <div className="grid grid-cols-1 gap-3 text-sm">
-                                        <div><span className="font-medium">Ressource :</span> {getResourceName(reservationToView.ressourceId)}</div>
-                                        <div><span className="font-medium">Groupe :</span> {getGroupName(reservationToView.reserveById)}</div>
+                                        <div><span className="font-medium">Ressource :</span> {getResourceName(reservationToView.resourceId)}</div>
+                                        <div><span className="font-medium">Groupe :</span> {getGroupName(reservationToView.reservedById)}</div>
                                         <div><span className="font-medium">Du :</span> {formatDate(reservationToView.startDate)}</div>
                                         <div><span className="font-medium">Au :</span> {formatDate(reservationToView.endDate)}</div>
                                         <div><span className="font-medium">Statut :</span> {STATUS_LABELS[reservationToView.status]?.label || reservationToView.status}</div>

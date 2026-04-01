@@ -35,6 +35,12 @@ export default function ProfilePage() {
     const [userData, setUserData] = useState<Record<string, unknown> | null>(null);
     const [loading, setLoading] = useState(true);
 
+    const [editFirstName, setEditFirstName] = useState("");
+    const [editLastName, setEditLastName] = useState("");
+    const [nameSuccess, setNameSuccess] = useState("");
+    const [nameError, setNameError] = useState("");
+    const [savingName, setSavingName] = useState(false);
+
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -53,6 +59,8 @@ export default function ProfilePage() {
                     headers: { "x-api-key": API_KEY },
                 });
                 setUserData(res.data);
+                setEditFirstName(res.data.firstName ?? "");
+                setEditLastName(res.data.lastName ?? "");
             } catch (err) {
                 console.error("Erreur lors de la récupération du profil :", err);
             } finally {
@@ -61,6 +69,31 @@ export default function ProfilePage() {
         };
         fetchUser();
     }, [userId, endpoint]);
+
+    const handleChangeName = async () => {
+        setNameError("");
+        setNameSuccess("");
+        if (!editFirstName.trim() || !editLastName.trim()) {
+            setNameError("Le prénom et le nom ne peuvent pas être vides.");
+            return;
+        }
+        if (!userData) return;
+        setSavingName(true);
+        try {
+            await axios.put(
+                `${API_URL}/${endpoint}/${userId}`,
+                { ...userData, firstName: editFirstName.trim(), lastName: editLastName.trim() },
+                { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } }
+            );
+            setUserData({ ...userData, firstName: editFirstName.trim(), lastName: editLastName.trim() });
+            setNameSuccess("Nom mis à jour avec succès !");
+        } catch (err) {
+            console.error("Erreur lors du changement de nom :", err);
+            setNameError("Une erreur est survenue.");
+        } finally {
+            setSavingName(false);
+        }
+    };
 
     const handleChangePassword = async () => {
         setErrorMessage("");
@@ -153,6 +186,42 @@ export default function ProfilePage() {
                                 <p className="text-gray-800 font-medium">{value ?? "—"}</p>
                             </div>
                         ))}
+                    </div>
+                </div>
+
+                {/* MODIFICATION DU NOM */}
+                <div className="mb-8">
+                    <h2 className="text-lg font-semibold mb-4 profile-page-section-title">Modifier le prénom et le nom</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div className="flex flex-col">
+                            <label className="mb-1 font-medium text-sm">Prénom</label>
+                            <input
+                                type="text"
+                                value={editFirstName}
+                                onChange={e => setEditFirstName(e.target.value)}
+                                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85]"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="mb-1 font-medium text-sm">Nom</label>
+                            <input
+                                type="text"
+                                value={editLastName}
+                                onChange={e => setEditLastName(e.target.value)}
+                                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3A8C85]"
+                            />
+                        </div>
+                    </div>
+                    {nameError && <p className="text-red-600 text-sm mb-3">{nameError}</p>}
+                    {nameSuccess && <p className="text-green-600 text-sm mb-3">{nameSuccess}</p>}
+                    <div className="flex justify-end">
+                        <button
+                            onClick={handleChangeName}
+                            disabled={savingName}
+                            className="profile-page-save-btn px-5 py-2 text-white rounded transition cursor-pointer disabled:opacity-50"
+                        >
+                            {savingName ? "Enregistrement…" : "Enregistrer le nom"}
+                        </button>
                     </div>
                 </div>
 

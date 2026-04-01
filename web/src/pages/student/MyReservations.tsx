@@ -48,7 +48,7 @@ export default function MyReservations() {
                 const myGroupIds = new Set(myGroupStudents.map(gs => gs.reservationGroupId));
 
                 // Filtrer les réservations associées à ces groupes
-                const myReservations = resRes.data.filter((r: Reservation) => myGroupIds.has(r.reserveById));
+                const myReservations = resRes.data.filter((r: Reservation) => myGroupIds.has(r.reservedById));
 
                 setReservations(myReservations);
                 setResources(resourcesRes.data);
@@ -63,7 +63,7 @@ export default function MyReservations() {
     }, [userId]);
 
     const filteredReservations = reservations.filter(r => {
-        const resource = resources.find(res => res.id === r.ressourceId);
+        const resource = resources.find(res => res.id === r.resourceId);
         const matchSearch = resource?.name.toLowerCase().includes(search.toLowerCase()) || false;
         const matchStatus = statusFilter ? r.status === statusFilter : true;
         return (search ? matchSearch : true) && matchStatus;
@@ -158,7 +158,7 @@ export default function MyReservations() {
                                 <tbody>
                                     {filteredReservations.map(r => (
                                         <tr key={r.id}>
-                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9] font-medium">{getResourceName(r.ressourceId)}</td>
+                                            <td className="px-4 py-3 text-left border-b border-[#F1F5F9] font-medium">{getResourceName(r.resourceId)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{formatDate(r.startDate)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">{formatDate(r.endDate)}</td>
                                             <td className="px-4 py-3 text-left border-b border-[#F1F5F9]">
@@ -196,7 +196,7 @@ export default function MyReservations() {
                         <div className="bg-white p-6 rounded-xl w-150 shadow-lg">
                             <h2 className="text-xl font-semibold mb-4">Détail de la réservation</h2>
                             <div className="grid grid-cols-1 gap-3 text-sm">
-                                <div><span className="font-medium">Ressource :</span> {getResourceName(reservationToView.ressourceId)}</div>
+                                <div><span className="font-medium">Ressource :</span> {getResourceName(reservationToView.resourceId)}</div>
                                 <div><span className="font-medium">Du :</span> {formatDate(reservationToView.startDate)}</div>
                                 <div><span className="font-medium">Au :</span> {formatDate(reservationToView.endDate)}</div>
                                 <div><span className="font-medium">Statut :</span> {STATUS_LABELS[reservationToView.status]?.label}</div>

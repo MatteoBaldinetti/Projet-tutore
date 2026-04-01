@@ -54,7 +54,7 @@ export default function ManageSecurity() {
         try {
             const password = editingAgent
                 ? editingAgent.password
-                : await bcrypt.hash("temp", 10);
+                : await bcrypt.hash("test", 10);
 
             const payload = {
                 firstName,
@@ -221,7 +221,7 @@ export default function ManageSecurity() {
                                         </div>
                                         {!editingAgent && (
                                             <p className="md:col-span-2 text-xs text-gray-400 italic">
-                                                Le mot de passe par défaut sera <strong>temp</strong>. L'agent devra le changer lors de sa première connexion.
+                                                Le mot de passe par défaut sera <strong>test</strong>. L'agent devra le changer lors de sa première connexion.
                                             </p>
                                         )}
                                         <div className="col-span-1 md:col-span-2 flex justify-end gap-2 mt-4">

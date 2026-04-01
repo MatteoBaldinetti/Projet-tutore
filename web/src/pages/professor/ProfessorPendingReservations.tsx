@@ -74,7 +74,7 @@ export default function ProfessorPendingReservations() {
       const pending: Reservation[] = reservationsRes.data
         .filter(
           (r: Reservation) =>
-            myIds.has(r.ressourceId) && r.status === "PENDING",
+            myIds.has(r.resourceId) && r.status === "PENDING",
         )
         .sort(
           (a: Reservation, b: Reservation) =>
@@ -197,7 +197,7 @@ export default function ProfessorPendingReservations() {
                         Ressource
                       </p>
                       <p className="font-semibold text-gray-800">
-                        {getResourceName(r.ressourceId)}
+                        {getResourceName(r.resourceId)}
                       </p>
                     </div>
                     <div>
@@ -205,7 +205,7 @@ export default function ProfessorPendingReservations() {
                         Groupe demandeur
                       </p>
                       <p className="font-medium text-gray-700">
-                        {getGroupName(r.reserveById)}
+                        {getGroupName(r.reservedById)}
                       </p>
                     </div>
                     <div>
@@ -213,7 +213,7 @@ export default function ProfessorPendingReservations() {
                         Étudiants
                       </p>
                       <p className="text-sm text-gray-600">
-                        {getGroupStudentNames(r.reserveById)}
+                        {getGroupStudentNames(r.reservedById)}
                       </p>
                     </div>
                     <div>

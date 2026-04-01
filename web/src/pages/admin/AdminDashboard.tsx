@@ -347,7 +347,7 @@ export default function AdminDashboard() {
                   >
                     <div>
                       <p className="font-medium text-sm">
-                        {getResourceName(r.ressourceId)}
+                        {getResourceName(r.resourceId)}
                       </p>
                       <p className="text-xs text-gray-500">
                         {formatDate(r.startDate)} → {formatDate(r.endDate)}

@@ -8,22 +8,32 @@ import "../../styles/RoomList.css";
 
 type ClassroomType = { id: number; name: string };
 
-const IconDoor = () => (
-    <svg width="40" height="40" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#3A8C85] opacity-40">
-        <path d="M0 18V16H2V2C2 1.45 2.196 0.979 2.588 0.587C2.979 0.196 3.45 0 4 0H14C14.55 0 15.021 0.196 15.413 0.587C15.804 0.979 16 1.45 16 2V16H18V18H0ZM4 16H14V2H4V16ZM6 10C6.283 10 6.521 9.904 6.713 9.713C6.904 9.521 7 9.283 7 9C7 8.717 6.904 8.479 6.713 8.287C6.521 8.096 6.283 8 6 8C5.717 8 5.479 8.096 5.287 8.287C5.096 8.479 5 8.717 5 9C5 9.283 5.096 9.521 5.287 9.713C5.479 9.904 5.717 10 6 10Z" fill="currentColor"/>
-    </svg>
-);
+const FALLBACK_IMG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='160' viewBox='0 0 300 160'%3E%3Crect width='300' height='160' fill='%23E8F4F3'/%3E%3Cpath d='M120 55L90 95V75H60V55H90V35L120 55Z M180 55L150 95V75H120V55H150V35L180 55Z' fill='%233A8C8540'/%3E%3C/svg%3E`;
+
+type ClassroomWithImage = Classroom & { imgUrl: string };
 
 export default function RoomList() {
     const navigate = useNavigate();
 
-    const [roomList, setRoomList] = useState<Classroom[]>([]);
+    const [roomList, setRoomList] = useState<ClassroomWithImage[]>([]);
     const [classroomTypes, setClassroomTypes] = useState<ClassroomType[]>([]);
     const [search, setSearch] = useState("");
     const [typeFilter, setTypeFilter] = useState<number | "">("");
     const [availableOnly, setAvailableOnly] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
+
+    const fetchImageUrl = async (imageIds: number[] | undefined): Promise<string> => {
+        if (!imageIds || imageIds.length === 0) return FALLBACK_IMG;
+        try {
+            const res = await axios.get(`${API_URL}/fileMetaData/${imageIds[0]}`, {
+                headers: { "x-api-key": API_KEY },
+            });
+            return API_URL.replace(/\/api$/, "") + res.data?.url || FALLBACK_IMG;
+        } catch {
+            return FALLBACK_IMG;
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,8 +42,12 @@ export default function RoomList() {
                     axios.get(`${API_URL}/classrooms`, { headers: { "x-api-key": API_KEY } }),
                     axios.get(`${API_URL}/classroomTypes`, { headers: { "x-api-key": API_KEY } }),
                 ]);
-                setRoomList(roomRes.data);
                 setClassroomTypes(typeRes.data);
+                const rooms: Classroom[] = roomRes.data;
+                const roomsWithImages = await Promise.all(
+                    rooms.map(async (r) => ({ ...r, imgUrl: await fetchImageUrl(r.imageIds) }))
+                );
+                setRoomList(roomsWithImages);
             } catch (err) {
                 console.error("Erreur lors de la récupération des salles :", err);
             }
@@ -102,9 +116,13 @@ export default function RoomList() {
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-6">
                             {currentRooms.map(room => (
                                 <div key={room.id} className="border border-[#E2E8F0] rounded-xl overflow-hidden flex flex-col">
-                                    {/* PLACEHOLDER ILLUSTRATIF */}
-                                    <div className="h-40 bg-gradient-to-br from-[#E8F4F3] to-[#c8e8e6] flex items-center justify-center">
-                                        <IconDoor />
+                                    <div className="h-40 bg-gradient-to-br from-[#E8F4F3] to-[#c8e8e6] overflow-hidden">
+                                        <img
+                                            src={room.imgUrl}
+                                            alt={room.name}
+                                            className="w-full h-full object-cover"
+                                            onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
+                                        />
                                     </div>
 
                                     {/* CONTENU */}

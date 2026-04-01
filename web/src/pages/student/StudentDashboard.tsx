@@ -175,7 +175,7 @@ export default function StudentDashboard() {
                                 {upcomingReservations.map(r => (
                                     <div key={r.id} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 border border-gray-100">
                                         <div>
-                                            <p className="font-medium text-sm">{getResourceName(r.ressourceId)}</p>
+                                            <p className="font-medium text-sm">{getResourceName(r.resourceId)}</p>
                                             <p className="text-xs text-gray-500">{formatDate(r.startDate)} → {formatDate(r.endDate)}</p>
                                         </div>
                                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${STATUS_LABELS[r.status]?.className}`}>

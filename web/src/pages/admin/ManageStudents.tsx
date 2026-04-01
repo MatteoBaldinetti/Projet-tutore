@@ -57,7 +57,7 @@ export default function ManageStudents() {
         try {
             const password = editingStudent
                 ? editingStudent.password
-                : await bcrypt.hash("temp", 10);
+                : await bcrypt.hash("test", 10);
 
             const studentPayload = {
                 firstName,

@@ -192,6 +192,11 @@ const navGroups: NavGroup[] = [
         href: "/admin/manage-professors",
         icon: <IconUser />,
       },
+      {
+        label: "Agents de sécurité",
+        href: "/admin/manage-security",
+        icon: <IconUser />,
+      },
     ],
   },
   {

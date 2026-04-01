@@ -127,7 +127,7 @@ export default function SecurityToday() {
                     const durationMin = Math.max(15, Math.round((endDate.getTime() - startDate.getTime()) / 60000));
 
                     // Noms des étudiants du groupe
-                    const groupStudents = gsMap[r.reserveById] || [];
+                    const groupStudents = gsMap[r.reservedById] || [];
                     const studentNames = groupStudents
                         .map(gs => studentMap[gs.studentId])
                         .filter(Boolean)
@@ -136,8 +136,8 @@ export default function SecurityToday() {
 
                     return {
                         ...r,
-                        resourceName: resourceMap[r.ressourceId]?.name || "—",
-                        groupName:    groupMap[r.reserveById]?.name    || "—",
+                        resourceName: resourceMap[r.resourceId]?.name || "—",
+                        groupName:    groupMap[r.reservedById]?.name    || "—",
                         studentNames,
                         startMinutes: Math.max(0, startMin),
                         durationMinutes: durationMin,

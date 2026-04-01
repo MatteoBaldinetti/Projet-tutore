@@ -53,7 +53,7 @@ export default function ProfessorDashboard() {
 
                 // Réservations sur ses ressources
                 const myReservations: Reservation[] = reservationsRes.data.filter(
-                    (r: Reservation) => myResourceIds.has(r.ressourceId)
+                    (r: Reservation) => myResourceIds.has(r.resourceId)
                 );
                 setAllReservations(myReservations);
 
@@ -164,7 +164,7 @@ export default function ProfessorDashboard() {
                                 {pendingReservations.map(r => (
                                     <div key={r.id} className="flex items-center justify-between p-3 rounded-lg bg-yellow-50 border border-yellow-100">
                                         <div>
-                                            <p className="font-medium text-sm">{getResourceName(r.ressourceId)}</p>
+                                            <p className="font-medium text-sm">{getResourceName(r.resourceId)}</p>
                                             <p className="text-xs text-gray-500">{formatDate(r.startDate)} → {formatDate(r.endDate)}</p>
                                         </div>
                                         <button

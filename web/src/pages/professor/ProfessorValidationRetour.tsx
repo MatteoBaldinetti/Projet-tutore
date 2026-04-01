@@ -145,7 +145,7 @@ export default function ProfessorValidationRetour() {
         // Ici on affiche les APPROVED dont la fin est passée → retours attendus à confirmer.
         const toValidate: Reservation[] = resrvRes.data.filter(
           (r: Reservation) =>
-            myIds.has(r.ressourceId) && r.status === "APPROVED",
+            myIds.has(r.resourceId) && r.status === "APPROVED",
         );
         setReservations(toValidate);
         setGroups(grpRes.data);
@@ -194,7 +194,7 @@ export default function ProfessorValidationRetour() {
       );
       // Remettre la ressource disponible
       await axios.patch(
-        `${API_URL}/resources/${selected.ressourceId}`,
+        `${API_URL}/resources/${selected.resourceId}`,
         { available: true },
         {
           headers: { "x-api-key": API_KEY, "Content-Type": "application/json" },
@@ -219,7 +219,7 @@ export default function ProfessorValidationRetour() {
           `${API_URL}/reports`,
           {
             description: commentaire,
-            resourceId: selected.ressourceId,
+            resourceId: selected.resourceId,
             reportedById: userId,
             status: "OPEN",
             createdAt: new Date().toISOString(),
@@ -326,9 +326,9 @@ export default function ProfessorValidationRetour() {
                     <RetourCard
                       key={r.id}
                       reservation={r}
-                      resource={getResource(r.ressourceId)}
-                      group={getGroup(r.reserveById)}
-                      members={getMembers(r.reserveById)}
+                      resource={getResource(r.resourceId)}
+                      group={getGroup(r.reservedById)}
+                      members={getMembers(r.reservedById)}
                       overdue
                       onValider={() => openModal(r)}
                     />
@@ -348,9 +348,9 @@ export default function ProfessorValidationRetour() {
                     <RetourCard
                       key={r.id}
                       reservation={r}
-                      resource={getResource(r.ressourceId)}
-                      group={getGroup(r.reserveById)}
-                      members={getMembers(r.reserveById)}
+                      resource={getResource(r.resourceId)}
+                      group={getGroup(r.reservedById)}
+                      members={getMembers(r.reservedById)}
                       overdue={false}
                       onValider={() => openModal(r)}
                     />
@@ -368,7 +368,7 @@ export default function ProfessorValidationRetour() {
               <div className="val-modal-header px-6 py-5 text-white">
                 <h2 className="text-xl font-semibold">Confirmer le retour</h2>
                 <p className="text-sm opacity-80 mt-0.5">
-                  {getResource(selected.ressourceId)?.name || "—"}
+                  {getResource(selected.resourceId)?.name || "—"}
                 </p>
               </div>
 
@@ -442,10 +442,10 @@ export default function ProfessorValidationRetour() {
                         <IconUsers /> Groupe emprunteur
                       </p>
                       <p className="font-medium text-gray-700">
-                        {getGroup(selected.reserveById)?.name || "—"}
+                        {getGroup(selected.reservedById)?.name || "—"}
                       </p>
                       <p className="text-gray-500 text-xs mt-0.5">
-                        {getMembers(selected.reserveById)
+                        {getMembers(selected.reservedById)
                           .map((s) => `${s.firstName} ${s.lastName}`)
                           .join(", ") || "—"}
                       </p>

@@ -42,10 +42,10 @@ export default function NotificationDropdown() {
             setLoading(true);
             try {
                 const [unRes, nRes] = await Promise.all([
-                    axios.get(`${API_URL}/userNotifications`, { headers: { "x-api-key": API_KEY } }),
+                    axios.get(`${API_URL}/userNotifications/search?userId=${userId}`, { headers: { "x-api-key": API_KEY } }),
                     axios.get(`${API_URL}/notifications`, { headers: { "x-api-key": API_KEY } }),
                 ]);
-                setUserNotifications(unRes.data.filter((un: UserNotification) => un.userId === userId));
+                setUserNotifications(unRes.data);
                 setNotifications(nRes.data);
             } catch (err) {
                 console.error("Erreur notifications :", err);
@@ -59,8 +59,12 @@ export default function NotificationDropdown() {
     const getNotification = (id: number) => notifications.find(n => n.id === id);
 
     const markAsRead = async (userNotifId: number) => {
+        const un = userNotifications.find(n => n.id === userNotifId);
+        if (!un) return;
         try {
-            await axios.patch(`${API_URL}/userNotifications/${userNotifId}`, {
+            await axios.put(`${API_URL}/userNotifications/${userNotifId}`, {
+                notificationId: un.notificationId,
+                userId: un.userId,
                 isRead: true,
                 readAt: new Date().toISOString(),
             }, { headers: { "x-api-key": API_KEY, "Content-Type": "application/json" } });

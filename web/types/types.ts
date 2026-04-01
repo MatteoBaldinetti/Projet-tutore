@@ -16,7 +16,8 @@ export type Classroom = {
     available: boolean,
     createdAt: string,
     roomNumber: number,
-    classroomTypeId: number
+    classroomTypeId: number,
+    imageIds?: number[]
 }
 
 export type FileMetaDatas = {
@@ -74,8 +75,8 @@ export type Reservation = {
     id: number,
     startDate: string,
     endDate: string,
-    reserveById: number,
-    ressourceId: number,
+    reservedById: number,
+    resourceId: number,
     status: string,
     validationDate: string,
     createdAt: string

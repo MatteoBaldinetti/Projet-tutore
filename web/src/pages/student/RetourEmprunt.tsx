@@ -129,7 +129,7 @@ export default function RetourEmprunt() {
         setReservations(
           resrvRes.data.filter(
             (r: Reservation) =>
-              myGroupIds.has(r.reserveById) && r.status === "APPROVED",
+              myGroupIds.has(r.reservedById) && r.status === "APPROVED",
           ),
         );
         setResources(resrcRes.data);
@@ -251,8 +251,8 @@ export default function RetourEmprunt() {
                     <EmpruntCard
                       key={r.id}
                       reservation={r}
-                      resourceName={getResource(r.ressourceId)?.name || "—"}
-                      groupName={getGroup(r.reserveById)?.name || "—"}
+                      resourceName={getResource(r.resourceId)?.name || "—"}
+                      groupName={getGroup(r.reservedById)?.name || "—"}
                       overdue
                       onRetour={() => openModal(r)}
                     />
@@ -270,8 +270,8 @@ export default function RetourEmprunt() {
                     <EmpruntCard
                       key={r.id}
                       reservation={r}
-                      resourceName={getResource(r.ressourceId)?.name || "—"}
-                      groupName={getGroup(r.reserveById)?.name || "—"}
+                      resourceName={getResource(r.resourceId)?.name || "—"}
+                      groupName={getGroup(r.reservedById)?.name || "—"}
                       overdue={false}
                       onRetour={() => openModal(r)}
                     />
@@ -289,8 +289,8 @@ export default function RetourEmprunt() {
               <div className="retour-modal-header px-6 py-5 text-white">
                 <h2 className="text-xl font-semibold">Déclarer un retour</h2>
                 <p className="text-sm opacity-80 mt-0.5">
-                  {getResource(selected.ressourceId)?.name || "—"} ·{" "}
-                  {getGroup(selected.reserveById)?.name || "—"}
+                  {getResource(selected.resourceId)?.name || "—"} ·{" "}
+                  {getGroup(selected.reservedById)?.name || "—"}
                 </p>
               </div>
 
@@ -356,7 +356,7 @@ export default function RetourEmprunt() {
                     </p>
                     <div className="space-y-2">
                       <CheckItem
-                        label={`Le matériel « ${getResource(selected.ressourceId)?.name || "—"} » est restitué`}
+                        label={`Le matériel « ${getResource(selected.resourceId)?.name || "—"} » est restitué`}
                         checked={checked.item}
                         onChange={(v) => setChecked((p) => ({ ...p, item: v }))}
                       />
