@@ -19,6 +19,7 @@ const IconDashboard = () => (
     />
   </svg>
 );
+
 const IconCalendar = () => (
   <svg
     width="18"
@@ -33,6 +34,7 @@ const IconCalendar = () => (
     />
   </svg>
 );
+
 const IconBox = () => (
   <svg
     width="18"
@@ -47,6 +49,7 @@ const IconBox = () => (
     />
   </svg>
 );
+
 const IconDoor = () => (
   <svg
     width="16"
@@ -61,20 +64,7 @@ const IconDoor = () => (
     />
   </svg>
 );
-const IconBell = () => (
-  <svg
-    width="16"
-    height="18"
-    viewBox="0 0 16 18"
-    fill="none"
-    className="w-5 h-5 shrink-0"
-  >
-    <path
-      d="M0 15V13H2V7C2 5.617 2.417 4.387 3.25 3.312C4.083 2.238 5.167 1.533 6.5 1.2V0.5C6.5 0.217 6.596 0 6.788 0C6.979 0 7.217 0 7.5 0H8.5C8.783 0 9.021 0 9.213 0C9.404 0 9.5 0.217 9.5 0.5V1.2C10.833 1.533 11.917 2.238 12.75 3.312C13.583 4.387 14 5.617 14 7V13H16V15H0ZM8 18C7.45 18 6.979 17.804 6.588 17.413C6.196 17.021 6 16.55 6 16H10C10 16.55 9.804 17.021 9.413 17.413C9.021 17.804 8.55 18 8 18ZM4 13H12V7C12 5.9 11.608 4.958 10.825 4.175C10.042 3.392 9.1 3 8 3C6.9 3 5.958 3.392 5.175 4.175C4.392 4.958 4 5.9 4 7V13Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+
 const IconUser = () => (
   <svg
     width="16"
@@ -89,6 +79,7 @@ const IconUser = () => (
     />
   </svg>
 );
+
 const IconWarning = () => (
   <svg
     width="18"
@@ -103,6 +94,7 @@ const IconWarning = () => (
     />
   </svg>
 );
+
 const IconChevron = ({ open }: { open: boolean }) => (
   <svg
     width="12"
@@ -280,11 +272,6 @@ function ProfessorSidebar() {
         <div className="border-t border-[#4a4a4b] my-2" />
 
         {[
-          {
-            href: "/professor/notifications",
-            label: "Notifications",
-            icon: <IconBell />,
-          },
           {
             href: "/professor/reports",
             label: "Signalements reçus",
